@@ -53,6 +53,7 @@
                 
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex items-center space-x-8">
+                    <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors">Schools</a>
                     <a href="{{ route('programs.index') }}" class="text-white hover:text-accent transition-colors">Programs</a>
                     <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors">Mentorship</a>
                     <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors">Opportunities</a>
@@ -92,6 +93,7 @@
         <!-- Mobile Navigation -->
         <div x-show="mobileMenuOpen" class="md:hidden">
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary-800">
+                <a href="{{ route('schools.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Schools</a>
                 <a href="{{ route('programs.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Programs</a>
                 <a href="{{ route('mentorship.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Mentorship</a>
                 <a href="{{ route('opportunities.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Opportunities</a>
@@ -159,6 +161,7 @@
     @livewireScripts
     
     <!-- PWA Service Worker -->
+    <!-- Temporarily disabled to fix Livewire issues
     <script>
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', function() {
@@ -172,6 +175,7 @@
             });
         }
     </script>
+    -->
     
     @stack('scripts')
 </body>

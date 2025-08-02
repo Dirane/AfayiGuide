@@ -26,6 +26,12 @@ class User extends Authenticatable
         'bio',
         'profile_picture',
         'preferences',
+        'expertise',
+        'location',
+        'experience_years',
+        'hourly_rate',
+        'rating',
+        'is_active',
     ];
 
     /**
@@ -49,6 +55,9 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'preferences' => 'array',
+            'hourly_rate' => 'decimal:2',
+            'rating' => 'decimal:1',
+            'is_active' => 'boolean',
         ];
     }
 

@@ -44,9 +44,29 @@ class ProgramController extends Controller
         $programs = $query->paginate(12);
 
         // Get unique values for filters
-        $fields = Program::active()->distinct()->pluck('field_of_study');
-        $locations = Program::active()->distinct()->pluck('location');
-        $levels = Program::active()->distinct()->pluck('level');
+        $fields = Program::active()
+            ->whereNotNull('field_of_study')
+            ->distinct()
+            ->pluck('field_of_study')
+            ->filter()
+            ->sort()
+            ->values();
+
+        $locations = Program::active()
+            ->whereNotNull('location')
+            ->distinct()
+            ->pluck('location')
+            ->filter()
+            ->sort()
+            ->values();
+
+        $levels = Program::active()
+            ->whereNotNull('level')
+            ->distinct()
+            ->pluck('level')
+            ->filter()
+            ->sort()
+            ->values();
 
         return view('programs.index', compact('programs', 'fields', 'locations', 'levels'));
     }

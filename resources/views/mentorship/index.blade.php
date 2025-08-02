@@ -15,14 +15,7 @@
         </div>
     </div>
 
-    <!-- Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div class="card text-center">
-            <div class="text-6xl mb-4">👥</div>
-            <h2 class="text-2xl font-bold text-gray-900 mb-4">Coming Soon</h2>
-            <p class="text-gray-600 mb-6">The mentorship booking system is under development. You'll soon be able to book sessions with expert mentors!</p>
-            <a href="{{ route('home') }}" class="btn-primary">Back to Home</a>
-        </div>
-    </div>
+    <!-- Mentorship Component -->
+    <livewire:mentorship-booking />
 </div>
 @endsection 

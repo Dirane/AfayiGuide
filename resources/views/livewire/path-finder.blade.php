@@ -12,8 +12,27 @@
             </div>
         </div>
 
+        <!-- Flash Messages -->
+        @if (session()->has('message'))
+            <div class="mb-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
+                <p class="text-blue-800">{{ session('message') }}</p>
+            </div>
+        @endif
+
         <!-- Step Forms -->
         <div class="card">
+            <!-- General Error Display -->
+            @if ($errors->any())
+                <div class="mb-4 p-4 bg-red-50 border border-red-200 rounded-lg">
+                    <h4 class="text-red-800 font-medium mb-2">Please fix the following errors:</h4>
+                    <ul class="text-red-700 text-sm space-y-1">
+                        @foreach ($errors->all() as $error)
+                            <li>• {{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             @if($currentStep === 1)
                 <!-- Step 1: Academic Background -->
                 <div>
@@ -92,7 +111,7 @@
                     <div class="space-y-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                What skills do you have? *
+                                What skills do you have? (Optional)
                             </label>
                             <div class="flex gap-2 mb-4">
                                 <input wire:model="newSkill" type="text" class="input-field flex-1" 
@@ -107,12 +126,12 @@
                                     </span>
                                 @endforeach
                             </div>
-                            @error('skills') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-700 mb-2">
-                                What are your interests? *
+                                What are your interests? (Optional)
                             </label>
                             <div class="flex gap-2 mb-4">
                                 <input wire:model="newInterest" type="text" class="input-field flex-1" 
@@ -127,7 +146,7 @@
                                     </span>
                                 @endforeach
                             </div>
-                            @error('interests') <span class="text-red-500 text-sm">{{ $message }}</span> @enderror
+
                         </div>
                     </div>
                 </div>
@@ -187,23 +206,28 @@
 
             <!-- Navigation Buttons -->
             <div class="flex justify-between mt-8">
-                @if($currentStep > 1)
-                    <button wire:click="previousStep" class="btn-outline">
-                        Previous
+                <div class="flex space-x-2">
+                    @if($currentStep > 1)
+                        <button wire:click="previousStep" class="btn-outline" type="button">
+                            Previous
+                        </button>
+                    @endif
+                    <button wire:click="forceNext" onclick="console.log('Force next clicked')" class="btn-outline text-yellow-600 hover:text-yellow-700" type="button">
+                        Force Next
                     </button>
-                @else
-                    <div></div>
-                @endif
+                </div>
 
-                @if($currentStep < $totalSteps)
-                    <button wire:click="nextStep" class="btn-primary">
-                        Next
-                    </button>
-                @else
-                    <button wire:click="submitForm" class="btn-primary">
-                        Generate Report
-                    </button>
-                @endif
+                <div>
+                    @if($currentStep < $totalSteps)
+                        <button wire:click="nextStep" onclick="console.log('Next button clicked - step {{ $currentStep }}')" class="btn-primary" type="button">
+                            Next
+                        </button>
+                    @else
+                        <button wire:click="submitForm" onclick="console.log('Submit button clicked')" class="btn-primary" type="button">
+                            Generate Report
+                        </button>
+                    @endif
+                </div>
             </div>
         </div>
     @else

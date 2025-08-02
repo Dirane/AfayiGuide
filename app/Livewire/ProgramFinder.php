@@ -111,9 +111,29 @@ class ProgramFinder extends Component
         $programs = $query->paginate(12);
 
         // Get filter options
-        $fields = Program::active()->distinct()->pluck('field_of_study')->sort();
-        $locations = Program::active()->distinct()->pluck('location')->sort();
-        $levels = Program::active()->distinct()->pluck('level')->sort();
+        $fields = Program::active()
+            ->whereNotNull('field_of_study')
+            ->distinct()
+            ->pluck('field_of_study')
+            ->filter()
+            ->sort()
+            ->values();
+
+        $locations = Program::active()
+            ->whereNotNull('location')
+            ->distinct()
+            ->pluck('location')
+            ->filter()
+            ->sort()
+            ->values();
+
+        $levels = Program::active()
+            ->whereNotNull('level')
+            ->distinct()
+            ->pluck('level')
+            ->filter()
+            ->sort()
+            ->values();
 
         return view('livewire.program-finder', compact('programs', 'fields', 'locations', 'levels'));
     }

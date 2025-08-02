@@ -1,8 +1,6 @@
 const CACHE_NAME = 'afayiguide-v1';
 const urlsToCache = [
   '/',
-  '/css/app.css',
-  '/js/app.js',
   '/manifest.json',
   '/offline.html'
 ];
@@ -14,6 +12,11 @@ self.addEventListener('install', event => {
       .then(cache => {
         console.log('Opened cache');
         return cache.addAll(urlsToCache);
+      })
+      .catch(error => {
+        console.log('Cache addAll failed:', error);
+        // Continue installation even if caching fails
+        return Promise.resolve();
       })
   );
 });
