@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-// use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
 {
-    /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -108,6 +107,97 @@ class User extends Authenticatable
         return $this->role === 'partner';
     }
 
+    // Permission checks
+    public function canViewSchools()
+    {
+        return in_array($this->role, ['student', 'mentor', 'admin']);
+    }
+
+    public function canViewPrograms()
+    {
+        return in_array($this->role, ['student', 'mentor', 'admin']);
+    }
+
+    public function canViewOpportunities()
+    {
+        return in_array($this->role, ['student', 'mentor', 'admin']);
+    }
+
+    public function canUsePathfinder()
+    {
+        return in_array($this->role, ['student', 'mentor', 'admin']);
+    }
+
+    public function canBookMentorship()
+    {
+        return $this->role === 'student';
+    }
+
+    public function canProvideMentorship()
+    {
+        return $this->role === 'mentor';
+    }
+
+    public function canManageUsers()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canManageSchools()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canManagePrograms()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canManageOpportunities()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canViewReports()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canManageSettings()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function canViewAssessments()
+    {
+        return in_array($this->role, ['mentor', 'admin']);
+    }
+
+    public function canManageMentors()
+    {
+        return $this->role === 'admin';
+    }
+
+    // Dashboard access
+    public function getDashboardRoute()
+    {
+        if ($this->isAdmin()) {
+            return route('admin.dashboard');
+        }
+        return route('dashboard');
+    }
+
+    public function getDashboardTitle()
+    {
+        if ($this->isAdmin()) {
+            return 'Admin Dashboard';
+        } elseif ($this->isMentor()) {
+            return 'Mentor Dashboard';
+        } else {
+            return 'Student Dashboard';
+        }
+    }
+
     // Scopes
     public function scopeStudents($query)
     {
@@ -127,5 +217,10 @@ class User extends Authenticatable
     public function scopePartners($query)
     {
         return $query->where('role', 'partner');
+    }
+
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', true);
     }
 }

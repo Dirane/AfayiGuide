@@ -18,7 +18,6 @@ class ProgramFinder extends Component
     public $maxBudget = '';
     public $sortBy = 'name';
     public $sortDirection = 'asc';
-    public $appliedFilters = [];
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -28,19 +27,6 @@ class ProgramFinder extends Component
         'minBudget' => ['except' => ''],
         'maxBudget' => ['except' => ''],
     ];
-
-    public function mount()
-    {
-        // Initialize applied filters from query string
-        $this->appliedFilters = [
-            'search' => $this->search,
-            'field' => $this->field,
-            'location' => $this->location,
-            'level' => $this->level,
-            'minBudget' => $this->minBudget,
-            'maxBudget' => $this->maxBudget,
-        ];
-    }
 
     public function updatingSearch()
     {
@@ -85,28 +71,6 @@ class ProgramFinder extends Component
     public function clearFilters()
     {
         $this->reset(['search', 'field', 'location', 'level', 'minBudget', 'maxBudget']);
-        $this->appliedFilters = [
-            'search' => '',
-            'field' => '',
-            'location' => '',
-            'level' => '',
-            'minBudget' => '',
-            'maxBudget' => '',
-        ];
-        $this->resetPage();
-    }
-
-    public function applyFilters()
-    {
-        // Apply the current filter values
-        $this->appliedFilters = [
-            'search' => $this->search,
-            'field' => $this->field,
-            'location' => $this->location,
-            'level' => $this->level,
-            'minBudget' => $this->minBudget,
-            'maxBudget' => $this->maxBudget,
-        ];
         $this->resetPage();
     }
 
@@ -114,31 +78,31 @@ class ProgramFinder extends Component
     {
         $query = Program::active();
 
-        // Apply search using applied filters
-        if ($this->appliedFilters['search']) {
+        // Apply search
+        if ($this->search) {
             $query->where(function($q) {
-                $q->where('name', 'like', "%{$this->appliedFilters['search']}%")
-                  ->orWhere('institution', 'like', "%{$this->appliedFilters['search']}%")
-                  ->orWhere('field_of_study', 'like', "%{$this->appliedFilters['search']}%")
-                  ->orWhere('location', 'like', "%{$this->appliedFilters['search']}%");
+                $q->where('name', 'like', "%{$this->search}%")
+                  ->orWhere('institution', 'like', "%{$this->search}%")
+                  ->orWhere('field_of_study', 'like', "%{$this->search}%")
+                  ->orWhere('location', 'like', "%{$this->search}%");
             });
         }
 
-        // Apply filters using applied filters
-        if ($this->appliedFilters['field']) {
-            $query->byField($this->appliedFilters['field']);
+        // Apply filters
+        if ($this->field) {
+            $query->byField($this->field);
         }
 
-        if ($this->appliedFilters['location']) {
-            $query->byLocation($this->appliedFilters['location']);
+        if ($this->location) {
+            $query->byLocation($this->location);
         }
 
-        if ($this->appliedFilters['level']) {
-            $query->byLevel($this->appliedFilters['level']);
+        if ($this->level) {
+            $query->byLevel($this->level);
         }
 
-        if ($this->appliedFilters['minBudget'] && $this->appliedFilters['maxBudget']) {
-            $query->byBudget($this->appliedFilters['minBudget'], $this->appliedFilters['maxBudget']);
+        if ($this->minBudget && $this->maxBudget) {
+            $query->byBudget($this->minBudget, $this->maxBudget);
         }
 
         // Apply sorting
