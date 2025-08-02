@@ -77,6 +77,11 @@ class User extends Authenticatable
         return $this->hasMany(MentorshipSession::class, 'mentor_id');
     }
 
+    public function mentorshipSessions()
+    {
+        return $this->hasMany(MentorshipSession::class, 'mentor_id');
+    }
+
     public function postedOpportunities()
     {
         return $this->hasMany(Opportunity::class, 'posted_by');

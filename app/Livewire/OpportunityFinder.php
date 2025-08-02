@@ -2,31 +2,31 @@
 
 namespace App\Livewire;
 
-use App\Models\Program;
+use App\Models\Opportunity;
 use Livewire\Component;
 use Livewire\WithPagination;
 
-class ProgramFinder extends Component
+class OpportunityFinder extends Component
 {
     use WithPagination;
 
     public $search = '';
-    public $field = '';
+    public $type = '';
     public $location = '';
-    public $level = '';
-    public $minBudget = '';
-    public $maxBudget = '';
-    public $sortBy = 'name';
+    public $organization = '';
+    public $minAmount = '';
+    public $maxAmount = '';
+    public $sortBy = 'deadline';
     public $sortDirection = 'asc';
     public $appliedFilters = [];
 
     protected $queryString = [
         'search' => ['except' => ''],
-        'field' => ['except' => ''],
+        'type' => ['except' => ''],
         'location' => ['except' => ''],
-        'level' => ['except' => ''],
-        'minBudget' => ['except' => ''],
-        'maxBudget' => ['except' => ''],
+        'organization' => ['except' => ''],
+        'minAmount' => ['except' => ''],
+        'maxAmount' => ['except' => ''],
     ];
 
     public function mount()
@@ -34,11 +34,11 @@ class ProgramFinder extends Component
         // Initialize applied filters from query string
         $this->appliedFilters = [
             'search' => $this->search,
-            'field' => $this->field,
+            'type' => $this->type,
             'location' => $this->location,
-            'level' => $this->level,
-            'minBudget' => $this->minBudget,
-            'maxBudget' => $this->maxBudget,
+            'organization' => $this->organization,
+            'minAmount' => $this->minAmount,
+            'maxAmount' => $this->maxAmount,
         ];
     }
 
@@ -47,7 +47,7 @@ class ProgramFinder extends Component
         $this->resetPage();
     }
 
-    public function updatingField()
+    public function updatingType()
     {
         $this->resetPage();
     }
@@ -57,17 +57,17 @@ class ProgramFinder extends Component
         $this->resetPage();
     }
 
-    public function updatingLevel()
+    public function updatingOrganization()
     {
         $this->resetPage();
     }
 
-    public function updatingMinBudget()
+    public function updatingMinAmount()
     {
         $this->resetPage();
     }
 
-    public function updatingMaxBudget()
+    public function updatingMaxAmount()
     {
         $this->resetPage();
     }
@@ -84,14 +84,14 @@ class ProgramFinder extends Component
 
     public function clearFilters()
     {
-        $this->reset(['search', 'field', 'location', 'level', 'minBudget', 'maxBudget']);
+        $this->reset(['search', 'type', 'location', 'organization', 'minAmount', 'maxAmount']);
         $this->appliedFilters = [
             'search' => '',
-            'field' => '',
+            'type' => '',
             'location' => '',
-            'level' => '',
-            'minBudget' => '',
-            'maxBudget' => '',
+            'organization' => '',
+            'minAmount' => '',
+            'maxAmount' => '',
         ];
         $this->resetPage();
     }
@@ -101,61 +101,61 @@ class ProgramFinder extends Component
         // Apply the current filter values
         $this->appliedFilters = [
             'search' => $this->search,
-            'field' => $this->field,
+            'type' => $this->type,
             'location' => $this->location,
-            'level' => $this->level,
-            'minBudget' => $this->minBudget,
-            'maxBudget' => $this->maxBudget,
+            'organization' => $this->organization,
+            'minAmount' => $this->minAmount,
+            'maxAmount' => $this->maxAmount,
         ];
         $this->resetPage();
     }
 
     public function render()
     {
-        $query = Program::active();
+        $query = Opportunity::active();
 
         // Apply search using applied filters
         if ($this->appliedFilters['search']) {
             $query->where(function($q) {
-                $q->where('name', 'like', "%{$this->appliedFilters['search']}%")
-                  ->orWhere('institution', 'like', "%{$this->appliedFilters['search']}%")
-                  ->orWhere('field_of_study', 'like', "%{$this->appliedFilters['search']}%")
+                $q->where('title', 'like', "%{$this->appliedFilters['search']}%")
+                  ->orWhere('description', 'like', "%{$this->appliedFilters['search']}%")
+                  ->orWhere('organization', 'like', "%{$this->appliedFilters['search']}%")
                   ->orWhere('location', 'like', "%{$this->appliedFilters['search']}%");
             });
         }
 
         // Apply filters using applied filters
-        if ($this->appliedFilters['field']) {
-            $query->byField($this->appliedFilters['field']);
+        if ($this->appliedFilters['type']) {
+            $query->byType($this->appliedFilters['type']);
         }
 
         if ($this->appliedFilters['location']) {
             $query->byLocation($this->appliedFilters['location']);
         }
 
-        if ($this->appliedFilters['level']) {
-            $query->byLevel($this->appliedFilters['level']);
+        if ($this->appliedFilters['organization']) {
+            $query->byOrganization($this->appliedFilters['organization']);
         }
 
-        if ($this->appliedFilters['minBudget'] && $this->appliedFilters['maxBudget']) {
-            $query->byBudget($this->appliedFilters['minBudget'], $this->appliedFilters['maxBudget']);
+        if ($this->appliedFilters['minAmount'] && $this->appliedFilters['maxAmount']) {
+            $query->byAmountRange($this->appliedFilters['minAmount'], $this->appliedFilters['maxAmount']);
         }
 
         // Apply sorting
         $query->orderBy($this->sortBy, $this->sortDirection);
 
-        $programs = $query->paginate(12);
+        $opportunities = $query->paginate(12);
 
         // Get filter options
-        $fields = Program::active()
-            ->whereNotNull('field_of_study')
+        $types = Opportunity::active()
+            ->whereNotNull('type')
             ->distinct()
-            ->pluck('field_of_study')
+            ->pluck('type')
             ->filter()
             ->sort()
             ->values();
 
-        $locations = Program::active()
+        $locations = Opportunity::active()
             ->whereNotNull('location')
             ->distinct()
             ->pluck('location')
@@ -163,14 +163,14 @@ class ProgramFinder extends Component
             ->sort()
             ->values();
 
-        $levels = Program::active()
-            ->whereNotNull('level')
+        $organizations = Opportunity::active()
+            ->whereNotNull('organization')
             ->distinct()
-            ->pluck('level')
+            ->pluck('organization')
             ->filter()
             ->sort()
             ->values();
 
-        return view('livewire.program-finder', compact('programs', 'fields', 'locations', 'levels'));
+        return view('livewire.opportunity-finder', compact('opportunities', 'types', 'locations', 'organizations'));
     }
-}
+} 

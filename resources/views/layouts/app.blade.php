@@ -65,7 +65,11 @@
                                 {{ Auth::user()->name }}
                             </button>
                             <div x-show="userMenuOpen" @click.away="userMenuOpen = false" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                                <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin Dashboard</a>
+                                @else
+                                    <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Dashboard</a>
+                                @endif
                                 <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
@@ -74,7 +78,10 @@
                             </div>
                         </div>
                     @else
-                        <a href="{{ route('login') }}" class="btn-accent">Login</a>
+                        <div class="flex items-center space-x-4">
+                            <a href="{{ route('register') }}" class="text-white hover:text-accent transition-colors">Register</a>
+                            <a href="{{ route('login') }}" class="btn-accent">Login</a>
+                        </div>
                     @endauth
                 </div>
                 
@@ -100,13 +107,18 @@
                 <a href="{{ route('pathfinder.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">PathFinder</a>
                 
                 @auth
-                    <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Dashboard</a>
+                    @if(auth()->user()->isAdmin())
+                        <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Admin Dashboard</a>
+                    @else
+                        <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Dashboard</a>
+                    @endif
                     <a href="{{ route('profile.edit') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Profile</a>
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="block w-full text-left px-3 py-2 text-white hover:text-accent transition-colors">Logout</button>
                     </form>
                 @else
+                    <a href="{{ route('register') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Register</a>
                     <a href="{{ route('login') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Login</a>
                 @endauth
             </div>

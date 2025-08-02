@@ -5,14 +5,14 @@
             <!-- Search -->
             <div>
                 <label for="search" class="block text-sm font-medium text-gray-700 mb-2">Search Programs</label>
-                <input wire:model.live.debounce.300ms="search" type="text" id="search" 
+                <input wire:model="search" type="text" id="search" 
                        class="input-field" placeholder="Search by name, institution, field...">
             </div>
 
             <!-- Field of Study -->
             <div>
                 <label for="field" class="block text-sm font-medium text-gray-700 mb-2">Field of Study</label>
-                <select wire:model.live="field" id="field" class="input-field">
+                <select wire:model="field" id="field" class="input-field">
                     <option value="">All Fields</option>
                     @foreach($fields as $fieldOption)
                         <option value="{{ $fieldOption }}">{{ $fieldOption }}</option>
@@ -23,7 +23,7 @@
             <!-- Location -->
             <div>
                 <label for="location" class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                <select wire:model.live="location" id="location" class="input-field">
+                <select wire:model="location" id="location" class="input-field">
                     <option value="">All Locations</option>
                     @foreach($locations as $locationOption)
                         <option value="{{ $locationOption }}">{{ $locationOption }}</option>
@@ -34,7 +34,7 @@
             <!-- Level -->
             <div>
                 <label for="level" class="block text-sm font-medium text-gray-700 mb-2">Level</label>
-                <select wire:model.live="level" id="level" class="input-field">
+                <select wire:model="level" id="level" class="input-field">
                     <option value="">All Levels</option>
                     @foreach($levels as $levelOption)
                         <option value="{{ $levelOption }}">{{ $levelOption }}</option>
@@ -45,24 +45,19 @@
             <!-- Budget Range -->
             <div>
                 <label for="minBudget" class="block text-sm font-medium text-gray-700 mb-2">Min Budget (XAF)</label>
-                <input wire:model.live.debounce.300ms="minBudget" type="number" id="minBudget" 
+                <input wire:model="minBudget" type="number" id="minBudget" 
                        class="input-field" placeholder="0">
             </div>
 
             <div>
                 <label for="maxBudget" class="block text-sm font-medium text-gray-700 mb-2">Max Budget (XAF)</label>
-                <input wire:model.live.debounce.300ms="maxBudget" type="number" id="maxBudget" 
+                <input wire:model="maxBudget" type="number" id="maxBudget" 
                        class="input-field" placeholder="1000000">
             </div>
         </div>
 
         <!-- Clear Filters Button -->
         <div class="mt-4 flex justify-between items-center">
-            <button wire:click="clearFilters" class="btn-outline">
-                Clear All Filters
-            </button>
-            
-            <!-- Sort Options -->
             <div class="flex items-center space-x-4">
                 <span class="text-sm font-medium text-gray-700">Sort by:</span>
                 <button wire:click="sortBy('name')" 
@@ -76,6 +71,15 @@
                 <button wire:click="sortBy('duration_months')" 
                         class="text-sm px-3 py-1 rounded {{ $sortBy === 'duration_months' ? 'bg-primary text-white' : 'bg-gray-200 text-gray-700' }}">
                     Duration
+                </button>
+            </div>
+            
+            <div class="flex space-x-2">
+                <button wire:click="applyFilters" class="btn-primary">
+                    Apply Filters
+                </button>
+                <button wire:click="clearFilters" class="btn-outline">
+                    Clear All
                 </button>
             </div>
         </div>
