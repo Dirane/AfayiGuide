@@ -58,10 +58,9 @@ Route::middleware('auth')->group(function () {
 
     // Admin routes
     Route::middleware('admin')->group(function () {
-        Route::resource('admin/programs', ProgramController::class)->except(['show']);
-        Route::get('/admin/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard');
+        Route::resource('admin/programs', \App\Http\Controllers\Admin\ProgramController::class)->names('admin.programs');
+        Route::resource('admin/schools', \App\Http\Controllers\Admin\SchoolController::class)->names('admin.schools');
+        Route::get('/admin/dashboard', [\App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('admin.dashboard');
     });
 });
 

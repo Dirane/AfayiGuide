@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.app')
 
 @section('title', 'Admin Dashboard')
 @section('description', 'Admin dashboard for AfayiGuide platform management.')
@@ -131,15 +131,15 @@
                     <h3 class="font-semibold text-gray-900">Add Program</h3>
                     <p class="text-sm text-gray-600">Create new program</p>
                 </a>
-                <a href="{{ route('admin.opportunities.create') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-3xl text-accent mb-2">💼</div>
                     <h3 class="font-semibold text-gray-900">Add Opportunity</h3>
-                    <p class="text-sm text-gray-600">Post new opportunity</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
-                <a href="{{ route('admin.users.create') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-3xl text-accent mb-2">👤</div>
                     <h3 class="font-semibold text-gray-900">Add User</h3>
-                    <p class="text-sm text-gray-600">Create new user account</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
             </div>
         </div>
@@ -236,35 +236,35 @@
                     <h3 class="font-semibold text-gray-900">Manage Programs</h3>
                     <p class="text-sm text-gray-600">{{ $programsCount }} programs</p>
                 </a>
-                <a href="{{ route('admin.opportunities.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-2xl text-accent mb-2">💼</div>
                     <h3 class="font-semibold text-gray-900">Manage Opportunities</h3>
-                    <p class="text-sm text-gray-600">{{ $opportunitiesCount }} opportunities</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
-                <a href="{{ route('admin.users.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-2xl text-accent mb-2">👥</div>
                     <h3 class="font-semibold text-gray-900">Manage Users</h3>
-                    <p class="text-sm text-gray-600">{{ $totalUsers }} users</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
-                <a href="{{ route('admin.mentors.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-2xl text-accent mb-2">👨‍🏫</div>
                     <h3 class="font-semibold text-gray-900">Manage Mentors</h3>
-                    <p class="text-sm text-gray-600">{{ $mentorsCount }} mentors</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
-                <a href="{{ route('admin.assessments.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-2xl text-accent mb-2">📊</div>
                     <h3 class="font-semibold text-gray-900">View Assessments</h3>
-                    <p class="text-sm text-gray-600">{{ $assessmentsCount }} assessments</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
-                <a href="{{ route('admin.reports.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-2xl text-accent mb-2">📈</div>
                     <h3 class="font-semibold text-gray-900">Reports</h3>
-                    <p class="text-sm text-gray-600">Analytics & insights</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
-                <a href="{{ route('admin.settings.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+                <a href="#" class="card hover:shadow-lg transition-shadow text-center opacity-50">
                     <div class="text-2xl text-accent mb-2">⚙️</div>
                     <h3 class="font-semibold text-gray-900">Settings</h3>
-                    <p class="text-sm text-gray-600">Platform configuration</p>
+                    <p class="text-sm text-gray-600">Coming soon</p>
                 </a>
             </div>
         </div>

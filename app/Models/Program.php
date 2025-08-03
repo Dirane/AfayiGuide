@@ -29,6 +29,7 @@ class Program extends Model
         'images',
         'is_featured',
         'is_active',
+        'school_id',
     ];
 
     protected $casts = [
@@ -68,5 +69,11 @@ class Program extends Model
     public function scopeByBudget($query, $min, $max)
     {
         return $query->whereBetween('tuition_fee', [$min, $max]);
+    }
+
+    // Relationships
+    public function school()
+    {
+        return $this->belongsTo(School::class);
     }
 }
