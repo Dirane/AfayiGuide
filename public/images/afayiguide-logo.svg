@@ -1,0 +1,28 @@
+<svg width="200" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+  <!-- Background circle -->
+  <circle cx="40" cy="40" r="35" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+  
+  <!-- Open book -->
+  <path d="M25 35 L55 35 L55 45 L25 45 Z" fill="#1f2937" stroke="#ffffff" stroke-width="1"/>
+  <path d="M25 35 L55 35 M25 40 L55 40 M25 45 L55 45" stroke="#ffffff" stroke-width="1" fill="none"/>
+  
+  <!-- Graduation cap -->
+  <path d="M30 25 L50 25 L50 30 L30 30 Z" fill="#f59e0b"/>
+  <path d="M35 30 L45 30 L45 35 L35 35 Z" fill="#f59e0b"/>
+  <path d="M30 25 L50 25 L50 30 L30 30 Z" stroke="#1f2937" stroke-width="1" fill="none"/>
+  <path d="M35 30 L45 30 L45 35 L35 35 Z" stroke="#1f2937" stroke-width="1" fill="none"/>
+  
+  <!-- Tassel -->
+  <circle cx="40" cy="25" r="2" fill="#f59e0b"/>
+  <path d="M40 23 L40 20" stroke="#f59e0b" stroke-width="1"/>
+  
+  <!-- Person's head (circle in book) -->
+  <circle cx="40" cy="40" r="8" fill="#f59e0b"/>
+  
+  <!-- Text: AfayiGuide -->
+  <text x="85" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Afayi</text>
+  <text x="85" y="50" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#f59e0b">Guide</text>
+  
+  <!-- Tagline -->
+  <text x="85" y="65" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">Your Gateway to the Next Level</text>
+</svg> 

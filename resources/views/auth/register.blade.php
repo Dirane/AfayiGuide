@@ -1,6 +1,6 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-8">
+    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-md w-full space-y-6">
             <div>
                 <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
                     Create your account
@@ -10,7 +10,7 @@
                 </p>
             </div>
 
-            <form method="POST" action="{{ route('register') }}" class="mt-8 space-y-6">
+            <form method="POST" action="{{ route('register') }}" class="mt-6 space-y-4">
                 @csrf
 
                 <!-- Full Name -->
@@ -61,25 +61,25 @@
                 <!-- Academic Level -->
                 <div>
                     <label class="block text-sm font-medium text-gray-700 mb-2">Academic Level *</label>
-                    <div class="space-y-2">
-                        <label class="flex items-center">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
                             <input type="radio" name="academic_level" value="advanced_level" 
-                                   class="mr-3" {{ old('academic_level') == 'advanced_level' ? 'checked' : '' }} required>
-                            <span class="text-sm text-gray-700">Advanced Level Holder</span>
+                                   class="mr-2" {{ old('academic_level') == 'advanced_level' ? 'checked' : '' }} required>
+                            <span class="text-sm text-gray-700">Advanced Level</span>
                         </label>
-                        <label class="flex items-center">
+                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
                             <input type="radio" name="academic_level" value="hnd" 
-                                   class="mr-3" {{ old('academic_level') == 'hnd' ? 'checked' : '' }}>
+                                   class="mr-2" {{ old('academic_level') == 'hnd' ? 'checked' : '' }}>
                             <span class="text-sm text-gray-700">HND Holder</span>
                         </label>
-                        <label class="flex items-center">
+                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
                             <input type="radio" name="academic_level" value="degree" 
-                                   class="mr-3" {{ old('academic_level') == 'degree' ? 'checked' : '' }}>
+                                   class="mr-2" {{ old('academic_level') == 'degree' ? 'checked' : '' }}>
                             <span class="text-sm text-gray-700">Degree Holder</span>
                         </label>
-                        <label class="flex items-center">
+                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
                             <input type="radio" name="academic_level" value="other" 
-                                   class="mr-3" {{ old('academic_level') == 'other' ? 'checked' : '' }}>
+                                   class="mr-2" {{ old('academic_level') == 'other' ? 'checked' : '' }}>
                             <span class="text-sm text-gray-700">Other</span>
                         </label>
                     </div>
@@ -144,12 +144,12 @@
                     </div>
                 </div>
 
-                <div class="flex items-center justify-between">
+                <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
                     <a class="text-sm text-primary hover:text-primary-dark underline" href="{{ route('login') }}">
                         Already have an account?
                     </a>
 
-                    <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded-md transition-colors">
+                    <button type="submit" class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-md transition-colors">
                         Create Account
                     </button>
                 </div>

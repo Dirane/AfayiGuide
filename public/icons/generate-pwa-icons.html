@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Generate AfayiGuide PWA Icons</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; }
+        .icon { margin: 10px; display: inline-block; }
+        canvas { border: 1px solid #ccc; }
+    </style>
+</head>
+<body>
+    <h1>AfayiGuide PWA Icon Generator</h1>
+    <p>Right-click on each icon and "Save image as..." to download</p>
+    
+    <div id="icons"></div>
+
+    <script>
+        const sizes = [16, 32, 72, 96, 128, 144, 152, 192, 384, 512];
+        const container = document.getElementById('icons');
+        
+        sizes.forEach(size => {
+            const canvas = document.createElement('canvas');
+            canvas.width = size;
+            canvas.height = size;
+            const ctx = canvas.getContext('2d');
+            
+            // Background
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(0, 0, size, size);
+            
+            // Calculate scaling
+            const scale = size / 80;
+            const centerX = size / 2;
+            const centerY = size / 2;
+            
+            // Draw circle background
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 35 * scale, 0, 2 * Math.PI);
+            ctx.fillStyle = '#1f2937';
+            ctx.fill();
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 2 * scale;
+            ctx.stroke();
+            
+            // Draw book
+            const bookX = centerX - 15 * scale;
+            const bookY = centerY - 5 * scale;
+            const bookWidth = 30 * scale;
+            const bookHeight = 10 * scale;
+            
+            ctx.fillStyle = '#1f2937';
+            ctx.fillRect(bookX, bookY, bookWidth, bookHeight);
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1 * scale;
+            ctx.strokeRect(bookX, bookY, bookWidth, bookHeight);
+            
+            // Draw book lines
+            ctx.strokeStyle = '#ffffff';
+            ctx.lineWidth = 1 * scale;
+            ctx.beginPath();
+            ctx.moveTo(bookX, bookY + 2.5 * scale);
+            ctx.lineTo(bookX + bookWidth, bookY + 2.5 * scale);
+            ctx.moveTo(bookX, bookY + 5 * scale);
+            ctx.lineTo(bookX + bookWidth, bookY + 5 * scale);
+            ctx.moveTo(bookX, bookY + 7.5 * scale);
+            ctx.lineTo(bookX + bookWidth, bookY + 7.5 * scale);
+            ctx.stroke();
+            
+            // Draw graduation cap
+            const capX = centerX - 10 * scale;
+            const capY = centerY - 15 * scale;
+            const capWidth = 20 * scale;
+            const capHeight = 5 * scale;
+            
+            ctx.fillStyle = '#f59e0b';
+            ctx.fillRect(capX, capY, capWidth, capHeight);
+            
+            // Cap base
+            const baseX = centerX - 7.5 * scale;
+            const baseY = centerY - 10 * scale;
+            const baseWidth = 15 * scale;
+            const baseHeight = 5 * scale;
+            
+            ctx.fillRect(baseX, baseY, baseWidth, baseHeight);
+            
+            // Tassel
+            ctx.beginPath();
+            ctx.arc(centerX, capY, 2 * scale, 0, 2 * Math.PI);
+            ctx.fillStyle = '#f59e0b';
+            ctx.fill();
+            
+            ctx.beginPath();
+            ctx.moveTo(centerX, capY - 2 * scale);
+            ctx.lineTo(centerX, capY - 5 * scale);
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 1 * scale;
+            ctx.stroke();
+            
+            // Person's head (circle in book)
+            ctx.beginPath();
+            ctx.arc(centerX, centerY, 8 * scale, 0, 2 * Math.PI);
+            ctx.fillStyle = '#f59e0b';
+            ctx.fill();
+            
+            const div = document.createElement('div');
+            div.className = 'icon';
+            div.innerHTML = `<h3>${size}x${size}</h3>`;
+            div.appendChild(canvas);
+            container.appendChild(div);
+        });
+    </script>
+</body>
+</html> 

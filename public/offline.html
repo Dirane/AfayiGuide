@@ -5,57 +5,90 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AfayiGuide - Offline</title>
     <style>
-        body {
-            font-family: 'Inter', system-ui, sans-serif;
-            background: linear-gradient(135deg, #0D1F3C 0%, #1a365d 100%);
-            color: white;
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1f2937 0%, #374151 100%);
+            color: white;
             min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
+            padding: 20px;
         }
+        
         .container {
             text-align: center;
             max-width: 500px;
-            padding: 2rem;
         }
+        
         .icon {
             width: 120px;
             height: 120px;
-            margin: 0 auto 2rem;
-            background: #D95D39;
+            margin: 0 auto 30px;
+            background: rgba(255, 255, 255, 0.1);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
+            font-size: 60px;
         }
+        
         h1 {
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: #D95D39;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 700;
         }
+        
         p {
             font-size: 1.1rem;
-            line-height: 1.6;
-            margin-bottom: 2rem;
+            margin-bottom: 30px;
             opacity: 0.9;
+            line-height: 1.6;
         }
+        
         .btn {
-            background: #D95D39;
+            display: inline-block;
+            background: #f59e0b;
             color: white;
-            padding: 12px 24px;
-            border: none;
+            padding: 12px 30px;
             border-radius: 8px;
-            font-size: 1rem;
+            text-decoration: none;
             font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s ease;
         }
+        
         .btn:hover {
-            background: #b94a2f;
+            background: #d97706;
+        }
+        
+        .status {
+            margin-top: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2rem;
+            }
+            
+            p {
+                font-size: 1rem;
+            }
+            
+            .icon {
+                width: 100px;
+                height: 100px;
+                font-size: 50px;
+            }
         }
     </style>
 </head>
@@ -63,8 +96,31 @@
     <div class="container">
         <div class="icon">📚</div>
         <h1>You're Offline</h1>
-        <p>It looks like you've lost your internet connection. Don't worry! Some features of AfayiGuide are still available offline.</p>
-        <button class="btn" onclick="window.location.reload()">Try Again</button>
+        <p>
+            It looks like you don't have an internet connection right now. 
+            Don't worry! You can still access some features of AfayiGuide that we've cached for you.
+        </p>
+        <a href="/" class="btn">Try Again</a>
+        
+        <div class="status">
+            <strong>Available offline:</strong><br>
+            • Home page<br>
+            • Basic navigation<br>
+            • Cached content
+        </div>
     </div>
+    
+    <script>
+        // Check for network status
+        window.addEventListener('online', function() {
+            window.location.reload();
+        });
+        
+        // Show retry button functionality
+        document.querySelector('.btn').addEventListener('click', function(e) {
+            e.preventDefault();
+            window.location.reload();
+        });
+    </script>
 </body>
 </html> 
