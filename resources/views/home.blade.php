@@ -1,25 +1,26 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
-@section('description', 'Supporting GCE A-Level and HND graduates in Cameroon transition to university or degree programs.')
+@section('title', 'AfayiGuide - Your Educational Pathway')
+@section('description', 'Discover schools and opportunities in Cameroon. Take the PathFinder assessment to get personalized guidance.')
 
 @section('content')
 <!-- Hero Section -->
-<div class="bg-gradient-to-br from-primary to-primary-900 text-white">
+<div class="bg-gradient-to-br from-primary to-primary-800 text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div class="text-center">
             <h1 class="text-4xl md:text-6xl font-bold mb-6">
-                Your Path to Success
+                Your Pathway to
+                <span class="text-accent">Educational Success</span>
             </h1>
             <p class="text-xl md:text-2xl mb-8 text-gray-200">
-                Supporting GCE A-Level and HND graduates in Cameroon transition to university or degree programs
+                Discover schools, opportunities, and get personalized guidance for your educational journey in Cameroon.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="{{ route('programs.index') }}" class="btn-accent text-lg px-8 py-4">
-                    Find Programs
+                <a href="{{ route('schools.index') }}" class="btn-accent text-lg px-8 py-4">
+                    Explore Schools
                 </a>
-                <a href="{{ route('pathfinder.index') }}" class="btn-outline text-lg px-8 py-4 border-white text-white hover:bg-white hover:text-primary">
-                    Take PathFinder
+                <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent text-lg px-8 py-4">
+                    Take PathFinder Assessment
                 </a>
             </div>
         </div>
@@ -27,142 +28,98 @@
 </div>
 
 <!-- Features Section -->
-<div class="py-16 bg-gray-50">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">How AfayiGuide Helps You</h2>
-            <p class="text-xl text-gray-600">Comprehensive support for your educational journey</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            <!-- Program Finder -->
-            <div class="card text-center">
-                <div class="text-4xl mb-4">🔍</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Program Finder</h3>
-                <p class="text-gray-600">Search and filter university/degree programs by location, field, tuition, and more.</p>
-                <a href="{{ route('programs.index') }}" class="btn-primary mt-4 inline-block">Explore Programs</a>
-            </div>
-
-            <!-- PathFinder -->
-            <div class="card text-center">
-                <div class="text-4xl mb-4">🎯</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">PathFinder</h3>
-                <p class="text-gray-600">Get personalized recommendations based on your background, goals, and aspirations.</p>
-                <a href="{{ route('pathfinder.index') }}" class="btn-primary mt-4 inline-block">Start Assessment</a>
-            </div>
-
-            <!-- Mentorship -->
-            <div class="card text-center">
-                <div class="text-4xl mb-4">👥</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">1-on-1 Mentorship</h3>
-                <p class="text-gray-600">Book sessions with experienced mentors and counselors for personalized guidance.</p>
-                <a href="{{ route('mentorship.index') }}" class="btn-primary mt-4 inline-block">Book Session</a>
-            </div>
-
-            <!-- Opportunities -->
-            <div class="card text-center">
-                <div class="text-4xl mb-4">💼</div>
-                <h3 class="text-xl font-semibold text-gray-900 mb-2">Opportunities Board</h3>
-                <p class="text-gray-600">Discover scholarships, internships, jobs, and admissions opportunities.</p>
-                <a href="{{ route('opportunities.index') }}" class="btn-primary mt-4 inline-block">View Opportunities</a>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Statistics Section -->
-<div class="py-16 bg-primary text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold mb-4">Our Impact</h2>
-            <p class="text-xl text-gray-200">Supporting students across Cameroon</p>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
-            <div>
-                <div class="text-4xl font-bold text-accent mb-2">500+</div>
-                <div class="text-gray-200">Programs Listed</div>
-            </div>
-            <div>
-                <div class="text-4xl font-bold text-accent mb-2">1000+</div>
-                <div class="text-gray-200">Students Helped</div>
-            </div>
-            <div>
-                <div class="text-4xl font-bold text-accent mb-2">50+</div>
-                <div class="text-gray-200">Expert Mentors</div>
-            </div>
-            <div>
-                <div class="text-4xl font-bold text-accent mb-2">200+</div>
-                <div class="text-gray-200">Opportunities Posted</div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Testimonials Section -->
 <div class="py-16 bg-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold text-gray-900 mb-4">What Students Say</h2>
-            <p class="text-xl text-gray-600">Success stories from our community</p>
+            <h2 class="text-3xl font-bold text-gray-900 mb-4">What We Offer</h2>
+            <p class="text-lg text-gray-600">Comprehensive tools and services to guide your educational journey</p>
         </div>
-
+        
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div class="card">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
-                        A
-                    </div>
-                    <div>
-                        <div class="font-semibold">Alice M.</div>
-                        <div class="text-sm text-gray-600">GCE A-Level Graduate</div>
-                    </div>
+            <div class="text-center">
+                <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
                 </div>
-                <p class="text-gray-600">"AfayiGuide helped me find the perfect Computer Science program. The PathFinder assessment was incredibly accurate!"</p>
+                <h3 class="text-xl font-semibold mb-2">Browse Schools</h3>
+                <p class="text-gray-600 mb-4">Explore schools across Cameroon with detailed information about requirements and application processes.</p>
+                <a href="{{ route('schools.index') }}" class="btn-primary mt-4 inline-block">Explore Schools</a>
             </div>
-
-            <div class="card">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
-                        B
-                    </div>
-                    <div>
-                        <div class="font-semibold">Boris K.</div>
-                        <div class="text-sm text-gray-600">HND Graduate</div>
-                    </div>
+            
+            <div class="text-center">
+                <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
                 </div>
-                <p class="text-gray-600">"The mentorship sessions were invaluable. My mentor helped me navigate the application process step by step."</p>
+                <h3 class="text-xl font-semibold mb-2">PathFinder Assessment</h3>
+                <p class="text-gray-600 mb-4">Take our comprehensive assessment to get personalized school and program recommendations.</p>
+                <a href="{{ route('pathfinder.index') }}" class="btn-primary mt-4 inline-block">Start Assessment</a>
             </div>
-
-            <div class="card">
-                <div class="flex items-center mb-4">
-                    <div class="w-12 h-12 bg-primary rounded-full flex items-center justify-center text-white font-bold mr-4">
-                        C
-                    </div>
-                    <div>
-                        <div class="font-semibold">Claire N.</div>
-                        <div class="text-sm text-gray-600">Scholarship Recipient</div>
-                    </div>
+            
+            <div class="text-center">
+                <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                    <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
                 </div>
-                <p class="text-gray-600">"I found a scholarship opportunity through AfayiGuide that I never would have discovered otherwise. Life-changing!"</p>
+                <h3 class="text-xl font-semibold mb-2">1-on-1 Mentorship</h3>
+                <p class="text-gray-600 mb-4">Get personalized guidance from experienced mentors to help you make the right educational choices.</p>
+                <a href="{{ route('mentorship.index') }}" class="btn-primary mt-4 inline-block">Book Mentorship</a>
             </div>
         </div>
     </div>
 </div>
 
 <!-- CTA Section -->
-<div class="py-16 bg-accent text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+<div class="bg-primary text-white py-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-3xl font-bold mb-4">Ready to Start Your Journey?</h2>
-        <p class="text-xl mb-8 text-accent-100">Join thousands of students who have found their path with AfayiGuide</p>
+        <p class="text-xl mb-8 text-gray-200">Join thousands of students who have found their educational path with AfayiGuide.</p>
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('pathfinder.index') }}" class="btn-primary bg-white text-accent hover:bg-gray-100">
-                Take PathFinder Assessment
-            </a>
-            <a href="{{ route('programs.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent">
-                Browse Programs
-            </a>
+            @auth
+                <a href="{{ route('dashboard') }}" class="btn-accent text-lg px-8 py-4">Go to Dashboard</a>
+            @else
+                <a href="{{ route('register') }}" class="btn-accent text-lg px-8 py-4">Get Started</a>
+                <a href="{{ route('login') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent text-lg px-8 py-4">Sign In</a>
+            @endauth
         </div>
+    </div>
+</div>
+
+<!-- Stats Section -->
+<div class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center">
+            <div>
+                <div class="text-3xl font-bold text-primary mb-2">{{ \App\Models\School::where('is_active', true)->count() }}+</div>
+                <div class="text-gray-600">Schools</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-primary mb-2">{{ \App\Models\User::where('role', 'student')->count() }}+</div>
+                <div class="text-gray-600">Students</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-primary mb-2">{{ \App\Models\User::where('role', 'mentor')->where('is_active', true)->count() }}+</div>
+                <div class="text-gray-600">Mentors</div>
+            </div>
+            <div>
+                <div class="text-3xl font-bold text-primary mb-2">{{ \App\Models\PathfinderResponse::count() }}+</div>
+                <div class="text-gray-600">Assessments</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Footer CTA -->
+<div class="bg-gray-900 text-white py-12">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <h2 class="text-2xl font-bold mb-4">Need Help Choosing?</h2>
+        <p class="text-gray-300 mb-6">Our PathFinder assessment and mentorship services can help you make the right choice.</p>
+        <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent">
+            Take Assessment Now
+        </a>
     </div>
 </div>
 @endsection 

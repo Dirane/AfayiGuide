@@ -1,220 +1,154 @@
 @extends('layouts.app')
 
 @section('title', 'Student Dashboard')
-@section('description', 'Your personalized student dashboard on AfayiGuide.')
+@section('description', 'Your personalized student dashboard')
 
 @section('content')
-<div class="bg-gray-50 min-h-screen">
-    <!-- Header -->
-    <div class="bg-primary text-white py-12">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center">
-                <h1 class="text-3xl md:text-4xl font-bold mb-4">Welcome back, {{ $user->name }}!</h1>
-                <p class="text-xl text-gray-200">Your educational journey dashboard</p>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <!-- Welcome Section -->
+    <div class="mb-8">
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{ auth()->user()->name }}!</h1>
+        <p class="text-gray-600">Here's what's happening with your educational journey.</p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div class="card">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-primary-100 text-primary">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Schools Explored</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ $stats['total_schools'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-accent-100 text-accent">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">PathFinder Assessments</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ $stats['pathfinder_responses'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-green-100 text-green-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Mentorship Sessions</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ $stats['mentorship_sessions'] }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="flex items-center">
+                <div class="p-3 rounded-full bg-blue-100 text-blue-600">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"></path>
+                    </svg>
+                </div>
+                <div class="ml-4">
+                    <p class="text-sm font-medium text-gray-600">Opportunities</p>
+                    <p class="text-2xl font-semibold text-gray-900">{{ $stats['total_opportunities'] }}</p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Dashboard Content -->
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <!-- Stats Cards -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-            <div class="card text-center">
-                <div class="text-3xl text-accent mb-2">📊</div>
-                <h3 class="text-lg font-semibold text-gray-900">{{ $totalAssessments }}</h3>
-                <p class="text-gray-600 text-sm">PathFinder Assessments</p>
+    <!-- Quick Actions -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <a href="{{ route('schools.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+            <div class="p-4">
+                <div class="text-3xl mb-2">🏫</div>
+                <h3 class="font-semibold text-gray-900 mb-2">Browse Schools</h3>
+                <p class="text-sm text-gray-600">Explore schools and their requirements</p>
             </div>
-            <div class="card text-center">
-                <div class="text-3xl text-accent mb-2">💬</div>
-                <h3 class="text-lg font-semibold text-gray-900">{{ $totalSessions }}</h3>
-                <p class="text-gray-600 text-sm">Mentorship Sessions</p>
+        </a>
+
+        <a href="{{ route('pathfinder.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+            <div class="p-4">
+                <div class="text-3xl mb-2">🎯</div>
+                <h3 class="font-semibold text-gray-900 mb-2">Take PathFinder</h3>
+                <p class="text-sm text-gray-600">Get personalized recommendations</p>
             </div>
-            <div class="card text-center">
-                <div class="text-3xl text-accent mb-2">📅</div>
-                <h3 class="text-lg font-semibold text-gray-900">{{ $upcomingSessions }}</h3>
-                <p class="text-gray-600 text-sm">Upcoming Sessions</p>
+        </a>
+
+        <a href="{{ route('mentorship.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+            <div class="p-4">
+                <div class="text-3xl mb-2">👥</div>
+                <h3 class="font-semibold text-gray-900 mb-2">Book Mentorship</h3>
+                <p class="text-sm text-gray-600">Get 1-on-1 guidance</p>
             </div>
-            <div class="card text-center">
-                <div class="text-3xl text-accent mb-2">👨‍🏫</div>
-                <h3 class="text-lg font-semibold text-gray-900">{{ $mentorsCount }}</h3>
-                <p class="text-gray-600 text-sm">Available Mentors</p>
+        </a>
+
+        <a href="{{ route('opportunities.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+            <div class="p-4">
+                <div class="text-3xl mb-2">💼</div>
+                <h3 class="font-semibold text-gray-900 mb-2">View Opportunities</h3>
+                <p class="text-sm text-gray-600">Find scholarships and opportunities</p>
             </div>
+        </a>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        <!-- Recent PathFinder Assessments -->
+        <div class="card">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent PathFinder Assessments</h3>
+            @if($recentPathfinderResponses->count() > 0)
+                <div class="space-y-4">
+                    @foreach($recentPathfinderResponses as $assessment)
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium text-gray-900">{{ Str::limit($assessment->field_of_interest, 50) }}</p>
+                                <p class="text-sm text-gray-600">{{ $assessment->created_at->format('M d, Y') }}</p>
+                            </div>
+                            <a href="{{ route('pathfinder.results', $assessment) }}" class="btn-outline text-sm">View Results</a>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                <p class="text-gray-600 text-center py-8">No assessments yet. <a href="{{ route('pathfinder.index') }}" class="text-primary hover:underline">Take your first assessment</a></p>
+            @endif
         </div>
 
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <!-- Quick Actions -->
-            <div class="card">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h3>
-                <div class="space-y-3">
-                    <a href="{{ route('pathfinder.index') }}" class="block w-full btn-primary text-center">
-                        Take PathFinder Assessment
-                    </a>
-                    <a href="{{ route('schools.index') }}" class="block w-full btn-outline text-center">
-                        Browse Schools
-                    </a>
-                    <a href="{{ route('programs.index') }}" class="block w-full btn-outline text-center">
-                        Browse Programs
-                    </a>
-                    <a href="{{ route('opportunities.index') }}" class="block w-full btn-outline text-center">
-                        View Opportunities
-                    </a>
-                    <a href="{{ route('mentorship.index') }}" class="block w-full btn-outline text-center">
-                        Book Mentorship
-                    </a>
-                </div>
-            </div>
-
-            <!-- Recent Activity -->
-            <div class="card">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Recent Activity</h3>
+        <!-- Recent Mentorship Sessions -->
+        <div class="card">
+            <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Mentorship Sessions</h3>
+            @if($recentMentorshipSessions->count() > 0)
                 <div class="space-y-4">
-                    @if($recentAssessments->count() > 0)
-                        <div>
-                            <h4 class="font-medium text-gray-900 mb-2">Recent Assessments</h4>
-                            @foreach($recentAssessments as $assessment)
-                                <div class="flex items-center justify-between py-2 border-b border-gray-100">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">PathFinder Assessment</p>
-                                        <p class="text-xs text-gray-500">{{ $assessment->created_at->format('M j, Y') }}</p>
-                                    </div>
-                                    <a href="{{ route('pathfinder.download', $assessment->id) }}" class="text-primary text-sm hover:text-primary-800">
-                                        Download Report
-                                    </a>
-                                </div>
-                            @endforeach
+                    @foreach($recentMentorshipSessions as $session)
+                        <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+                            <div>
+                                <p class="font-medium text-gray-900">{{ $session->mentor->name }}</p>
+                                <p class="text-sm text-gray-600">{{ $session->created_at->format('M d, Y') }}</p>
+                            </div>
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium 
+                                @if($session->status === 'completed') bg-green-100 text-green-800
+                                @elseif($session->status === 'confirmed') bg-blue-100 text-blue-800
+                                @else bg-yellow-100 text-yellow-800 @endif">
+                                {{ ucfirst($session->status) }}
+                            </span>
                         </div>
-                    @endif
-
-                    @if($bookedSessions->count() > 0)
-                        <div>
-                            <h4 class="font-medium text-gray-900 mb-2">Recent Sessions</h4>
-                            @foreach($bookedSessions as $session)
-                                <div class="flex items-center justify-between py-2 border-b border-gray-100">
-                                    <div>
-                                        <p class="text-sm font-medium text-gray-900">{{ $session->mentor->name ?? 'Mentor' }}</p>
-                                        <p class="text-xs text-gray-500">{{ $session->scheduled_at ? $session->scheduled_at->format('M j, Y') : 'Scheduled' }}</p>
-                                    </div>
-                                    <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium 
-                                        @if($session->status === 'completed') bg-green-100 text-green-800
-                                        @elseif($session->status === 'pending') bg-yellow-100 text-yellow-800
-                                        @else bg-gray-100 text-gray-800 @endif">
-                                        {{ ucfirst($session->status) }}
-                                    </span>
-                                </div>
-                            @endforeach
-                        </div>
-                    @endif
-
-                    @if($recentAssessments->count() == 0 && $bookedSessions->count() == 0)
-                        <p class="text-gray-500 text-sm">No recent activity. Start by taking a PathFinder assessment!</p>
-                    @endif
+                    @endforeach
                 </div>
-            </div>
-
-            <!-- Platform Stats -->
-            <div class="card">
-                <h3 class="text-xl font-semibold text-gray-900 mb-4">Platform Overview</h3>
-                <div class="space-y-4">
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-600">Schools Available</span>
-                        <span class="text-sm font-medium text-gray-900">{{ $schoolsCount }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-600">Programs Available</span>
-                        <span class="text-sm font-medium text-gray-900">{{ $programsCount }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-600">Opportunities</span>
-                        <span class="text-sm font-medium text-gray-900">{{ $opportunitiesCount }}</span>
-                    </div>
-                    <div class="flex justify-between items-center">
-                        <span class="text-sm text-gray-600">Active Mentors</span>
-                        <span class="text-sm font-medium text-gray-900">{{ $mentorsCount }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Featured Content -->
-        <div class="mt-8">
-            <h2 class="text-2xl font-bold text-gray-900 mb-6">Featured Content</h2>
-            
-            <!-- Featured Schools -->
-            @if($featuredSchools->count() > 0)
-                <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Featured Schools</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @foreach($featuredSchools as $school)
-                            <div class="card hover:shadow-lg transition-shadow">
-                                @if($school->image)
-                                    <img src="{{ Storage::url($school->image) }}" alt="{{ $school->name }}" class="w-full h-32 object-cover rounded-t-lg">
-                                @endif
-                                <div class="p-4">
-                                    <h4 class="font-semibold text-gray-900 mb-2">{{ $school->name }}</h4>
-                                    <p class="text-sm text-gray-600 mb-3">{{ Str::limit($school->description, 100) }}</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-xs text-gray-500">{{ $school->location }}</span>
-                                        <a href="{{ route('schools.show', $school) }}" class="text-primary text-sm hover:text-primary-800">
-                                            Learn More
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-
-            <!-- Featured Programs -->
-            @if($featuredPrograms->count() > 0)
-                <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Featured Programs</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @foreach($featuredPrograms as $program)
-                            <div class="card hover:shadow-lg transition-shadow">
-                                @if($program->image)
-                                    <img src="{{ Storage::url($program->image) }}" alt="{{ $program->name }}" class="w-full h-32 object-cover rounded-t-lg">
-                                @endif
-                                <div class="p-4">
-                                    <h4 class="font-semibold text-gray-900 mb-2">{{ $program->name }}</h4>
-                                    <p class="text-sm text-gray-600 mb-3">{{ Str::limit($program->description, 100) }}</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-xs text-gray-500">{{ number_format($program->tuition_fee) }} XAF</span>
-                                        <a href="{{ route('programs.show', $program) }}" class="text-primary text-sm hover:text-primary-800">
-                                            Learn More
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
-            @endif
-
-            <!-- Featured Opportunities -->
-            @if($featuredOpportunities->count() > 0)
-                <div class="mb-8">
-                    <h3 class="text-lg font-semibold text-gray-900 mb-4">Featured Opportunities</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                        @foreach($featuredOpportunities as $opportunity)
-                            <div class="card hover:shadow-lg transition-shadow">
-                                @if($opportunity->image)
-                                    <img src="{{ Storage::url($opportunity->image) }}" alt="{{ $opportunity->title }}" class="w-full h-32 object-cover rounded-t-lg">
-                                @endif
-                                <div class="p-4">
-                                    <h4 class="font-semibold text-gray-900 mb-2">{{ $opportunity->title }}</h4>
-                                    <p class="text-sm text-gray-600 mb-3">{{ Str::limit($opportunity->description, 100) }}</p>
-                                    <div class="flex justify-between items-center">
-                                        <span class="text-xs text-gray-500">{{ ucfirst($opportunity->type) }}</span>
-                                        <a href="{{ route('opportunities.show', $opportunity) }}" class="text-primary text-sm hover:text-primary-800">
-                                            Learn More
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                    </div>
-                </div>
+            @else
+                <p class="text-gray-600 text-center py-8">No sessions yet. <a href="{{ route('mentorship.index') }}" class="text-primary hover:underline">Book your first session</a></p>
             @endif
         </div>
     </div>
