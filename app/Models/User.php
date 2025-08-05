@@ -13,10 +13,14 @@ class User extends Authenticatable
 
     protected $fillable = [
         'name',
+        'full_name',
         'email',
         'password',
         'role',
         'phone',
+        'whatsapp_number',
+        'academic_level',
+        'interests',
         'avatar',
         'bio',
         'expertise',
@@ -54,6 +58,11 @@ class User extends Authenticatable
         return $this->hasMany(PathfinderResponse::class);
     }
 
+    public function mentorshipBookings()
+    {
+        return $this->hasMany(MentorshipBooking::class);
+    }
+
     // Role checks
     public function isStudent()
     {
@@ -73,7 +82,7 @@ class User extends Authenticatable
     // Permission checks
     public function canViewSchools() { return in_array($this->role, ['student', 'mentor', 'admin']); }
     public function canViewOpportunities() { return in_array($this->role, ['student', 'mentor', 'admin']); }
-    public function canUsePathfinder() { return in_array($this->role, ['student', 'mentor', 'admin']); }
+    public function canUsePathfinder() { return $this->role === 'student'; }
 
     public function canBookMentorship() { return $this->role === 'student'; }
     public function canProvideMentorship() { return $this->role === 'mentor'; }
@@ -104,6 +113,26 @@ class User extends Authenticatable
         } else {
             return 'Student Dashboard';
         }
+    }
+
+    public function getDisplayName()
+    {
+        return $this->full_name ?? $this->name;
+    }
+
+    public function getAcademicLevelText()
+    {
+        if (!$this->academic_level) {
+            return 'Not specified';
+        }
+        
+        return match($this->academic_level) {
+            'advanced_level' => 'Advanced Level Holder',
+            'hnd' => 'HND Holder',
+            'degree' => 'Degree Holder',
+            'other' => 'Other',
+            default => ucfirst(str_replace('_', ' ', $this->academic_level)),
+        };
     }
 
     // Scopes

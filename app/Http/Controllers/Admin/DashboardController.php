@@ -27,8 +27,24 @@ class DashboardController extends Controller
         $assessmentsCount = PathfinderResponse::count();
         $sessionsCount = MentorshipSession::count();
         
-        // Monthly growth
+        // Monthly growth calculations (percentage-based)
         $lastMonth = Carbon::now()->subMonth();
+        $thisMonthUsers = User::where('created_at', '>=', Carbon::now()->startOfMonth())->count();
+        $lastMonthUsers = User::where('created_at', '>=', $lastMonth->startOfMonth())
+            ->where('created_at', '<', Carbon::now()->startOfMonth())->count();
+        $userGrowth = $lastMonthUsers > 0 ? (($thisMonthUsers - $lastMonthUsers) / $lastMonthUsers) * 100 : 0;
+        
+        $thisMonthAssessments = PathfinderResponse::where('created_at', '>=', Carbon::now()->startOfMonth())->count();
+        $lastMonthAssessments = PathfinderResponse::where('created_at', '>=', $lastMonth->startOfMonth())
+            ->where('created_at', '<', Carbon::now()->startOfMonth())->count();
+        $assessmentGrowth = $lastMonthAssessments > 0 ? (($thisMonthAssessments - $lastMonthAssessments) / $lastMonthAssessments) * 100 : 0;
+        
+        $thisMonthSessions = MentorshipSession::where('created_at', '>=', Carbon::now()->startOfMonth())->count();
+        $lastMonthSessions = MentorshipSession::where('created_at', '>=', $lastMonth->startOfMonth())
+            ->where('created_at', '<', Carbon::now()->startOfMonth())->count();
+        $sessionGrowth = $lastMonthSessions > 0 ? (($thisMonthSessions - $lastMonthSessions) / $lastMonthSessions) * 100 : 0;
+        
+        // Legacy growth variables (count-based for backward compatibility)
         $usersGrowth = User::where('created_at', '>=', $lastMonth)->count();
         $assessmentsGrowth = PathfinderResponse::where('created_at', '>=', $lastMonth)->count();
         $sessionsGrowth = MentorshipSession::where('created_at', '>=', $lastMonth)->count();
@@ -47,13 +63,36 @@ class DashboardController extends Controller
             'completed' => MentorshipSession::where('status', 'completed')->count(),
             'cancelled' => MentorshipSession::where('status', 'cancelled')->count(),
         ];
+        
+        // Session statistics for reports
+        $pendingSessions = MentorshipSession::where('status', 'pending')->count();
+        $completedSessions = MentorshipSession::where('status', 'completed')->count();
+        
+        // Monthly trends for charts
+        $monthlyUsers = User::selectRaw('strftime("%Y-%m", created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+            
+        $monthlyAssessments = PathfinderResponse::selectRaw('strftime("%Y-%m", created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
+            
+        $monthlySessions = MentorshipSession::selectRaw('strftime("%Y-%m", created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
         return view('admin.dashboard', compact(
             'totalUsers', 'studentsCount', 'mentorsCount', 'adminsCount',
             'schoolsCount', 'opportunitiesCount', 'assessmentsCount', 'sessionsCount',
             'usersGrowth', 'assessmentsGrowth', 'sessionsGrowth',
+            'userGrowth', 'assessmentGrowth', 'sessionGrowth',
             'recentUsers', 'recentAssessments', 'recentSessions',
-            'activeMentors', 'totalEarnings', 'sessionStatuses'
+            'activeMentors', 'totalEarnings', 'sessionStatuses',
+            'pendingSessions', 'completedSessions',
+            'monthlyUsers', 'monthlyAssessments', 'monthlySessions'
         ));
     }
 } 

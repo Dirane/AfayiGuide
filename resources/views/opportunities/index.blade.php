@@ -17,6 +17,19 @@
 
     <!-- Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        @auth
+            <div class="mb-4 flex justify-end">
+                @if(auth()->user()->isAdmin())
+                    <a href="{{ route('admin.dashboard') }}" class="btn-outline">
+                        ← Back to Admin Dashboard
+                    </a>
+                @else
+                    <a href="{{ route('dashboard') }}" class="btn-outline">
+                        ← Back to {{ auth()->user()->getDashboardTitle() }}
+                    </a>
+                @endif
+            </div>
+        @endauth
         <!-- Search and Filters -->
         <div class="card mb-8">
             <form method="GET" action="{{ route('opportunities.index') }}" class="space-y-4">

@@ -39,11 +39,13 @@
                 <h3 class="text-lg font-semibold text-gray-900">{{ $mentorsCount ?? 0 }}</h3>
                 <p class="text-gray-600 text-sm">Active Mentors</p>
             </div>
+            @if(auth()->user()->canUsePathfinder())
             <div class="card text-center">
                 <div class="text-3xl text-accent mb-2">📊</div>
                 <h3 class="text-lg font-semibold text-gray-900">{{ $assessmentsCount ?? 0 }}</h3>
                 <p class="text-gray-600 text-sm">PathFinder Assessments</p>
             </div>
+            @endif
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -51,21 +53,22 @@
             <div class="card">
                 <h3 class="text-xl font-semibold text-gray-900 mb-4">Quick Actions</h3>
                 <div class="space-y-3">
-                    <a href="{{ route('pathfinder.index') }}" class="block w-full btn-primary text-center">
-                        Take PathFinder Assessment
-                    </a>
+                    @if(auth()->user()->canUsePathfinder())
+                        <a href="{{ route('pathfinder.index') }}" class="block w-full btn-primary text-center">
+                            Take PathFinder Assessment
+                        </a>
+                    @endif
                     <a href="{{ route('schools.index') }}" class="block w-full btn-outline text-center">
                         Browse Schools
-                    </a>
-                    <a href="{{ route('programs.index') }}" class="block w-full btn-outline text-center">
-                        Browse Programs
                     </a>
                     <a href="{{ route('opportunities.index') }}" class="block w-full btn-outline text-center">
                         View Opportunities
                     </a>
-                    <a href="{{ route('mentorship.index') }}" class="block w-full btn-outline text-center">
-                        Book Mentorship
-                    </a>
+                    @if(auth()->user()->canBookMentorship())
+                        <a href="{{ route('mentorship.index') }}" class="block w-full btn-outline text-center">
+                            Book Mentorship
+                        </a>
+                    @endif
                 </div>
             </div>
 
@@ -122,7 +125,11 @@
                     @else
                         <div class="text-gray-600 text-sm">
                             <p>No recent activity to display.</p>
-                            <p class="mt-2">Start by taking a PathFinder assessment or booking a mentorship session!</p>
+                            @if(auth()->user()->canUsePathfinder())
+                                <p class="mt-2">Start by taking a PathFinder assessment or booking a mentorship session!</p>
+                            @else
+                                <p class="mt-2">Explore schools and opportunities to get started!</p>
+                            @endif
                         </div>
                     @endif
                 </div>

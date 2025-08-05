@@ -74,94 +74,47 @@
         </div>
     </div>
 
-    <!-- User Distribution -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-        <div class="card">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">User Distribution</h3>
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Students</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $studentsCount }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Mentors</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $mentorsCount }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Admins</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $adminsCount }}</span>
-                </div>
-            </div>
-        </div>
 
-        <div class="card">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Content Overview</h3>
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Schools</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $schoolsCount }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Opportunities</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $opportunitiesCount }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Active Mentors</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $activeMentors }}</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card">
-            <h3 class="text-lg font-semibold text-gray-900 mb-4">Session Status</h3>
-            <div class="space-y-3">
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Pending</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $sessionStatuses['pending'] }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Confirmed</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $sessionStatuses['confirmed'] }}</span>
-                </div>
-                <div class="flex justify-between items-center">
-                    <span class="text-sm text-gray-600">Completed</span>
-                    <span class="text-sm font-medium text-gray-900">{{ $sessionStatuses['completed'] }}</span>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Quick Actions -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
         <a href="{{ route('admin.schools.index') }}" class="card hover:shadow-lg transition-shadow text-center">
             <div class="p-4">
                 <div class="text-3xl mb-2">🏫</div>
-                <h3 class="font-semibold text-gray-900 mb-2">Manage Schools</h3>
-                <p class="text-sm text-gray-600">Add and edit school information</p>
+                <h3 class="font-semibold text-gray-900 mb-2">Schools</h3>
+                <p class="text-sm text-gray-600">Manage schools</p>
             </div>
         </a>
 
         <a href="{{ route('admin.users.index') }}" class="card hover:shadow-lg transition-shadow text-center">
             <div class="p-4">
                 <div class="text-3xl mb-2">👥</div>
-                <h3 class="font-semibold text-gray-900 mb-2">Manage Users</h3>
-                <p class="text-sm text-gray-600">View and manage user accounts</p>
+                <h3 class="font-semibold text-gray-900 mb-2">Users</h3>
+                <p class="text-sm text-gray-600">Manage users</p>
             </div>
         </a>
 
         <a href="{{ route('admin.mentors.index') }}" class="card hover:shadow-lg transition-shadow text-center">
             <div class="p-4">
                 <div class="text-3xl mb-2">👨‍🏫</div>
-                <h3 class="font-semibold text-gray-900 mb-2">Manage Mentors</h3>
-                <p class="text-sm text-gray-600">Manage mentor profiles</p>
+                <h3 class="font-semibold text-gray-900 mb-2">Mentors</h3>
+                <p class="text-sm text-gray-600">Manage mentors</p>
             </div>
         </a>
 
         <a href="{{ route('admin.assessments.index') }}" class="card hover:shadow-lg transition-shadow text-center">
             <div class="p-4">
                 <div class="text-3xl mb-2">📊</div>
-                <h3 class="font-semibold text-gray-900 mb-2">View Assessments</h3>
-                <p class="text-sm text-gray-600">Review PathFinder responses</p>
+                <h3 class="font-semibold text-gray-900 mb-2">Assessments</h3>
+                <p class="text-sm text-gray-600">View responses</p>
+            </div>
+        </a>
+
+        <a href="{{ route('admin.opportunities.index') }}" class="card hover:shadow-lg transition-shadow text-center">
+            <div class="p-4">
+                <div class="text-3xl mb-2">💼</div>
+                <h3 class="font-semibold text-gray-900 mb-2">Opportunities</h3>
+                <p class="text-sm text-gray-600">Manage opportunities</p>
             </div>
         </a>
     </div>
@@ -237,6 +190,155 @@
                 <p class="text-gray-600 text-center py-8">No recent sessions</p>
             @endif
         </div>
+    </div>
+
+    <!-- Comprehensive Reports Section -->
+    <div class="mt-8">
+        <h2 class="text-2xl font-bold text-gray-900 mb-6">📊 Detailed Reports & Analytics</h2>
+        
+        <!-- Growth Metrics -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card text-center">
+                <div class="text-3xl text-accent mb-2">📈</div>
+                <h3 class="text-lg font-semibold text-gray-900">{{ number_format($userGrowth, 1) }}%</h3>
+                <p class="text-gray-600 text-sm">User Growth</p>
+                <div class="mt-2 text-xs">
+                    <span class="{{ $userGrowth >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $userGrowth >= 0 ? '+' : '' }}{{ number_format($userGrowth, 1) }}% this month
+                    </span>
+                </div>
+            </div>
+            
+            <div class="card text-center">
+                <div class="text-3xl text-accent mb-2">📊</div>
+                <h3 class="text-lg font-semibold text-gray-900">{{ number_format($assessmentGrowth, 1) }}%</h3>
+                <p class="text-gray-600 text-sm">Assessment Growth</p>
+                <div class="mt-2 text-xs">
+                    <span class="{{ $assessmentGrowth >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $assessmentGrowth >= 0 ? '+' : '' }}{{ number_format($assessmentGrowth, 1) }}% this month
+                    </span>
+                </div>
+            </div>
+            
+            <div class="card text-center">
+                <div class="text-3xl text-accent mb-2">💬</div>
+                <h3 class="text-lg font-semibold text-gray-900">{{ number_format($sessionGrowth, 1) }}%</h3>
+                <p class="text-gray-600 text-sm">Session Growth</p>
+                <div class="mt-2 text-xs">
+                    <span class="{{ $sessionGrowth >= 0 ? 'text-green-600' : 'text-red-600' }}">
+                        {{ $sessionGrowth >= 0 ? '+' : '' }}{{ number_format($sessionGrowth, 1) }}% this month
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Statistics -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">User Distribution</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Students</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $studentsCount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Mentors</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $mentorsCount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Admins</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $adminsCount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Active Mentors</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $activeMentors }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Content Overview</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Schools</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $schoolsCount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Opportunities</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $opportunitiesCount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Assessments</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $assessmentsCount }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Sessions</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $sessionsCount }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Session Status</h3>
+                <div class="space-y-3">
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Pending</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $pendingSessions }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Completed</span>
+                        <span class="text-sm font-medium text-gray-900">{{ $completedSessions }}</span>
+                    </div>
+                    <div class="flex justify-between items-center">
+                        <span class="text-sm text-gray-600">Total Earnings</span>
+                        <span class="text-sm font-medium text-gray-900">{{ number_format($totalEarnings) }} XAF</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Trends Charts -->
+        @if($monthlyUsers->count() > 0 || $monthlyAssessments->count() > 0 || $monthlySessions->count() > 0)
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly User Growth</h3>
+                <div class="space-y-2">
+                    @foreach($monthlyUsers->take(6) as $data)
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">{{ $data->month }}</span>
+                            <span class="text-sm font-medium text-gray-900">{{ $data->count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Assessments</h3>
+                <div class="space-y-2">
+                    @foreach($monthlyAssessments->take(6) as $data)
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">{{ $data->month }}</span>
+                            <span class="text-sm font-medium text-gray-900">{{ $data->count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+
+            <div class="card">
+                <h3 class="text-lg font-semibold text-gray-900 mb-4">Monthly Sessions</h3>
+                <div class="space-y-2">
+                    @foreach($monthlySessions->take(6) as $data)
+                        <div class="flex justify-between items-center">
+                            <span class="text-sm text-gray-600">{{ $data->month }}</span>
+                            <span class="text-sm font-medium text-gray-900">{{ $data->count }}</span>
+                        </div>
+                    @endforeach
+                </div>
+            </div>
+        </div>
+        @endif
+
+
     </div>
 </div>
 @endsection 

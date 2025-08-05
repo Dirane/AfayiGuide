@@ -30,6 +30,11 @@
                         <div class="hidden md:ml-6 md:flex md:space-x-8">
                             <a href="{{ route('home') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Home</a>
                             @auth
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Admin Dashboard</a>
+                                @else
+                                    <a href="{{ route('dashboard') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">{{ auth()->user()->getDashboardTitle() }}</a>
+                                @endif
                                 @if(auth()->user()->canViewSchools()) <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Schools</a> @endif
                                 @if(auth()->user()->canViewOpportunities()) <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Opportunities</a> @endif
                                 @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">PathFinder</a> @endif
@@ -84,12 +89,16 @@
                 <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-primary-800">
                     <a href="{{ route('home') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Home</a>
                     @auth
+                        @if(auth()->user()->isAdmin())
+                            <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Admin Dashboard</a>
+                        @else
+                            <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">{{ auth()->user()->getDashboardTitle() }}</a>
+                        @endif
                         @if(auth()->user()->canViewSchools()) <a href="{{ route('schools.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Schools</a> @endif
                         @if(auth()->user()->canViewOpportunities()) <a href="{{ route('opportunities.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Opportunities</a> @endif
                         @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">PathFinder</a> @endif
                         @if(auth()->user()->canBookMentorship()) <a href="{{ route('mentorship.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Mentorship</a> @endif
                         
-                        @if(auth()->user()->isAdmin()) <a href="{{ route('admin.dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Admin Dashboard</a> @else <a href="{{ route('dashboard') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">{{ auth()->user()->getDashboardTitle() }}</a> @endif
                         <a href="{{ route('profile.edit') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors">Profile</a>
                         <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" class="block w-full text-left px-3 py-2 text-white hover:text-accent transition-colors">Logout</button></form>
                     @else
@@ -111,8 +120,33 @@
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                     <div><h3 class="text-lg font-semibold mb-4">AfayiGuide</h3><p class="text-gray-300 text-sm">Your pathway to educational success in Cameroon.</p></div>
                     <div><h4 class="font-semibold mb-4">Quick Links</h4><ul class="space-y-2 text-sm text-gray-300"><li><a href="{{ route('home') }}" class="hover:text-white">Home</a></li><li><a href="{{ route('schools.index') }}" class="hover:text-white">Schools</a></li><li><a href="{{ route('opportunities.index') }}" class="hover:text-white">Opportunities</a></li></ul></div>
-                    <div><h4 class="font-semibold mb-4">Tools</h4><ul class="space-y-2 text-sm text-gray-300"><li><a href="{{ route('pathfinder.index') }}" class="hover:text-white">PathFinder</a></li><li><a href="{{ route('mentorship.index') }}" class="hover:text-white">Mentorship</a></li></ul></div>
-                    <div><h4 class="font-semibold mb-4">Account</h4><ul class="space-y-2 text-sm text-gray-300">@auth<li><a href="{{ route('dashboard') }}" class="hover:text-white">Dashboard</a></li><li><a href="{{ route('profile.edit') }}" class="hover:text-white">Profile</a></li><li><form method="POST" action="{{ route('logout') }}" class="inline">@csrf<button type="submit" class="hover:text-white">Logout</button></form></li>@else<li><a href="{{ route('login') }}" class="hover:text-white">Login</a></li><li><a href="{{ route('register') }}" class="hover:text-white">Register</a></li>@endauth</ul></div>
+                    <div><h4 class="font-semibold mb-4">Tools</h4><ul class="space-y-2 text-sm text-gray-300">
+                        @auth
+                            @if(auth()->user()->canUsePathfinder())
+                                <li><a href="{{ route('pathfinder.index') }}" class="hover:text-white">PathFinder</a></li>
+                            @endif
+                            @if(auth()->user()->canBookMentorship())
+                                <li><a href="{{ route('mentorship.index') }}" class="hover:text-white">Mentorship</a></li>
+                            @endif
+                        @else
+                            <li><a href="{{ route('pathfinder.index') }}" class="hover:text-white">PathFinder</a></li>
+                            <li><a href="{{ route('mentorship.index') }}" class="hover:text-white">Mentorship</a></li>
+                        @endauth
+                    </ul></div>
+                    <div><h4 class="font-semibold mb-4">Account</h4><ul class="space-y-2 text-sm text-gray-300">
+                        @auth
+                            @if(auth()->user()->isAdmin())
+                                <li><a href="{{ route('admin.dashboard') }}" class="hover:text-white">Admin Dashboard</a></li>
+                            @else
+                                <li><a href="{{ route('dashboard') }}" class="hover:text-white">{{ auth()->user()->getDashboardTitle() }}</a></li>
+                            @endif
+                            <li><a href="{{ route('profile.edit') }}" class="hover:text-white">Profile</a></li>
+                            <li><form method="POST" action="{{ route('logout') }}" class="inline">@csrf<button type="submit" class="hover:text-white">Logout</button></form></li>
+                        @else
+                            <li><a href="{{ route('login') }}" class="hover:text-white">Login</a></li>
+                            <li><a href="{{ route('register') }}" class="hover:text-white">Register</a></li>
+                        @endauth
+                    </ul></div>
                 </div>
                 <div class="border-t border-primary-800 mt-8 pt-8 text-center text-sm text-gray-300"><p>&copy; {{ date('Y') }} AfayiGuide. All rights reserved.</p></div>
             </div>

@@ -19,9 +19,17 @@
                 <a href="{{ route('schools.index') }}" class="btn-accent text-lg px-8 py-4">
                     Explore Schools
                 </a>
-                <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent text-lg px-8 py-4">
-                    Take PathFinder Assessment
-                </a>
+                @auth
+                    @if(auth()->user()->canUsePathfinder())
+                        <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent text-lg px-8 py-4">
+                            Take PathFinder Assessment
+                        </a>
+                    @endif
+                @else
+                    <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent text-lg px-8 py-4">
+                        Take PathFinder Assessment
+                    </a>
+                @endauth
             </div>
         </div>
     </div>
@@ -47,6 +55,20 @@
                 <a href="{{ route('schools.index') }}" class="btn-primary mt-4 inline-block">Explore Schools</a>
             </div>
             
+            @auth
+                @if(auth()->user()->canUsePathfinder())
+                <div class="text-center">
+                    <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">PathFinder Assessment</h3>
+                    <p class="text-gray-600 mb-4">Take our comprehensive assessment to get personalized school and program recommendations.</p>
+                    <a href="{{ route('pathfinder.index') }}" class="btn-primary mt-4 inline-block">Start Assessment</a>
+                </div>
+                @endif
+            @else
             <div class="text-center">
                 <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -57,7 +79,22 @@
                 <p class="text-gray-600 mb-4">Take our comprehensive assessment to get personalized school and program recommendations.</p>
                 <a href="{{ route('pathfinder.index') }}" class="btn-primary mt-4 inline-block">Start Assessment</a>
             </div>
+            @endauth
             
+            @auth
+                @if(auth()->user()->canBookMentorship())
+                <div class="text-center">
+                    <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-2">1-on-1 Mentorship</h3>
+                    <p class="text-gray-600 mb-4">Get personalized guidance from experienced mentors to help you make the right educational choices.</p>
+                    <a href="{{ route('mentorship.index') }}" class="btn-primary mt-4 inline-block">Book Mentorship</a>
+                </div>
+                @endif
+            @else
             <div class="text-center">
                 <div class="bg-primary-100 rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-4">
                     <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -68,6 +105,7 @@
                 <p class="text-gray-600 mb-4">Get personalized guidance from experienced mentors to help you make the right educational choices.</p>
                 <a href="{{ route('mentorship.index') }}" class="btn-primary mt-4 inline-block">Book Mentorship</a>
             </div>
+            @endauth
         </div>
     </div>
 </div>
@@ -117,9 +155,17 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <h2 class="text-2xl font-bold mb-4">Need Help Choosing?</h2>
         <p class="text-gray-300 mb-6">Our PathFinder assessment and mentorship services can help you make the right choice.</p>
-        <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent">
-            Take Assessment Now
-        </a>
+        @auth
+            @if(auth()->user()->canUsePathfinder())
+                <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent">
+                    Take Assessment Now
+                </a>
+            @endif
+        @else
+            <a href="{{ route('pathfinder.index') }}" class="btn-outline border-white text-white hover:bg-white hover:text-accent">
+                Take Assessment Now
+            </a>
+        @endauth
     </div>
 </div>
 @endsection 

@@ -14,6 +14,8 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => \App\Http\Middleware\AdminMiddleware::class,
             'role.redirect' => \App\Http\Middleware\RedirectBasedOnRole::class,
+            'pathfinder.access' => \App\Http\Middleware\PathfinderAccess::class,
+            'mentorship.access' => \App\Http\Middleware\MentorshipAccess::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
