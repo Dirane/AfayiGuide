@@ -120,33 +120,44 @@
                 </div>
                 <div class="bg-[#fff2f2] dark:bg-[#1D0002] relative lg:-ml-px -mb-px lg:mb-0 rounded-t-lg lg:rounded-t-none lg:rounded-r-lg aspect-[335/376] lg:aspect-auto w-full lg:w-[438px] shrink-0 overflow-hidden">
                     {{-- AfayiGuide Logo --}}
-                    <svg class="w-full text-[#1f2937] dark:text-[#f59e0b] transition-all translate-y-0 opacity-100 max-w-none duration-750 starting:opacity-0 starting:translate-y-6" viewBox="0 0 200 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <!-- Background circle -->
-                      <circle cx="40" cy="40" r="35" fill="#1f2937" stroke="#f59e0b" stroke-width="2"/>
+                    <svg class="w-full text-[#1f2937] dark:text-[#f59e0b] transition-all translate-y-0 opacity-100 max-w-none duration-750 starting:opacity-0 starting:translate-y-6" viewBox="0 0 300 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <!-- Background -->
+                      <rect width="300" height="120" fill="#fdfdfc"/>
                       
-                      <!-- Open book -->
-                      <path d="M25 35 L55 35 L55 45 L25 45 Z" fill="#1f2937" stroke="#ffffff" stroke-width="1"/>
-                      <path d="M25 35 L55 35 M25 40 L55 40 M25 45 L55 45" stroke="#ffffff" stroke-width="1" fill="none"/>
+                      <!-- Graphic Icon Section -->
+                      <g transform="translate(50, 20)">
+                        <!-- Open Book - Dark blue with white outline -->
+                        <path d="M30 40 L70 40 L70 60 L30 60 Z" fill="#1f2937" stroke="#ffffff" stroke-width="2"/>
+                        <!-- Book spine -->
+                        <path d="M30 40 L30 60" stroke="#ffffff" stroke-width="2"/>
+                        <!-- Book pages with fold line -->
+                        <path d="M30 40 L70 40 M30 50 L70 50 M30 60 L70 60" stroke="#ffffff" stroke-width="1" fill="none"/>
+                        <path d="M50 40 L50 60" stroke="#ffffff" stroke-width="1" fill="none"/>
+                        
+                        <!-- Graduation Cap - Orange, positioned above book -->
+                        <path d="M25 25 L75 25 L75 35 L25 35 Z" fill="#f59e0b"/>
+                        <path d="M30 35 L70 35 L70 40 L30 40 Z" fill="#f59e0b"/>
+                        <!-- Cap outline -->
+                        <path d="M25 25 L75 25 L75 35 L25 35 Z" stroke="#1f2937" stroke-width="1" fill="none"/>
+                        <path d="M30 35 L70 35 L70 40 L30 40 Z" stroke="#1f2937" stroke-width="1" fill="none"/>
+                        
+                        <!-- Tassel - Orange line extending from cap -->
+                        <circle cx="70" cy="30" r="2" fill="#f59e0b"/>
+                        <path d="M70 28 L75 25" stroke="#f59e0b" stroke-width="1"/>
+                        
+                        <!-- Human Figure/Head - Orange circle in book -->
+                        <circle cx="50" cy="50" r="8" fill="#f59e0b"/>
+                      </g>
                       
-                      <!-- Graduation cap -->
-                      <path d="M30 25 L50 25 L50 30 L30 30 Z" fill="#f59e0b"/>
-                      <path d="M35 30 L45 30 L45 35 L35 35 Z" fill="#f59e0b"/>
-                      <path d="M30 25 L50 25 L50 30 L30 30 Z" stroke="#1f2937" stroke-width="1" fill="none"/>
-                      <path d="M35 30 L45 30 L45 35 L35 35 Z" stroke="#1f2937" stroke-width="1" fill="none"/>
-                      
-                      <!-- Tassel -->
-                      <circle cx="40" cy="25" r="2" fill="#f59e0b"/>
-                      <path d="M40 23 L40 20" stroke="#f59e0b" stroke-width="1"/>
-                      
-                      <!-- Person's head (circle in book) -->
-                      <circle cx="40" cy="40" r="8" fill="#f59e0b"/>
-                      
-                      <!-- Text: AfayiGuide -->
-                      <text x="85" y="30" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#1f2937">Afayi</text>
-                      <text x="85" y="50" font-family="Arial, sans-serif" font-size="18" font-weight="bold" fill="#f59e0b">Guide</text>
-                      
-                      <!-- Tagline -->
-                      <text x="85" y="65" font-family="Arial, sans-serif" font-size="10" fill="#6b7280">Your Gateway to the Next Level</text>
+                      <!-- Text Elements Section -->
+                      <g transform="translate(150, 80)">
+                        <!-- Brand Name: AfayiGuide -->
+                        <text x="0" y="0" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#1f2937" text-anchor="middle">Afayi</text>
+                        <text x="0" y="25" font-family="Arial, sans-serif" font-size="24" font-weight="bold" fill="#f59e0b" text-anchor="middle">Guide</text>
+                        
+                        <!-- Tagline -->
+                        <text x="0" y="45" font-family="Arial, sans-serif" font-size="12" fill="#f59e0b" text-anchor="middle">Your Gateway to the Next Level</text>
+                      </g>
                     </svg>
 
                     {{-- Light Mode 12 SVG --}}

@@ -18,9 +18,15 @@
         @method('patch')
 
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="name" />
+            <x-input-label for="name" :value="__('Username')" />
+            <x-text-input id="name" name="name" type="text" class="mt-1 block w-full" :value="old('name', $user->name)" required autofocus autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('name')" />
+        </div>
+
+        <div>
+            <x-input-label for="full_name" :value="__('Full Name')" />
+            <x-text-input id="full_name" name="full_name" type="text" class="mt-1 block w-full" :value="old('full_name', $user->full_name)" required autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('full_name')" />
         </div>
 
         <div>
@@ -45,6 +51,42 @@
                     @endif
                 </div>
             @endif
+        </div>
+
+        <div>
+            <x-input-label for="whatsapp_number" :value="__('WhatsApp Number')" />
+            <x-text-input id="whatsapp_number" name="whatsapp_number" type="text" class="mt-1 block w-full" :value="old('whatsapp_number', $user->whatsapp_number)" required placeholder="+237 6XX XXX XXX" />
+            <x-input-error class="mt-2" :messages="$errors->get('whatsapp_number')" />
+        </div>
+
+        <div>
+            <x-input-label for="academic_level" :value="__('Academic Level')" />
+            <select id="academic_level" name="academic_level" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" required>
+                <option value="">Select Academic Level</option>
+                <option value="advanced_level" {{ old('academic_level', $user->academic_level) == 'advanced_level' ? 'selected' : '' }}>Advanced Level Holder</option>
+                <option value="hnd" {{ old('academic_level', $user->academic_level) == 'hnd' ? 'selected' : '' }}>HND Holder</option>
+                <option value="degree" {{ old('academic_level', $user->academic_level) == 'degree' ? 'selected' : '' }}>Degree Holder</option>
+                <option value="other" {{ old('academic_level', $user->academic_level) == 'other' ? 'selected' : '' }}>Other</option>
+            </select>
+            <x-input-error class="mt-2" :messages="$errors->get('academic_level')" />
+        </div>
+
+        <div>
+            <x-input-label for="phone" :value="__('Phone Number (Optional)')" />
+            <x-text-input id="phone" name="phone" type="text" class="mt-1 block w-full" :value="old('phone', $user->phone)" placeholder="+237 XXX XXX XXX" />
+            <x-input-error class="mt-2" :messages="$errors->get('phone')" />
+        </div>
+
+        <div>
+            <x-input-label for="interests" :value="__('Interests (Optional)')" />
+            <textarea id="interests" name="interests" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="Tell us about your interests, career goals, or any specific areas you'd like to focus on...">{{ old('interests', $user->interests) }}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('interests')" />
+        </div>
+
+        <div>
+            <x-input-label for="bio" :value="__('Bio (Optional)')" />
+            <textarea id="bio" name="bio" rows="3" class="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm" placeholder="Tell us a bit about yourself...">{{ old('bio', $user->bio) }}</textarea>
+            <x-input-error class="mt-2" :messages="$errors->get('bio')" />
         </div>
 
         <div class="flex items-center gap-4">

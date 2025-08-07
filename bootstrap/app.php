@@ -16,6 +16,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'role.redirect' => \App\Http\Middleware\RedirectBasedOnRole::class,
             'pathfinder.access' => \App\Http\Middleware\PathfinderAccess::class,
             'mentorship.access' => \App\Http\Middleware\MentorshipAccess::class,
+            'auth.content' => \App\Http\Middleware\RequireAuthForContent::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

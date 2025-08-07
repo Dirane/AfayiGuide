@@ -25,78 +25,93 @@
             const ctx = canvas.getContext('2d');
             
             // Background
-            ctx.fillStyle = '#1f2937';
+            ctx.fillStyle = '#fdfdfc';
             ctx.fillRect(0, 0, size, size);
             
             // Calculate scaling
-            const scale = size / 80;
+            const scale = size / 100;
             const centerX = size / 2;
             const centerY = size / 2;
             
-            // Draw circle background
-            ctx.beginPath();
-            ctx.arc(centerX, centerY, 35 * scale, 0, 2 * Math.PI);
-            ctx.fillStyle = '#1f2937';
-            ctx.fill();
-            ctx.strokeStyle = '#f59e0b';
-            ctx.lineWidth = 2 * scale;
-            ctx.stroke();
+            // Draw open book
+            const bookX = centerX - 20 * scale;
+            const bookY = centerY - 10 * scale;
+            const bookWidth = 40 * scale;
+            const bookHeight = 20 * scale;
             
-            // Draw book
-            const bookX = centerX - 15 * scale;
-            const bookY = centerY - 5 * scale;
-            const bookWidth = 30 * scale;
-            const bookHeight = 10 * scale;
-            
+            // Book background
             ctx.fillStyle = '#1f2937';
             ctx.fillRect(bookX, bookY, bookWidth, bookHeight);
+            
+            // Book outline
             ctx.strokeStyle = '#ffffff';
-            ctx.lineWidth = 1 * scale;
+            ctx.lineWidth = 2 * scale;
             ctx.strokeRect(bookX, bookY, bookWidth, bookHeight);
             
-            // Draw book lines
+            // Book spine
+            ctx.beginPath();
+            ctx.moveTo(bookX, bookY);
+            ctx.lineTo(bookX, bookY + bookHeight);
+            ctx.stroke();
+            
+            // Book pages with fold line
             ctx.strokeStyle = '#ffffff';
             ctx.lineWidth = 1 * scale;
             ctx.beginPath();
-            ctx.moveTo(bookX, bookY + 2.5 * scale);
-            ctx.lineTo(bookX + bookWidth, bookY + 2.5 * scale);
             ctx.moveTo(bookX, bookY + 5 * scale);
             ctx.lineTo(bookX + bookWidth, bookY + 5 * scale);
-            ctx.moveTo(bookX, bookY + 7.5 * scale);
-            ctx.lineTo(bookX + bookWidth, bookY + 7.5 * scale);
+            ctx.moveTo(bookX, bookY + 10 * scale);
+            ctx.lineTo(bookX + bookWidth, bookY + 10 * scale);
+            ctx.moveTo(bookX, bookY + 15 * scale);
+            ctx.lineTo(bookX + bookWidth, bookY + 15 * scale);
             ctx.stroke();
             
-            // Draw graduation cap
-            const capX = centerX - 10 * scale;
-            const capY = centerY - 15 * scale;
-            const capWidth = 20 * scale;
-            const capHeight = 5 * scale;
+            // Fold line
+            ctx.beginPath();
+            ctx.moveTo(centerX, bookY);
+            ctx.lineTo(centerX, bookY + bookHeight);
+            ctx.stroke();
+            
+            // Draw graduation cap above book
+            const capX = centerX - 25 * scale;
+            const capY = centerY - 25 * scale;
+            const capWidth = 50 * scale;
+            const capHeight = 10 * scale;
             
             ctx.fillStyle = '#f59e0b';
             ctx.fillRect(capX, capY, capWidth, capHeight);
             
             // Cap base
-            const baseX = centerX - 7.5 * scale;
-            const baseY = centerY - 10 * scale;
-            const baseWidth = 15 * scale;
-            const baseHeight = 5 * scale;
+            const baseX = centerX - 20 * scale;
+            const baseY = centerY - 15 * scale;
+            const baseWidth = 40 * scale;
+            const baseHeight = 10 * scale;
             
             ctx.fillRect(baseX, baseY, baseWidth, baseHeight);
             
-            // Tassel
+            // Cap outline
+            ctx.strokeStyle = '#1f2937';
+            ctx.lineWidth = 1 * scale;
+            ctx.strokeRect(capX, capY, capWidth, capHeight);
+            ctx.strokeRect(baseX, baseY, baseWidth, baseHeight);
+            
+            // Tassel - orange line extending from cap
+            const tasselX = capX + capWidth - 5 * scale;
+            const tasselY = capY + 5 * scale;
+            
             ctx.beginPath();
-            ctx.arc(centerX, capY, 2 * scale, 0, 2 * Math.PI);
+            ctx.arc(tasselX, tasselY, 2 * scale, 0, 2 * Math.PI);
             ctx.fillStyle = '#f59e0b';
             ctx.fill();
             
             ctx.beginPath();
-            ctx.moveTo(centerX, capY - 2 * scale);
-            ctx.lineTo(centerX, capY - 5 * scale);
+            ctx.moveTo(tasselX, tasselY - 2 * scale);
+            ctx.lineTo(tasselX + 5 * scale, tasselY - 5 * scale);
             ctx.strokeStyle = '#f59e0b';
             ctx.lineWidth = 1 * scale;
             ctx.stroke();
             
-            // Person's head (circle in book)
+            // Human figure/head - orange circle in book
             ctx.beginPath();
             ctx.arc(centerX, centerY, 8 * scale, 0, 2 * Math.PI);
             ctx.fillStyle = '#f59e0b';

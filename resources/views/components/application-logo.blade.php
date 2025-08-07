@@ -1,23 +1,33 @@
-<svg viewBox="0 0 120 60" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}>
-  <!-- Background circle -->
-  <circle cx="30" cy="30" r="25" fill="#1f2937" stroke="#f59e0b" stroke-width="1.5"/>
+<svg viewBox="0 0 150 60" xmlns="http://www.w3.org/2000/svg" {{ $attributes }}>
+  <!-- Graphic Icon Section -->
+  <g transform="translate(15, 10)">
+    <!-- Open Book - Dark blue with white outline -->
+    <path d="M15 20 L35 20 L35 30 L15 30 Z" fill="#1f2937" stroke="#ffffff" stroke-width="1"/>
+    <!-- Book spine -->
+    <path d="M15 20 L15 30" stroke="#ffffff" stroke-width="1"/>
+    <!-- Book pages with fold line -->
+    <path d="M15 20 L35 20 M15 25 L35 25 M15 30 L35 30" stroke="#ffffff" stroke-width="0.5" fill="none"/>
+    <path d="M25 20 L25 30" stroke="#ffffff" stroke-width="0.5" fill="none"/>
+    
+    <!-- Graduation Cap - Orange, positioned above book -->
+    <path d="M12 12 L38 12 L38 17 L12 17 Z" fill="#f59e0b"/>
+    <path d="M15 17 L35 17 L35 20 L15 20 Z" fill="#f59e0b"/>
+    <!-- Cap outline -->
+    <path d="M12 12 L38 12 L38 17 L12 17 Z" stroke="#1f2937" stroke-width="0.5" fill="none"/>
+    <path d="M15 17 L35 17 L35 20 L15 20 Z" stroke="#1f2937" stroke-width="0.5" fill="none"/>
+    
+    <!-- Tassel - Orange line extending from cap -->
+    <circle cx="35" cy="15" r="1" fill="#f59e0b"/>
+    <path d="M35 14 L38 12" stroke="#f59e0b" stroke-width="0.5"/>
+    
+    <!-- Human Figure/Head - Orange circle in book -->
+    <circle cx="25" cy="25" r="4" fill="#f59e0b"/>
+  </g>
   
-  <!-- Open book -->
-  <path d="M20 25 L40 25 L40 32 L20 32 Z" fill="#1f2937" stroke="#ffffff" stroke-width="0.5"/>
-  <path d="M20 25 L40 25 M20 28.5 L40 28.5 M20 32 L40 32" stroke="#ffffff" stroke-width="0.5" fill="none"/>
-  
-  <!-- Graduation cap -->
-  <path d="M22 18 L38 18 L38 22 L22 22 Z" fill="#f59e0b"/>
-  <path d="M25 22 L35 22 L35 25 L25 25 Z" fill="#f59e0b"/>
-  
-  <!-- Tassel -->
-  <circle cx="30" cy="18" r="1.5" fill="#f59e0b"/>
-  <path d="M30 16.5 L30 14" stroke="#f59e0b" stroke-width="0.5"/>
-  
-  <!-- Person's head (circle in book) -->
-  <circle cx="30" cy="28.5" r="6" fill="#f59e0b"/>
-  
-  <!-- Text: AfayiGuide -->
-  <text x="65" y="22" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f2937">Afayi</text>
-  <text x="65" y="37" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f59e0b">Guide</text>
+  <!-- Text Elements Section -->
+  <g transform="translate(75, 40)">
+    <!-- Brand Name: AfayiGuide -->
+    <text x="0" y="0" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#1f2937" text-anchor="middle">Afayi</text>
+    <text x="0" y="12" font-family="Arial, sans-serif" font-size="12" font-weight="bold" fill="#f59e0b" text-anchor="middle">Guide</text>
+  </g>
 </svg>

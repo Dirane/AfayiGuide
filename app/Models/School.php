@@ -93,4 +93,9 @@ class School extends Model
     {
         return $this->programs_offered ?? [];
     }
+
+    public function admissionApplications()
+    {
+        return $this->hasMany(AdmissionApplication::class);
+    }
 } 

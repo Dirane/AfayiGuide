@@ -5,6 +5,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\SchoolController;
 use App\Http\Controllers\PathfinderController;
 use App\Http\Controllers\MentorshipBookingController;
+use App\Http\Controllers\AdmissionApplicationController;
 
 use Illuminate\Support\Facades\Route;
 
@@ -16,14 +17,27 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// Schools
-Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index');
-Route::get('/schools/{school}', [SchoolController::class, 'show'])->name('schools.show');
+// Schools (require authentication)
+Route::middleware(['auth.content'])->group(function () {
+    Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index');
+    Route::get('/schools/{school}', [SchoolController::class, 'show'])->name('schools.show');
+});
 
-// Opportunities
-Route::get('/opportunities', function () {
-    return view('opportunities.index');
-})->name('opportunities.index');
+// Admission Applications
+Route::middleware(['auth'])->group(function () {
+    Route::get('/admission-applications', [AdmissionApplicationController::class, 'index'])->name('admission-applications.index');
+    Route::get('/admission-applications/create/{school}', [AdmissionApplicationController::class, 'create'])->name('admission-applications.create');
+    Route::post('/admission-applications/{school}', [AdmissionApplicationController::class, 'store'])->name('admission-applications.store');
+    Route::get('/admission-applications/{application}', [AdmissionApplicationController::class, 'show'])->name('admission-applications.show');
+    Route::post('/admission-applications/{application}/cancel', [AdmissionApplicationController::class, 'cancel'])->name('admission-applications.cancel');
+});
+
+// Opportunities (require authentication)
+Route::middleware(['auth.content'])->group(function () {
+    Route::get('/opportunities', function () {
+        return view('opportunities.index');
+    })->name('opportunities.index');
+});
 
 // Mentorship
 Route::middleware(['auth', 'mentorship.access'])->group(function () {
@@ -76,6 +90,10 @@ Route::middleware('auth')->group(function () {
         Route::resource('mentorship-bookings', App\Http\Controllers\Admin\MentorshipBookingController::class)->except(['create', 'store', 'edit', 'update']);
         Route::post('/mentorship-bookings/{booking}/assign-mentor', [App\Http\Controllers\Admin\MentorshipBookingController::class, 'assignMentor'])->name('mentorship-bookings.assign-mentor');
         Route::post('/mentorship-bookings/{booking}/update-status', [App\Http\Controllers\Admin\MentorshipBookingController::class, 'updateStatus'])->name('mentorship-bookings.update-status');
+        
+        // Admission Applications
+        Route::resource('admission-applications', App\Http\Controllers\Admin\AdmissionApplicationController::class)->except(['create', 'store', 'edit', 'update']);
+        Route::post('/admission-applications/{application}/update-status', [App\Http\Controllers\Admin\AdmissionApplicationController::class, 'updateStatus'])->name('admission-applications.update-status');
         
         Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
         Route::post('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');

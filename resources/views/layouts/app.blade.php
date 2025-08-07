@@ -53,6 +53,7 @@
                                 @if(auth()->user()->canViewOpportunities()) <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Opportunities</a> @endif
                                 @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">PathFinder</a> @endif
                                 @if(auth()->user()->canBookMentorship()) <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Mentorship</a> @endif
+                                @if(auth()->user()->isStudent()) <a href="{{ route('admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">My Applications</a> @endif
                                 
                             @else
                                 <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Schools</a>
@@ -117,6 +118,7 @@
                         @if(auth()->user()->canViewOpportunities()) <a href="{{ route('opportunities.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Opportunities</a> @endif
                         @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">PathFinder</a> @endif
                         @if(auth()->user()->canBookMentorship()) <a href="{{ route('mentorship.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Mentorship</a> @endif
+                        @if(auth()->user()->isStudent()) <a href="{{ route('admission-applications.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">My Applications</a> @endif
                         
                         <div class="border-t border-primary-700 pt-2 mt-2">
                             <a href="{{ route('profile.edit') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Profile</a>

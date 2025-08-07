@@ -63,6 +63,11 @@ class User extends Authenticatable
         return $this->hasMany(MentorshipBooking::class);
     }
 
+    public function admissionApplications()
+    {
+        return $this->hasMany(AdmissionApplication::class);
+    }
+
     // Role checks
     public function isStudent()
     {

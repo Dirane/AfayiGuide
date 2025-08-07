@@ -201,7 +201,14 @@
                         </a>
                     @endif
                     @auth
-                        
+                        @if(auth()->user()->isStudent())
+                            <a href="{{ route('admission-applications.create', $school) }}" class="block w-full btn-accent text-center">
+                                Apply for Admission
+                            </a>
+                            <a href="{{ route('admission-applications.index') }}" class="block w-full btn-outline text-center">
+                                My Applications
+                            </a>
+                        @endif
                     @else
                         <a href="{{ route('login') }}" class="block w-full btn-accent text-center">
                             Login to Request Assistance
