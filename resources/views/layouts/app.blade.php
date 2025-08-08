@@ -44,7 +44,7 @@
                             </a>
                         </div>
                         <!-- Desktop Navigation -->
-                        <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <div class="hidden xl:ml-6 xl:flex xl:space-x-8">
                             <a href="{{ route('home') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Home</a>
                             @auth
                                 @if(auth()->user()->isAdmin())
@@ -57,7 +57,6 @@
                                 @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">PathFinder</a> @endif
                                 @if(auth()->user()->canBookMentorship()) <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Mentorship</a> @endif
                                 @if(auth()->user()->isStudent()) <a href="{{ route('admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">My Requests</a> @endif
-                                
                             @else
                                 <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Schools</a>
                                 <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Opportunities</a>
@@ -66,51 +65,110 @@
                             @endauth
                         </div>
                     </div>
-                    <!-- User Menu -->
-                    <div class="flex items-center">
+                    
+                    <!-- User Menu & Mobile Button -->
+                    <div class="flex items-center space-x-4">
                         @auth
-                            <div class="relative">
-                                <button @click="userMenuOpen = !userMenuOpen" class="flex items-center text-white hover:text-accent transition-colors">
+                            <!-- Desktop User Menu -->
+                            <div class="hidden xl:block relative">
+                                <button @click="userMenuOpen = !userMenuOpen" class="flex items-center text-white hover:text-accent transition-colors focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-primary rounded-md p-1">
                                     <div class="flex-shrink-0 h-8 w-8 bg-accent rounded-full flex items-center justify-center">
                                         <span class="text-white text-sm font-medium">{{ substr(auth()->user()->name, 0, 1) }}</span>
                                     </div>
-                                    <span class="ml-2 text-sm font-medium hidden sm:block">{{ auth()->user()->name }}</span>
-                                    <svg class="ml-2 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                                    <span class="ml-2 text-sm font-medium">{{ auth()->user()->name }}</span>
+                                    <svg class="ml-2 h-4 w-4 transition-transform duration-200" :class="{ 'rotate-180': userMenuOpen }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                                    </svg>
                                 </button>
-                                <div x-show="userMenuOpen" @click.away="userMenuOpen = false" x-transition:enter="transition ease-out duration-100" x-transition:enter-start="transform opacity-0 scale-95" x-transition:enter-end="transform opacity-100 scale-100" x-transition:leave="transition ease-in duration-75" x-transition:leave-start="transform opacity-100 scale-100" x-transition:leave-end="transform opacity-0 scale-95" class="absolute right-0 mt-2 w-48 bg-white rounded-md shadow-lg py-1 z-50">
-                                    @if(auth()->user()->isAdmin())
-                                        <a href="{{ route('admin.dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Admin Dashboard</a>
-                                    @else
-                                        <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">{{ auth()->user()->getDashboardTitle() }}</a>
-                                    @endif
-                                    <a href="{{ route('profile.edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Profile</a>
-                                    <form method="POST" action="{{ route('logout') }}">@csrf<button type="submit" class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button></form>
+                                <div x-show="userMenuOpen" 
+                                     x-cloak
+                                     @click.away="userMenuOpen = false" 
+                                     x-transition:enter="transition ease-out duration-100" 
+                                     x-transition:enter-start="transform opacity-0 scale-95" 
+                                     x-transition:enter-end="transform opacity-100 scale-100" 
+                                     x-transition:leave="transition ease-in duration-75" 
+                                     x-transition:leave-start="transform opacity-100 scale-100" 
+                                     x-transition:leave-end="transform opacity-0 scale-95" 
+                                     class="absolute right-0 mt-2 w-56 bg-white rounded-md shadow-lg py-1 z-50 border border-gray-200">
+                                    <!-- User Info Header -->
+                                    <div class="px-4 py-3 border-b border-gray-200">
+                                        <div class="text-sm font-medium text-gray-900">{{ auth()->user()->name }}</div>
+                                        <div class="text-sm text-gray-500">{{ auth()->user()->email }}</div>
+                                    </div>
+                                    
+                                    <!-- Menu Items -->
+                                    <div class="py-1">
+                                        @if(auth()->user()->isAdmin())
+                                            <a href="{{ route('admin.dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                                <svg class="mr-3 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                                </svg>
+                                                Admin Dashboard
+                                            </a>
+                                        @else
+                                            <a href="{{ route('dashboard') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                                <svg class="mr-3 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                                                </svg>
+                                                {{ auth()->user()->getDashboardTitle() }}
+                                            </a>
+                                        @endif
+                                        
+                                        <a href="{{ route('profile.edit') }}" class="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors">
+                                            <svg class="mr-3 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                            </svg>
+                                            Profile Settings
+                                        </a>
+                                        
+                                        <div class="border-t border-gray-200 my-1"></div>
+                                        
+                                        <form method="POST" action="{{ route('logout') }}">
+                                            @csrf
+                                            <button type="submit" class="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors">
+                                                <svg class="mr-3 h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                                </svg>
+                                                Sign Out
+                                            </button>
+                                        </form>
+                                    </div>
                                 </div>
                             </div>
                         @else
-                            <div class="hidden md:flex items-center space-x-4">
-                                <a href="{{ route('register') }}" class="text-white hover:text-accent transition-colors">Register</a>
-                                <a href="{{ route('login') }}" class="btn-accent">Login</a>
+                            <!-- Desktop Auth Links -->
+                            <div class="hidden xl:flex items-center space-x-4">
+                                <a href="{{ route('register') }}" class="text-white hover:text-accent transition-colors text-sm font-medium">Register</a>
+                                <a href="{{ route('login') }}" class="bg-accent text-white px-4 py-2 rounded-md text-sm font-medium hover:bg-accent-800 transition-colors">Login</a>
                             </div>
                         @endauth
-                    </div>
-                    <!-- Mobile menu button -->
-                    <div class="md:hidden flex items-center">
-                        <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-accent transition-colors p-2 rounded-md">
-                            <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-                            </svg>
-                            <svg x-show="mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-                            </svg>
-                        </button>
+                        
+                        <!-- Mobile menu button -->
+                        <div class="xl:hidden">
+                            <button @click="mobileMenuOpen = !mobileMenuOpen" class="text-white hover:text-accent transition-colors p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-white">
+                                <svg x-show="!mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                                </svg>
+                                <svg x-show="mobileMenuOpen" class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
 
             <!-- Mobile menu -->
-            <div x-show="mobileMenuOpen" class="md:hidden">
-                <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <div x-show="mobileMenuOpen" 
+                 x-transition:enter="transition ease-out duration-200" 
+                 x-transition:enter-start="opacity-0 -translate-y-1" 
+                 x-transition:enter-end="opacity-100 translate-y-0" 
+                 x-transition:leave="transition ease-in duration-150" 
+                 x-transition:leave-start="opacity-100 translate-y-0" 
+                 x-transition:leave-end="opacity-0 -translate-y-1" 
+                 class="xl:hidden bg-primary-800 border-t border-primary-700">
+                <div class="px-2 pt-2 pb-3 space-y-1">
                     <a href="{{ route('home') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Home</a>
                     @auth
                         @if(auth()->user()->isAdmin())
@@ -118,37 +176,99 @@
                         @else
                             <a href="{{ route('dashboard') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">{{ auth()->user()->getDashboardTitle() }}</a>
                         @endif
-                        @if(auth()->user()->canViewSchools()) <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Schools</a> @endif
-                        @if(auth()->user()->canViewOpportunities()) <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Opportunities</a> @endif
-                        @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">PathFinder</a> @endif
-                        @if(auth()->user()->canBookMentorship()) <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Mentorship</a> @endif
-                        @if(auth()->user()->isStudent()) <a href="{{ route('admission-applications.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">My Requests</a> @endif
+                        @if(auth()->user()->canViewSchools()) 
+                            <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Schools</a> 
+                        @endif
+                        @if(auth()->user()->canViewOpportunities()) 
+                            <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Opportunities</a> 
+                        @endif
+                        @if(auth()->user()->canUsePathfinder()) 
+                            <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">PathFinder</a> 
+                        @endif
+                        @if(auth()->user()->canBookMentorship()) 
+                            <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Mentorship</a> 
+                        @endif
+                        @if(auth()->user()->isStudent()) 
+                            <a href="{{ route('admission-applications.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">My Requests</a> 
+                        @endif
+                        
+                        <!-- Mobile User Section -->
+                        <div class="border-t border-primary-700 pt-4 mt-4">
+                            <div class="flex items-center px-3 py-2">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 bg-accent rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">{{ substr(auth()->user()->name, 0, 1) }}</span>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <div class="text-base font-medium text-white">{{ auth()->user()->name }}</div>
+                                    <div class="text-sm font-medium text-primary-200">{{ auth()->user()->email }}</div>
+                                </div>
+                            </div>
+                            <div class="mt-3 space-y-1">
+                                @if(auth()->user()->isAdmin())
+                                    <a href="{{ route('admin.dashboard') }}" class="flex items-center text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">
+                                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                                        </svg>
+                                        Admin Dashboard
+                                    </a>
+                                @else
+                                    <a href="{{ route('dashboard') }}" class="flex items-center text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">
+                                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2H5a2 2 0 00-2-2z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5a2 2 0 012-2h4a2 2 0 012 2v6H8V5z"></path>
+                                        </svg>
+                                        {{ auth()->user()->getDashboardTitle() }}
+                                    </a>
+                                @endif
+                                
+                                <a href="{{ route('profile.edit') }}" class="flex items-center text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">
+                                    <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
+                                    </svg>
+                                    Profile Settings
+                                </a>
+                                
+                                <div class="border-t border-primary-600 my-2"></div>
+                                
+                                <form method="POST" action="{{ route('logout') }}">
+                                    @csrf
+                                    <button type="submit" class="flex items-center w-full text-left text-red-300 hover:text-red-200 transition-colors px-3 py-2 rounded-md text-base font-medium">
+                                        <svg class="mr-3 h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+                                        </svg>
+                                        Sign Out
+                                    </button>
+                                </form>
+                            </div>
+                        </div>
                     @else
                         <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Schools</a>
                         <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Opportunities</a>
                         <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">PathFinder</a>
                         <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Mentorship</a>
-                    @endauth
-                </div>
-                @guest
-                <div class="pt-4 pb-3 border-t border-primary-700">
-                    <div class="flex items-center px-5">
-                        <div class="flex-shrink-0">
-                            <div class="h-10 w-10 bg-accent rounded-full flex items-center justify-center">
-                                <span class="text-white text-sm font-medium">G</span>
+                        
+                        <!-- Mobile Guest Section -->
+                        <div class="border-t border-primary-700 pt-4 mt-4">
+                            <div class="flex items-center px-3 py-2">
+                                <div class="flex-shrink-0">
+                                    <div class="h-10 w-10 bg-accent rounded-full flex items-center justify-center">
+                                        <span class="text-white text-sm font-medium">G</span>
+                                    </div>
+                                </div>
+                                <div class="ml-3">
+                                    <div class="text-base font-medium text-white">Guest</div>
+                                    <div class="text-sm font-medium text-primary-200">Welcome to AfayiGuide</div>
+                                </div>
+                            </div>
+                            <div class="mt-3 space-y-1">
+                                <a href="{{ route('login') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Login</a>
+                                <a href="{{ route('register') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Register</a>
                             </div>
                         </div>
-                        <div class="ml-3">
-                            <div class="text-base font-medium text-white">Guest</div>
-                            <div class="text-sm font-medium text-primary-200">Welcome to AfayiGuide</div>
-                        </div>
-                    </div>
-                    <div class="mt-3 px-2 space-y-1">
-                        <a href="{{ route('login') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Login</a>
-                        <a href="{{ route('register') }}" class="text-white hover:text-accent transition-colors block px-3 py-2 rounded-md text-base font-medium">Register</a>
-                    </div>
+                    @endauth
                 </div>
-                @endguest
             </div>
         </nav>
 
