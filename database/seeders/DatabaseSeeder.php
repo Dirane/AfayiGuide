@@ -36,11 +36,9 @@ class DatabaseSeeder extends Seeder
             'role' => 'student',
         ]);
 
-        // Seed programs, opportunities, mentors, and schools
+        // Seed opportunities, mentors, and schools
         $this->call([
-            ProgramSeeder::class,
             OpportunitySeeder::class,
-            MentorSeeder::class,
             SchoolSeeder::class,
         ]);
     }

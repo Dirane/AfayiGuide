@@ -54,9 +54,9 @@
                             <a href="{{ route('admin.mentorship-bookings.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
                                 Mentorship
                             </a>
-                            <a href="{{ route('admin.admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
-                                Applications
-                            </a>
+                                            <a href="{{ route('admin.admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
+                    Application Requests
+                </a>
                             <a href="{{ route('admin.settings.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
                                 Settings
                             </a>
@@ -113,7 +113,7 @@
                     <a href="{{ route('admin.mentors.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Mentors</a>
                     <a href="{{ route('admin.assessments.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Assessments</a>
                     <a href="{{ route('admin.mentorship-bookings.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Mentorship</a>
-                    <a href="{{ route('admin.admission-applications.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Applications</a>
+                                                <a href="{{ route('admin.admission-applications.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Application Requests</a>
                     <a href="{{ route('admin.settings.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Settings</a>
                     
                     <div class="border-t border-primary-700 pt-2 mt-2">

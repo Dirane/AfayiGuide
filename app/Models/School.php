@@ -25,6 +25,10 @@ class School extends Model
         'required_documents',
         'programs_offered',
         'is_active',
+        'application_fee',
+        'tuition_fee_min',
+        'tuition_fee_max',
+        'currency',
     ];
 
     protected $casts = [
@@ -33,6 +37,9 @@ class School extends Model
         'required_documents' => 'array',
         'programs_offered' => 'array',
         'is_active' => 'boolean',
+        'application_fee' => 'decimal:2',
+        'tuition_fee_min' => 'decimal:2',
+        'tuition_fee_max' => 'decimal:2',
     ];
 
     // Scopes
@@ -97,5 +104,42 @@ class School extends Model
     public function admissionApplications()
     {
         return $this->hasMany(AdmissionApplication::class);
+    }
+
+    public function getFormattedApplicationFeeAttribute()
+    {
+        if (!$this->application_fee) {
+            return 'Not specified';
+        }
+        return number_format($this->application_fee, 0) . ' ' . $this->currency;
+    }
+
+    public function getFormattedTuitionRangeAttribute()
+    {
+        if (!$this->tuition_fee_min && !$this->tuition_fee_max) {
+            return 'Not specified';
+        }
+        
+        if ($this->tuition_fee_min && $this->tuition_fee_max) {
+            if ($this->tuition_fee_min == $this->tuition_fee_max) {
+                            return number_format($this->tuition_fee_min, 0) . ' ' . $this->currency;
+        }
+        return number_format($this->tuition_fee_min, 0) . ' - ' . number_format($this->tuition_fee_max, 0) . ' ' . $this->currency;
+        }
+        
+        if ($this->tuition_fee_min) {
+            return 'From ' . number_format($this->tuition_fee_min, 0) . ' ' . $this->currency;
+        }
+        
+        if ($this->tuition_fee_max) {
+            return 'Up to ' . number_format($this->tuition_fee_max, 0) . ' ' . $this->currency;
+        }
+        
+        return 'Not specified';
+    }
+
+    public function hasFeeInformation()
+    {
+        return $this->application_fee || $this->tuition_fee_min || $this->tuition_fee_max;
     }
 } 

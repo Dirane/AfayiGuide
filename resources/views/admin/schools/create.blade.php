@@ -125,6 +125,62 @@
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        <div>
+                            <label for="currency" class="block text-sm font-medium text-gray-700">Currency *</label>
+                            <select name="currency" id="currency" required
+                                    class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">
+                                <option value="">Select Currency</option>
+                                <option value="XAF" {{ old('currency', 'XAF') == 'XAF' ? 'selected' : '' }}>XAF (Central African CFA franc)</option>
+                                <option value="USD" {{ old('currency') == 'USD' ? 'selected' : '' }}>USD (US Dollar)</option>
+                                <option value="EUR" {{ old('currency') == 'EUR' ? 'selected' : '' }}>EUR (Euro)</option>
+                            </select>
+                            @error('currency')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Fee Information -->
+                <div class="mt-8 space-y-6">
+                    <h3 class="text-lg font-semibold text-gray-900">Fee Information</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <div>
+                            <label for="application_fee" class="block text-sm font-medium text-gray-700">Application Fee</label>
+                            <input type="number" name="application_fee" id="application_fee" value="{{ old('application_fee') }}" min="0" step="0.01"
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                   placeholder="e.g., 25000">
+                            <p class="mt-1 text-sm text-gray-500">Leave empty if not specified</p>
+                            @error('application_fee')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="tuition_fee_min" class="block text-sm font-medium text-gray-700">Minimum Tuition Fee</label>
+                            <input type="number" name="tuition_fee_min" id="tuition_fee_min" value="{{ old('tuition_fee_min') }}" min="0" step="0.01"
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                   placeholder="e.g., 150000">
+                            <p class="mt-1 text-sm text-gray-500">Leave empty if not specified</p>
+                            @error('tuition_fee_min')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+
+                        <div>
+                            <label for="tuition_fee_max" class="block text-sm font-medium text-gray-700">Maximum Tuition Fee</label>
+                            <input type="number" name="tuition_fee_max" id="tuition_fee_max" value="{{ old('tuition_fee_max') }}" min="0" step="0.01"
+                                   class="mt-1 block w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary"
+                                   placeholder="e.g., 250000">
+                            <p class="mt-1 text-sm text-gray-500">Leave empty if not specified</p>
+                            @error('tuition_fee_max')
+                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                            @enderror
+                        </div>
+                    </div>
+                </div>
                     </div>
                 </div>
 

@@ -1,159 +1,146 @@
 <x-guest-layout>
-    <div class="min-h-screen flex items-center justify-center bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
-        <div class="max-w-md w-full space-y-6">
-            <div>
-                <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
-                    Create your account
-                </h2>
-                <p class="mt-2 text-center text-sm text-gray-600">
-                    Join AfayiGuide to start your educational journey
-                </p>
-            </div>
-
-            <form method="POST" action="{{ route('register') }}" class="mt-6 space-y-4">
-                @csrf
-
-                <!-- Full Name -->
-                <div>
-                    <label for="full_name" class="block text-sm font-medium text-gray-700">Full Name *</label>
-                    <input id="full_name" name="full_name" type="text" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           value="{{ old('full_name') }}" placeholder="Enter your full name">
-                    @error('full_name')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Username/Display Name -->
-                <div>
-                    <label for="name" class="block text-sm font-medium text-gray-700">Username *</label>
-                    <input id="name" name="name" type="text" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           value="{{ old('name') }}" placeholder="Choose a username">
-                    @error('name')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Email Address -->
-                <div>
-                    <label for="email" class="block text-sm font-medium text-gray-700">Email Address *</label>
-                    <input id="email" name="email" type="email" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           value="{{ old('email') }}" placeholder="Enter your email address">
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- WhatsApp Number -->
-                <div>
-                    <label for="whatsapp_number" class="block text-sm font-medium text-gray-700">WhatsApp Number *</label>
-                    <input id="whatsapp_number" name="whatsapp_number" type="tel" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           value="{{ old('whatsapp_number') }}" placeholder="e.g., +237 6XX XXX XXX">
-                    <p class="mt-1 text-xs text-gray-500">This will be used for mentorship sessions</p>
-                    @error('whatsapp_number')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Academic Level -->
-                <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-2">Academic Level *</label>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
-                            <input type="radio" name="academic_level" value="advanced_level" 
-                                   class="mr-2" {{ old('academic_level') == 'advanced_level' ? 'checked' : '' }} required>
-                            <span class="text-sm text-gray-700">Advanced Level</span>
-                        </label>
-                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
-                            <input type="radio" name="academic_level" value="hnd" 
-                                   class="mr-2" {{ old('academic_level') == 'hnd' ? 'checked' : '' }}>
-                            <span class="text-sm text-gray-700">HND Holder</span>
-                        </label>
-                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
-                            <input type="radio" name="academic_level" value="degree" 
-                                   class="mr-2" {{ old('academic_level') == 'degree' ? 'checked' : '' }}>
-                            <span class="text-sm text-gray-700">Degree Holder</span>
-                        </label>
-                        <label class="flex items-center p-2 border border-gray-200 rounded-md hover:bg-gray-50 cursor-pointer">
-                            <input type="radio" name="academic_level" value="other" 
-                                   class="mr-2" {{ old('academic_level') == 'other' ? 'checked' : '' }}>
-                            <span class="text-sm text-gray-700">Other</span>
-                        </label>
-                    </div>
-                    @error('academic_level')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Interests -->
-                <div>
-                    <label for="interests" class="block text-sm font-medium text-gray-700">Areas of Interest (Optional)</label>
-                    <textarea id="interests" name="interests" rows="3" 
-                              class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                              placeholder="e.g., Computer Science, Business, Medicine, Engineering...">{{ old('interests') }}</textarea>
-                    <p class="mt-1 text-xs text-gray-500">This helps us provide better recommendations</p>
-                    @error('interests')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Password -->
-                <div>
-                    <label for="password" class="block text-sm font-medium text-gray-700">Password *</label>
-                    <input id="password" name="password" type="password" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           placeholder="Create a strong password">
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Confirm Password -->
-                <div>
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700">Confirm Password *</label>
-                    <input id="password_confirmation" name="password_confirmation" type="password" required 
-                           class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-primary focus:border-primary"
-                           placeholder="Confirm your password">
-                    @error('password_confirmation')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <!-- Information Box -->
-                <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
-                    <div class="flex items-start">
-                        <div class="flex-shrink-0">
-                            <svg class="h-5 w-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-                            </svg>
-                        </div>
-                        <div class="ml-3">
-                            <h3 class="text-sm font-medium text-blue-800">Why we collect this information</h3>
-                            <div class="mt-2 text-sm text-blue-700">
-                                <ul class="list-disc list-inside space-y-1">
-                                    <li>WhatsApp number for mentorship sessions</li>
-                                    <li>Academic level for personalized recommendations</li>
-                                    <li>Interests to suggest relevant programs</li>
-                                    <li>All information is kept secure and private</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="flex flex-col sm:flex-row items-center justify-between space-y-4 sm:space-y-0">
-                    <a class="text-sm text-primary hover:text-primary-dark underline" href="{{ route('login') }}">
-                        Already have an account?
-                    </a>
-
-                    <button type="submit" class="w-full sm:w-auto bg-primary hover:bg-primary-dark text-white font-bold py-3 px-8 rounded-md transition-colors">
-                        Create Account
-                    </button>
-                </div>
-            </form>
-        </div>
+    <!-- Header -->
+    <div class="text-center mb-6">
+        <h2 class="text-2xl font-bold text-gray-900 mb-2">Create your account</h2>
+        <p class="text-gray-600">Join AfayiGuide to start your journey to the next level</p>
     </div>
+
+    <form method="POST" action="{{ route('register') }}" class="space-y-6">
+        @csrf
+
+        <!-- Logo Placeholder -->
+        <div class="text-center mb-6">
+            <div class="flex justify-center mb-2">
+                <img src="{{ asset('images/Logo_afayiguide.png') }}" alt="AfayiGuide Logo" class="w-32 h-32 mx-auto drop-shadow-lg bg-white rounded-full border-4 border-primary p-2">
+            </div>
+            <p class="text-lg font-bold text-primary">AfayiGuide</p>
+        </div>
+
+        <!-- Full Name -->
+        <div>
+            <x-input-label for="full_name" :value="__('Full Name')" class="text-gray-700 font-medium" />
+            <x-text-input id="full_name" name="full_name" type="text" required 
+                         class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                         value="{{ old('full_name') }}" placeholder="Enter your full name" />
+            <x-input-error :messages="$errors->get('full_name')" class="mt-2" />
+        </div>
+
+        <!-- Username/Display Name -->
+        <div>
+            <x-input-label for="name" :value="__('Username')" class="text-gray-700 font-medium" />
+            <x-text-input id="name" name="name" type="text" required 
+                         class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                         value="{{ old('name') }}" placeholder="Choose a username" />
+            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+        </div>
+
+        <!-- Email Address -->
+        <div>
+            <x-input-label for="email" :value="__('Email Address')" class="text-gray-700 font-medium" />
+            <x-text-input id="email" name="email" type="email" required 
+                         class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                         value="{{ old('email') }}" placeholder="Enter your email address" />
+            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+        </div>
+
+        <!-- WhatsApp Number -->
+        <div>
+            <x-input-label for="whatsapp_number" :value="__('WhatsApp Number')" class="text-gray-700 font-medium" />
+            <x-text-input id="whatsapp_number" name="whatsapp_number" type="tel" required 
+                         class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                         value="{{ old('whatsapp_number') }}" placeholder="e.g., +237 6XX XXX XXX" />
+            <p class="mt-1 text-xs text-gray-500">This will be used for mentorship sessions</p>
+            <x-input-error :messages="$errors->get('whatsapp_number')" class="mt-2" />
+        </div>
+
+        <!-- Academic Level -->
+        <div>
+            <x-input-label for="academic_level" :value="__('Academic Level')" class="text-gray-700 font-medium" />
+            <div class="mt-1 grid grid-cols-1 sm:grid-cols-2 gap-2">
+                <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors duration-200">
+                    <input type="radio" name="academic_level" value="advanced_level" 
+                           class="mr-2 text-primary focus:ring-primary" {{ old('academic_level') == 'advanced_level' ? 'checked' : '' }} required>
+                    <span class="text-sm text-gray-700">Advanced Level</span>
+                </label>
+                <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors duration-200">
+                    <input type="radio" name="academic_level" value="hnd" 
+                           class="mr-2 text-primary focus:ring-primary" {{ old('academic_level') == 'hnd' ? 'checked' : '' }}>
+                    <span class="text-sm text-gray-700">HND Holder</span>
+                </label>
+                <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors duration-200">
+                    <input type="radio" name="academic_level" value="degree" 
+                           class="mr-2 text-primary focus:ring-primary" {{ old('academic_level') == 'degree' ? 'checked' : '' }}>
+                    <span class="text-sm text-gray-700">Degree Holder</span>
+                </label>
+                <label class="flex items-center p-3 border border-gray-200 rounded-lg hover:bg-gray-50 cursor-pointer transition-colors duration-200">
+                    <input type="radio" name="academic_level" value="other" 
+                           class="mr-2 text-primary focus:ring-primary" {{ old('academic_level') == 'other' ? 'checked' : '' }}>
+                    <span class="text-sm text-gray-700">Other</span>
+                </label>
+            </div>
+            <x-input-error :messages="$errors->get('academic_level')" class="mt-2" />
+        </div>
+
+        <!-- Interests -->
+        <div>
+            <x-input-label for="interests" :value="__('Areas of Interest (Optional)')" class="text-gray-700 font-medium" />
+            <textarea id="interests" name="interests" rows="3" 
+                      class="mt-1 block w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                      placeholder="e.g., Computer Science, Business, Medicine, Engineering...">{{ old('interests') }}</textarea>
+            <p class="mt-1 text-xs text-gray-500">This helps us provide better recommendations</p>
+            <x-input-error :messages="$errors->get('interests')" class="mt-2" />
+        </div>
+
+        <!-- Password -->
+        <div>
+            <x-input-label for="password" :value="__('Password')" class="text-gray-700 font-medium" />
+            <x-text-input id="password" name="password" type="password" required 
+                         class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                         placeholder="Create a strong password" />
+            <p class="mt-1 text-xs text-gray-500">Minimum 8 characters</p>
+            <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+        <!-- Confirm Password -->
+        <div>
+            <x-input-label for="password_confirmation" :value="__('Confirm Password')" class="text-gray-700 font-medium" />
+            <x-text-input id="password_confirmation" name="password_confirmation" type="password" required 
+                         class="block mt-1 w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all duration-200"
+                         placeholder="Confirm your password" />
+            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        </div>
+
+        <!-- Terms and Conditions -->
+        <div class="flex items-start">
+            <div class="flex items-center h-5">
+                <input id="terms" name="terms" type="checkbox" required
+                       class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary text-primary"
+                       {{ old('terms') ? 'checked' : '' }}>
+            </div>
+            <div class="ml-3 text-sm">
+                <label for="terms" class="font-medium text-gray-700">I agree to the</label>
+                <a href="#" class="text-primary hover:text-primary-800 underline">Terms and Conditions</a>
+                <span class="text-gray-700"> and </span>
+                <a href="#" class="text-primary hover:text-primary-800 underline">Privacy Policy</a>
+            </div>
+        </div>
+        <x-input-error :messages="$errors->get('terms')" class="mt-2" />
+
+        <!-- Register Button -->
+        <div>
+            <button type="submit" class="w-full bg-primary text-white px-6 py-3 rounded-lg font-semibold hover:bg-primary-800 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary">
+                Create Account
+            </button>
+        </div>
+
+        <!-- Login Link -->
+        <div class="text-center">
+            <p class="text-sm text-gray-600">
+                Already have an account?
+                <a href="{{ route('login') }}" class="font-medium text-primary hover:text-primary-800 underline">
+                    Sign in here
+                </a>
+            </p>
+        </div>
+    </form>
 </x-guest-layout>

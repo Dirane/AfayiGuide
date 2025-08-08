@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
-@section('title', 'Admission Applications')
-@section('description', 'Manage admission applications from students')
+@section('title', 'Application Requests')
+@section('description', 'Manage student application requests')
 
 @section('content')
 <div class="py-12">
@@ -9,14 +9,14 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">Admission Applications</h2>
+                    <h2 class="text-2xl font-bold text-gray-900">Application Requests</h2>
                 </div>
 
                 <!-- Statistics -->
                 <div class="grid grid-cols-1 md:grid-cols-6 gap-4 mb-6">
                     <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
                         <div class="text-2xl font-bold text-blue-900">{{ $stats['total'] }}</div>
-                        <div class="text-sm text-blue-600">Total Applications</div>
+                        <div class="text-sm text-blue-600">Total Requests</div>
                     </div>
                     <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
                         <div class="text-2xl font-bold text-yellow-900">{{ $stats['pending'] }}</div>

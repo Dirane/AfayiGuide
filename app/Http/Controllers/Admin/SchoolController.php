@@ -37,7 +37,16 @@ class SchoolController extends Controller
             'required_documents' => 'nullable|array',
             'programs_offered' => 'nullable|array',
             'is_active' => 'boolean',
+            'application_fee' => 'nullable|numeric|min:0',
+            'tuition_fee_min' => 'nullable|numeric|min:0',
+            'tuition_fee_max' => 'nullable|numeric|min:0|gte:tuition_fee_min',
+            'currency' => 'nullable|string|max:3',
         ]);
+
+        // Set default currency if not provided
+        if (!isset($validated['currency'])) {
+            $validated['currency'] = 'XAF';
+        }
 
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('schools', 'public');
@@ -76,7 +85,16 @@ class SchoolController extends Controller
             'required_documents' => 'nullable|array',
             'programs_offered' => 'nullable|array',
             'is_active' => 'boolean',
+            'application_fee' => 'nullable|numeric|min:0',
+            'tuition_fee_min' => 'nullable|numeric|min:0',
+            'tuition_fee_max' => 'nullable|numeric|min:0|gte:tuition_fee_min',
+            'currency' => 'nullable|string|max:3',
         ]);
+
+        // Set default currency if not provided
+        if (!isset($validated['currency'])) {
+            $validated['currency'] = 'XAF';
+        }
 
         if ($request->hasFile('image')) {
             // Delete old image

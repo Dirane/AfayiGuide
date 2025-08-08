@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Application Details')
+@section('title', 'Application Request Details')
 
 @section('content')
 <div class="py-12">
@@ -8,9 +8,9 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">Application Details</h2>
+                    <h2 class="text-2xl font-bold text-gray-900">Application Request Details</h2>
                     <a href="{{ route('admission-applications.index') }}" class="text-primary hover:text-primary-dark">
-                        ← Back to Applications
+                        ← Back to My Requests
                     </a>
                 </div>
 

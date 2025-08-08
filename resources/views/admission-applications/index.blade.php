@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'My Admission Applications')
+@section('title', 'My Application Requests')
 
 @section('content')
 <div class="py-12">
@@ -8,7 +8,7 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">My Admission Applications</h2>
+                    <h2 class="text-2xl font-bold text-gray-900">My Application Requests</h2>
                     <a href="{{ route('schools.index') }}" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">
                         Browse Schools
                     </a>
@@ -77,8 +77,8 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                             </svg>
                         </div>
-                        <h3 class="text-lg font-medium text-gray-900 mb-2">No applications yet</h3>
-                        <p class="text-gray-500 mb-6">Start your educational journey by applying to schools through our service.</p>
+                        <h3 class="text-lg font-medium text-gray-900 mb-2">No application requests yet</h3>
+                        <p class="text-gray-500 mb-6">Start your educational journey by letting us apply to schools on your behalf.</p>
                         <a href="{{ route('schools.index') }}" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-4 rounded">
                             Browse Schools
                         </a>

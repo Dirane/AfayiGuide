@@ -95,6 +95,54 @@
                 </div>
             </div>
 
+            <!-- Fee Information -->
+            @if($school->hasFeeInformation())
+                <div class="card">
+                    <h3 class="text-xl font-semibold mb-4">Fee Information</h3>
+                    <div class="space-y-4">
+                        @if($school->application_fee)
+                            <div class="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-blue-900">Application Fee</h4>
+                                        <p class="text-sm text-blue-700">One-time fee for processing your application</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-2xl font-bold text-blue-900">{{ $school->formatted_application_fee }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        
+                        @if($school->tuition_fee_min || $school->tuition_fee_max)
+                            <div class="bg-green-50 border border-green-200 rounded-lg p-4">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <h4 class="font-medium text-green-900">Tuition Fees</h4>
+                                        <p class="text-sm text-green-700">Annual tuition fees for programs</p>
+                                    </div>
+                                    <div class="text-right">
+                                        <div class="text-2xl font-bold text-green-900">{{ $school->formatted_tuition_range }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        
+                        <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
+                            <div class="flex items-start">
+                                <svg class="w-5 h-5 text-yellow-600 mr-2 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                                </svg>
+                                <div>
+                                    <h4 class="font-medium text-yellow-900">Important Note</h4>
+                                    <p class="text-sm text-yellow-800">Fees may vary by program and academic year. Contact the school directly for the most current information.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endif
+
             <!-- Admission Requirements -->
             @if($school->admission_requirements)
                 <div class="card">
@@ -203,15 +251,15 @@
                     @auth
                         @if(auth()->user()->isStudent())
                             <a href="{{ route('admission-applications.create', $school) }}" class="block w-full btn-accent text-center">
-                                Apply for Admission
+                                Let Us Apply For You
                             </a>
                             <a href="{{ route('admission-applications.index') }}" class="block w-full btn-outline text-center">
-                                My Applications
+                                My Requests
                             </a>
                         @endif
                     @else
                         <a href="{{ route('login') }}" class="block w-full btn-accent text-center">
-                            Login to Request Assistance
+                            Login to Get Application Help
                         </a>
                     @endauth
                 </div>

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Apply for Admission - ' . $school->name)
+@section('title', 'Let Us Apply For You - ' . $school->name)
 
 @section('content')
 <div class="py-12">
@@ -8,8 +8,8 @@
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
             <div class="p-6 text-gray-900">
                 <div class="mb-6">
-                    <h2 class="text-2xl font-bold text-gray-900">Apply for Admission</h2>
-                    <p class="text-gray-600 mt-2">Let us handle your admission application to {{ $school->name }}</p>
+                    <h2 class="text-2xl font-bold text-gray-900">Let Us Apply For You</h2>
+                    <p class="text-gray-600 mt-2">We'll handle your entire admission application to {{ $school->name }} on your behalf</p>
                 </div>
 
                 <!-- School Information -->
@@ -35,12 +35,13 @@
 
                 <!-- Service Information -->
                 <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
-                    <h3 class="text-lg font-semibold text-blue-900 mb-2">Our Service</h3>
+                    <h3 class="text-lg font-semibold text-blue-900 mb-2">What We Do For You</h3>
                     <ul class="text-sm text-blue-800 space-y-1">
-                        <li>• We handle the entire admission application process</li>
-                        <li>• We ensure all required documents are properly submitted</li>
-                        <li>• We follow up with the school on your behalf</li>
-                        <li>• We keep you updated on the application status</li>
+                        <li>• Complete the entire admission application process for you</li>
+                        <li>• Collect and submit all required documents to the school</li>
+                        <li>• Follow up with the school administration on your behalf</li>
+                        <li>• Keep you updated on your application status via WhatsApp</li>
+                        <li>• Handle all communication with the school</li>
                         <li>• Service fee: 15% of the program fee</li>
                     </ul>
                 </div>

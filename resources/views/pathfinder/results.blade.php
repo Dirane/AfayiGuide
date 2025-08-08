@@ -1,14 +1,14 @@
 @extends('layouts.app')
 
-@section('title', 'Your PathFinder Results')
+@section('title', 'Your PathFinder Results - Your Gateway to the Next Level')
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="text-center mb-8">
-            <h1 class="text-4xl font-bold text-gray-900 mb-4">🎯 Your Personalized Recommendations</h1>
-            <p class="text-xl text-gray-600">Based on your PathFinder assessment, here are our tailored recommendations for your academic and career journey.</p>
+            <h1 class="text-4xl font-bold text-gray-900 mb-4">🎯 Your Personalized Next Level Plan</h1>
+            <p class="text-xl text-gray-600">Based on your PathFinder assessment, here are our tailored recommendations to help you reach the next level through the right educational choices.</p>
         </div>
 
         @if(isset($recommendations))
@@ -22,7 +22,7 @@
             <!-- Recommended Programs -->
             @if(isset($recommendations['programs']) && count($recommendations['programs']) > 0)
             <div class="mb-8">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-4">📚 Recommended Programs</h3>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">📚 Programs That Elevate You</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     @foreach($recommendations['programs'] as $program)
                     <div class="border border-gray-200 rounded-lg p-6 hover:shadow-md transition-shadow">
@@ -51,7 +51,7 @@
             <!-- Career Options for Degree Holders -->
             @if(isset($recommendations['career_options']))
             <div class="mb-8">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-4">💼 Career Opportunities</h3>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">💼 Next Level Opportunities</h3>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     @foreach($recommendations['career_options'] as $option)
                     <div class="flex items-center p-3 bg-gray-50 rounded-lg">
@@ -66,7 +66,7 @@
             <!-- Next Steps -->
             @if(isset($recommendations['next_steps']))
             <div class="mb-8">
-                <h3 class="text-2xl font-semibold text-gray-900 mb-4">🚀 Your Next Steps</h3>
+                <h3 class="text-2xl font-semibold text-gray-900 mb-4">🚀 Your Path to the Next Level</h3>
                 <div class="space-y-3">
                     @foreach($recommendations['next_steps'] as $index => $step)
                     <div class="flex items-start">
@@ -101,31 +101,44 @@
                     </div>
                 </div>
 
-                <!-- Consultation Details -->
+                <!-- Pricing -->
                 <div class="bg-white bg-opacity-10 rounded-lg p-6">
-                    <div class="text-center">
-                        <div class="text-4xl font-bold text-white mb-2">{{ $recommendations['mentor_consultation']['price'] }}</div>
-                        <p class="text-white opacity-90 mb-4">for 15 minutes</p>
-                        <p class="text-yellow-300 font-semibold text-lg mb-6">{{ $recommendations['mentor_consultation']['impact'] }}</p>
-                        
-                        <a href="{{ route('mentorship.index') }}" class="inline-block bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors">
-                            Book Your Session Now
-                        </a>
+                    <h3 class="text-xl font-semibold text-white mb-4">💰 Investment in Your Next Level</h3>
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center">
+                            <span class="text-white">Session Duration:</span>
+                            <span class="text-yellow-300 font-semibold">{{ $recommendations['mentor_consultation']['duration'] }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-white">Price:</span>
+                            <span class="text-yellow-300 font-semibold">{{ $recommendations['mentor_consultation']['price'] }}</span>
+                        </div>
+                        <div class="flex justify-between items-center">
+                            <span class="text-white">Impact:</span>
+                            <span class="text-yellow-300 font-semibold">Level-Up</span>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <div class="text-center mt-6">
+                <a href="{{ route('mentorship.index') }}" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold py-3 px-8 rounded-lg text-lg transition-colors">
+                    {{ $recommendations['mentor_consultation']['cta'] }}
+                </a>
+            </div>
         </div>
+        @endif
 
         <!-- Action Buttons -->
         <div class="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="{{ route('dashboard') }}" class="bg-gray-600 hover:bg-gray-700 text-white font-bold py-3 px-6 rounded-lg text-center">
+            <a href="{{ route('dashboard') }}" class="btn-primary text-lg px-8 py-3">
                 Back to Dashboard
             </a>
-            <a href="{{ route('pathfinder.index') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg text-center">
+            <a href="{{ route('pathfinder.index') }}" class="btn-outline text-lg px-8 py-3">
                 Take Assessment Again
             </a>
-            <a href="{{ route('schools.index') }}" class="bg-green-600 hover:bg-green-700 text-white font-bold py-3 px-6 rounded-lg text-center">
-                Explore Schools
+            <a href="{{ route('schools.index') }}" class="btn-accent text-lg px-8 py-3">
+                Explore Programs
             </a>
         </div>
     </div>

@@ -50,6 +50,10 @@ class SchoolSeeder extends Seeder
                     'Medicine',
                     'Engineering'
                 ],
+                'application_fee' => 25000,
+                'tuition_fee_min' => 150000,
+                'tuition_fee_max' => 250000,
+                'currency' => 'XAF',
                 'is_active' => true,
             ],
             [
@@ -89,6 +93,10 @@ class SchoolSeeder extends Seeder
                     'Arts and Humanities',
                     'Social Sciences'
                 ],
+                'application_fee' => 20000,
+                'tuition_fee_min' => 120000,
+                'tuition_fee_max' => 200000,
+                'currency' => 'XAF',
                 'is_active' => true,
             ],
             [
@@ -128,6 +136,10 @@ class SchoolSeeder extends Seeder
                     'Medicine',
                     'Engineering'
                 ],
+                'application_fee' => 30000,
+                'tuition_fee_min' => 180000,
+                'tuition_fee_max' => 300000,
+                'currency' => 'XAF',
                 'is_active' => true,
             ],
             [
@@ -167,6 +179,10 @@ class SchoolSeeder extends Seeder
                     'Computer Engineering',
                     'Telecommunications'
                 ],
+                'application_fee' => 50000,
+                'tuition_fee_min' => 250000,
+                'tuition_fee_max' => 400000,
+                'currency' => 'XAF',
                 'is_active' => true,
             ],
             [
@@ -206,6 +222,10 @@ class SchoolSeeder extends Seeder
                     'Human Resource Management',
                     'Project Management'
                 ],
+                'application_fee' => 35000,
+                'tuition_fee_min' => 200000,
+                'tuition_fee_max' => 350000,
+                'currency' => 'XAF',
                 'is_active' => true,
             ],
             [
@@ -245,6 +265,10 @@ class SchoolSeeder extends Seeder
                     'Electronics Technology',
                     'Industrial Technology'
                 ],
+                'application_fee' => 15000,
+                'tuition_fee_min' => 80000,
+                'tuition_fee_max' => 150000,
+                'currency' => 'XAF',
                 'is_active' => true,
             ],
         ];

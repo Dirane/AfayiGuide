@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
-@section('title', 'Browse Schools')
-@section('description', 'Discover educational institutions in Cameroon.')
+@section('title', 'Discover Programs for the Next Level')
+@section('description', 'Explore programs across Cameroon that can help you reach the next level through the right educational path.')
 
 @section('content')
 <div class="bg-gray-50 min-h-screen">
@@ -9,8 +9,8 @@
     <div class="bg-primary text-white py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center">
-                <h1 class="text-3xl md:text-4xl font-bold mb-4">Browse Schools</h1>
-                <p class="text-xl text-gray-200">Discover educational institutions across Cameroon</p>
+                <h1 class="text-3xl md:text-4xl font-bold mb-4">Discover Programs for the Next Level</h1>
+                <p class="text-xl text-gray-200">Find the educational programs that will help you reach the next level</p>
             </div>
         </div>
     </div>
@@ -35,7 +35,7 @@
                 <div>
                     <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
                     <input type="text" name="search" id="search" value="{{ request('search') }}" 
-                           placeholder="Search schools..."
+                           placeholder="Search programs..."
                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-primary focus:border-primary">
                 </div>
                 
@@ -62,7 +62,7 @@
                 
                 <div class="flex items-end">
                     <button type="submit" class="btn-primary w-full">
-                        Search Schools
+                        Find Your Program
                     </button>
                 </div>
             </form>
@@ -91,39 +91,64 @@
                         
                         <p class="text-gray-600 mb-3">{{ Str::limit($school->description, 100) }}</p>
                         
-                        <div class="flex items-center text-sm text-gray-500 mb-4">
+                        <div class="flex items-center text-sm text-gray-500 mb-3">
                             <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
                             </svg>
                             {{ $school->location }}
                         </div>
+
+                        @if($school->hasFeeInformation())
+                            <div class="border-t border-gray-200 pt-3 mb-4">
+                                <h4 class="text-sm font-medium text-gray-900 mb-2">Fee Information</h4>
+                                <div class="space-y-1 text-sm">
+                                    @if($school->application_fee)
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">Application Fee:</span>
+                                            <span class="font-medium text-gray-900">{{ $school->formatted_application_fee }}</span>
+                                        </div>
+                                    @endif
+                                    @if($school->tuition_fee_min || $school->tuition_fee_max)
+                                        <div class="flex justify-between">
+                                            <span class="text-gray-600">Tuition Range:</span>
+                                            <span class="font-medium text-gray-900">{{ $school->formatted_tuition_range }}</span>
+                                        </div>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
                         
-                        <div class="flex justify-between items-center">
-                            <a href="{{ route('schools.show', $school) }}" class="btn-primary">
-                                View Details
+                        <div class="flex flex-col sm:flex-row gap-2">
+                            <a href="{{ route('schools.show', $school) }}" class="btn-primary flex-1 text-center">
+                                Learn More
                             </a>
-                            @if($school->website)
-                                <a href="{{ $school->website }}" target="_blank" class="text-primary hover:text-primary-800 text-sm">
-                                    Visit Website
+                            @auth
+                                @if(auth()->user()->isStudent())
+                                    <a href="{{ route('admission-applications.create', $school) }}" class="btn-accent flex-1 text-center">
+                                        Let Us Apply
+                                    </a>
+                                @endif
+                            @else
+                                <a href="{{ route('login') }}" class="btn-accent flex-1 text-center">
+                                    Login to Apply
                                 </a>
-                            @endif
+                            @endauth
                         </div>
                     </div>
                 </div>
             @empty
                 <div class="col-span-full text-center py-12">
-                    <div class="text-gray-500">
-                        <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
-                        </svg>
-                        <h3 class="mt-2 text-sm font-medium text-gray-900">No schools found</h3>
-                        <p class="mt-1 text-sm text-gray-500">Try adjusting your search criteria.</p>
-                    </div>
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path>
+                    </svg>
+                    <h3 class="mt-2 text-sm font-medium text-gray-900">No programs found</h3>
+                    <p class="mt-1 text-sm text-gray-500">Try adjusting your search criteria.</p>
                 </div>
             @endforelse
         </div>
 
+        <!-- Pagination -->
         @if($schools->hasPages())
             <div class="mt-8">
                 {{ $schools->links() }}
