@@ -9,9 +9,33 @@ use Illuminate\Support\Facades\Storage;
 
 class OpportunityController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $opportunities = Opportunity::latest()->paginate(10);
+        $query = Opportunity::query();
+
+        // Search filter
+        if ($request->filled('search')) {
+            $search = $request->search;
+            $query->where(function($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                  ->orWhere('organization', 'like', "%{$search}%")
+                  ->orWhere('description', 'like', "%{$search}%")
+                  ->orWhere('location', 'like', "%{$search}%");
+            });
+        }
+
+        // Type filter
+        if ($request->filled('type') && $request->type !== 'all') {
+            $query->where('type', $request->type);
+        }
+
+        // Status filter
+        if ($request->filled('status') && $request->status !== 'all') {
+            $query->where('is_active', $request->status === 'active');
+        }
+
+        $opportunities = $query->latest()->paginate(15)->withQueryString();
+        
         return view('admin.opportunities.index', compact('opportunities'));
     }
 

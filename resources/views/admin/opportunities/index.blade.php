@@ -35,6 +35,54 @@
         @endif
 
         <div class="card">
+            <!-- Filters -->
+            <div class="mb-6 p-4 bg-gray-50 rounded-lg">
+                <form method="GET" action="{{ route('admin.opportunities.index') }}" class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <!-- Search -->
+                        <div>
+                            <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search</label>
+                            <input type="text" name="search" id="search" value="{{ request('search') }}" 
+                                   placeholder="Search opportunities..." 
+                                   class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                        </div>
+                        
+                        <!-- Type Filter -->
+                        <div>
+                            <label for="type" class="block text-sm font-medium text-gray-700 mb-1">Opportunity Type</label>
+                            <select name="type" id="type" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                                <option value="all" {{ request('type') == 'all' || !request('type') ? 'selected' : '' }}>All Types</option>
+                                <option value="scholarship" {{ request('type') == 'scholarship' ? 'selected' : '' }}>Scholarship</option>
+                                <option value="internship" {{ request('type') == 'internship' ? 'selected' : '' }}>Internship</option>
+                                <option value="job" {{ request('type') == 'job' ? 'selected' : '' }}>Job</option>
+                                <option value="training" {{ request('type') == 'training' ? 'selected' : '' }}>Training</option>
+                                <option value="competition" {{ request('type') == 'competition' ? 'selected' : '' }}>Competition</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Status Filter -->
+                        <div>
+                            <label for="status" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+                            <select name="status" id="status" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary">
+                                <option value="all" {{ request('status') == 'all' || !request('status') ? 'selected' : '' }}>All Status</option>
+                                <option value="active" {{ request('status') == 'active' ? 'selected' : '' }}>Active</option>
+                                <option value="inactive" {{ request('status') == 'inactive' ? 'selected' : '' }}>Inactive</option>
+                            </select>
+                        </div>
+                        
+                        <!-- Filter Actions -->
+                        <div class="flex items-end space-x-2">
+                            <button type="submit" class="btn-primary px-4 py-2">
+                                Filter
+                            </button>
+                            <a href="{{ route('admin.opportunities.index') }}" class="btn-outline px-4 py-2">
+                                Clear
+                            </a>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
             <div class="overflow-x-auto">
                 <table class="min-w-full divide-y divide-gray-200">
                     <thead class="bg-gray-50">
