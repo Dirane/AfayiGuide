@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Str;
 
 class MentorshipBooking extends Model
 {
@@ -38,6 +39,15 @@ class MentorshipBooking extends Model
     public function assignedMentor()
     {
         return $this->belongsTo(User::class, 'assigned_mentor_id');
+    }
+
+    public function getFormattedSessionTopicAttribute()
+    {
+        if (!$this->session_topic) {
+            return 'General Session';
+        }
+
+        return Str::limit($this->session_topic, 40);
     }
 
     public function getDurationTextAttribute()

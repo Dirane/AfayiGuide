@@ -110,7 +110,7 @@
                                     <div>
                                         <div class="text-sm font-medium text-gray-900">{{ $booking->full_name }}</div>
                                         <div class="text-sm text-gray-500">{{ $booking->email }}</div>
-                                        <div class="text-sm text-gray-500">{{ $booking->whatsapp_number }}</div>
+                                        <div class="text-sm text-gray-500">{{ $booking->whatsapp_number ?? 'Not provided' }}</div>
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">

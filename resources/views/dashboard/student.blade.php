@@ -7,7 +7,7 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
     <!-- Welcome Section -->
     <div class="mb-8">
-        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{ auth()->user()->name }}!</h1>
+        <h1 class="text-3xl font-bold text-gray-900 mb-2">Welcome back, {{ auth()->user()->getDisplayName() }}!</h1>
         <p class="text-gray-600">Here's what's happening with your educational journey.</p>
     </div>
 
@@ -115,7 +115,7 @@
                     @foreach($recentPathfinderResponses as $assessment)
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p class="font-medium text-gray-900">{{ Str::limit($assessment->field_of_interest, 50) }}</p>
+                                <p class="font-medium text-gray-900">{{ Str::limit($assessment->formatted_field_of_interest, 50) }}</p>
                                 <p class="text-sm text-gray-600">{{ $assessment->created_at->format('M d, Y') }}</p>
                             </div>
                             <a href="{{ route('pathfinder.results', $assessment) }}" class="btn-outline text-sm">View Results</a>
@@ -127,22 +127,20 @@
             @endif
         </div>
 
-        <!-- Recent Mentorship Sessions -->
+        <!-- Recent Mentorship Bookings -->
         <div class="card">
             <h3 class="text-lg font-semibold text-gray-900 mb-4">Recent Mentorship Sessions</h3>
-            @if($recentMentorshipSessions->count() > 0)
+            @if($recentMentorshipBookings->count() > 0)
                 <div class="space-y-4">
-                    @foreach($recentMentorshipSessions as $session)
+                    @foreach($recentMentorshipBookings as $booking)
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p class="font-medium text-gray-900">{{ $session->mentor->name }}</p>
-                                <p class="text-sm text-gray-600">{{ $session->created_at->format('M d, Y') }}</p>
+                                <p class="font-medium text-gray-900">{{ $booking->formatted_session_topic }}</p>
+                                <p class="text-sm text-gray-600">{{ $booking->created_at->format('M d, Y') }}</p>
+                                <p class="text-xs text-gray-500">{{ $booking->duration_text }}</p>
                             </div>
-                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium 
-                                @if($session->status === 'completed') bg-green-100 text-green-800
-                                @elseif($session->status === 'confirmed') bg-blue-100 text-blue-800
-                                @else bg-yellow-100 text-yellow-800 @endif">
-                                {{ ucfirst($session->status) }}
+                            <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium {{ $booking->status_badge }}">
+                                {{ ucfirst($booking->status) }}
                             </span>
                         </div>
                     @endforeach

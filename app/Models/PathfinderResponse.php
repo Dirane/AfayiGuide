@@ -46,6 +46,23 @@ class PathfinderResponse extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function getFormattedFieldOfInterestAttribute()
+    {
+        if (!$this->field_of_interest) {
+            return 'General Assessment';
+        }
+
+        $field = is_string($this->field_of_interest) 
+            ? json_decode($this->field_of_interest, true) 
+            : $this->field_of_interest;
+
+        if (is_array($field)) {
+            return implode(', ', $field);
+        }
+
+        return $this->field_of_interest;
+    }
+
     public function scopeCompleted($query)
     {
         return $query->where('is_completed', true);

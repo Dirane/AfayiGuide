@@ -6,7 +6,7 @@ use App\Models\User;
 use App\Models\School;
 use App\Models\Opportunity;
 use App\Models\PathfinderResponse;
-use App\Models\MentorshipSession;
+use App\Models\MentorshipBooking;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
@@ -36,7 +36,7 @@ class DashboardController extends Controller
             'total_schools' => School::where('is_active', true)->count(),
             'total_opportunities' => Opportunity::where('is_active', true)->count(),
             'pathfinder_responses' => $user->pathfinderResponses()->count(),
-            'mentorship_sessions' => $user->mentorshipSessionsAsStudent()->count(),
+            'mentorship_sessions' => $user->mentorshipBookings()->count(),
         ];
 
         $recentPathfinderResponses = $user->pathfinderResponses()
@@ -44,13 +44,12 @@ class DashboardController extends Controller
             ->take(5)
             ->get();
 
-        $recentMentorshipSessions = $user->mentorshipSessionsAsStudent()
-            ->with('mentor')
+        $recentMentorshipBookings = $user->mentorshipBookings()
             ->latest()
             ->take(5)
             ->get();
 
-        return view('dashboard.student', compact('stats', 'recentPathfinderResponses', 'recentMentorshipSessions'));
+        return view('dashboard.student', compact('stats', 'recentPathfinderResponses', 'recentMentorshipBookings'));
     }
 
     private function mentorDashboard($user)

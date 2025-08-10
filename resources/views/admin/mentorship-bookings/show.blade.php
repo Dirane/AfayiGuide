@@ -172,11 +172,13 @@
                     </form>
                     
                     <div class="flex space-x-2">
+                        @if($booking->whatsapp_number && $booking->whatsapp_number !== 'Not provided')
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $booking->whatsapp_number) }}" 
                            target="_blank" 
                            class="bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
                             Contact via WhatsApp
                         </a>
+                        @endif
                         <a href="mailto:{{ $booking->email }}" 
                            class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded">
                             Send Email

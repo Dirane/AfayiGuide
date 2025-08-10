@@ -28,6 +28,13 @@ class MentorshipBookingController extends Controller
         // Get user information from authenticated user
         $user = auth()->user();
 
+        // Check if user has WhatsApp number or phone number
+        if (empty($user->whatsapp_number) && empty($user->phone)) {
+            return back()->withErrors([
+                'whatsapp_number' => 'Please add your WhatsApp number or phone number to your profile before booking a mentorship session.'
+            ])->withInput();
+        }
+
         // Calculate amount based on duration
         $amount = match($validated['session_duration']) {
             '15min' => 1000,
@@ -39,7 +46,7 @@ class MentorshipBookingController extends Controller
         $booking = MentorshipBooking::create([
             'user_id' => $user->id,
             'full_name' => $user->full_name ?? $user->name,
-            'whatsapp_number' => $user->whatsapp_number,
+            'whatsapp_number' => $user->whatsapp_number ?? $user->phone ?? 'Not provided',
             'email' => $user->email,
             'session_duration' => $validated['session_duration'],
             'amount' => $amount,

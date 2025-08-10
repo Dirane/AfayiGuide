@@ -61,7 +61,11 @@
                         </div>
                         <div>
                             <span class="font-medium text-blue-700">WhatsApp:</span>
-                            <span class="text-blue-900">{{ auth()->user()->whatsapp_number }}</span>
+                            <span class="text-blue-900">{{ auth()->user()->whatsapp_number ?? 'Not set' }}</span>
+                        </div>
+                        <div>
+                            <span class="font-medium text-blue-700">Phone:</span>
+                            <span class="text-blue-900">{{ auth()->user()->phone ?? 'Not set' }}</span>
                         </div>
                         <div>
                             <span class="font-medium text-blue-700">Email:</span>
@@ -74,6 +78,26 @@
                     </div>
                     <p class="text-xs text-blue-600 mt-2">This information was collected during registration and will be used for your booking.</p>
                 </div>
+
+                @if(empty(auth()->user()->whatsapp_number) && empty(auth()->user()->phone))
+                <!-- Warning: No Contact Information -->
+                <div class="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
+                    <div class="flex items-start">
+                        <div class="flex-shrink-0">
+                            <svg class="h-5 w-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
+                            </svg>
+                        </div>
+                        <div class="ml-3">
+                            <h3 class="text-sm font-medium text-yellow-800">Contact Information Required</h3>
+                            <p class="text-sm text-yellow-700 mt-1">
+                                You need to add your WhatsApp number or phone number to your profile before booking a mentorship session. 
+                                <a href="{{ route('profile.edit') }}" class="font-medium underline hover:text-yellow-600">Update your profile here</a>.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                @endif
 
 
 
@@ -137,9 +161,15 @@
                     <a href="{{ route('mentorship.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
                         ← Back
                     </a>
-                    <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded">
-                        Book Session →
-                    </button>
+                    @if(empty(auth()->user()->whatsapp_number) && empty(auth()->user()->phone))
+                        <button type="button" disabled class="bg-gray-400 cursor-not-allowed text-white font-bold py-2 px-6 rounded">
+                            Add Contact Info First
+                        </button>
+                    @else
+                        <button type="submit" class="bg-primary hover:bg-primary-dark text-white font-bold py-2 px-6 rounded">
+                            Book Session →
+                        </button>
+                    @endif
                 </div>
             </form>
         </div>

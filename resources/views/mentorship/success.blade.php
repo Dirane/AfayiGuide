@@ -61,7 +61,7 @@
                         </div>
                         <div>
                             <h3 class="font-semibold text-gray-900">Mentor Contact</h3>
-                            <p class="text-gray-600">The assigned mentor will contact you via WhatsApp at <strong>{{ $booking->whatsapp_number }}</strong> to discuss payment and schedule.</p>
+                            <p class="text-gray-600">The assigned mentor will contact you via WhatsApp at <strong>{{ $booking->whatsapp_number ?? 'your provided contact number' }}</strong> to discuss payment and schedule.</p>
                         </div>
                     </div>
                     <div class="flex items-start">
@@ -86,7 +86,7 @@
                     </div>
                     <div>
                         <p class="text-sm font-medium text-blue-700">WhatsApp</p>
-                        <p class="text-blue-900">{{ $booking->whatsapp_number }}</p>
+                        <p class="text-blue-900">{{ $booking->whatsapp_number ?? 'Not provided' }}</p>
                     </div>
                     <div>
                         <p class="text-sm font-medium text-blue-700">Email</p>

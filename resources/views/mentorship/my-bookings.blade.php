@@ -85,18 +85,24 @@
 
                     <div class="flex justify-between items-center">
                         <div class="text-sm text-gray-600">
-                            Contact: {{ $booking->whatsapp_number }}
+                            Contact: {{ $booking->whatsapp_number ?? 'Not provided' }}
                         </div>
                         @if($booking->status === 'pending')
                         <button class="bg-gray-300 text-gray-600 px-3 py-1 rounded text-sm" disabled>
                             Waiting for Assignment
                         </button>
                         @elseif($booking->status === 'assigned')
+                        @if($booking->whatsapp_number && $booking->whatsapp_number !== 'Not provided')
                         <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $booking->whatsapp_number) }}" 
                            target="_blank" 
                            class="bg-green-500 hover:bg-green-600 text-white px-3 py-1 rounded text-sm">
                             Contact Mentor
                         </a>
+                        @else
+                        <span class="bg-gray-300 text-gray-600 px-3 py-1 rounded text-sm">
+                            Contact info needed
+                        </span>
+                        @endif
                         @elseif($booking->status === 'completed')
                         <a href="{{ route('mentorship.index') }}" 
                            class="bg-primary hover:bg-primary-dark text-white px-3 py-1 rounded text-sm">
