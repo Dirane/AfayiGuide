@@ -21,7 +21,7 @@ class User extends Authenticatable
         'whatsapp_number',
         'academic_level',
         'interests',
-        'avatar',
+        'profile_picture',
         'bio',
         'expertise',
         'experience_years',

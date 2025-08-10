@@ -14,27 +14,33 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Create test users
-        User::create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'student',
-        ]);
+        // Create test users (only if they don't exist)
+        User::firstOrCreate(
+            ['email' => 'test@example.com'],
+            [
+                'name' => 'Test User',
+                'password' => Hash::make('password'),
+                'role' => 'student',
+            ]
+        );
 
-        User::create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'admin',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Admin User',
+                'password' => Hash::make('password'),
+                'role' => 'admin',
+            ]
+        );
 
-        User::create([
-            'name' => 'Student User',
-            'email' => 'student@example.com',
-            'password' => Hash::make('password'),
-            'role' => 'student',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'student@example.com'],
+            [
+                'name' => 'Student User',
+                'password' => Hash::make('password'),
+                'role' => 'student',
+            ]
+        );
 
         // Seed opportunities, mentors, and schools
         $this->call([

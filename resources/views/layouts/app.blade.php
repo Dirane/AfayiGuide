@@ -52,11 +52,21 @@
                                 @else
                                     <a href="{{ route('dashboard') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">{{ auth()->user()->getDashboardTitle() }}</a>
                                 @endif
-                                @if(auth()->user()->canViewSchools()) <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Schools</a> @endif
-                                @if(auth()->user()->canViewOpportunities()) <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Opportunities</a> @endif
-                                @if(auth()->user()->canUsePathfinder()) <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">PathFinder</a> @endif
-                                @if(auth()->user()->canBookMentorship()) <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Mentorship</a> @endif
-                                @if(auth()->user()->isStudent()) <a href="{{ route('admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">My Requests</a> @endif
+                                @if(auth()->user()->canViewSchools())
+                                    <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Schools</a>
+                                @endif
+                                @if(auth()->user()->canViewOpportunities())
+                                    <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Opportunities</a>
+                                @endif
+                                @if(auth()->user()->canUsePathfinder())
+                                    <a href="{{ route('pathfinder.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">PathFinder</a>
+                                @endif
+                                @if(auth()->user()->canBookMentorship())
+                                    <a href="{{ route('mentorship.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Mentorship</a>
+                                @endif
+                                @if(auth()->user()->isStudent())
+                                    <a href="{{ route('admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">My Requests</a>
+                                @endif
                             @else
                                 <a href="{{ route('schools.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Schools</a>
                                 <a href="{{ route('opportunities.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">Opportunities</a>

@@ -22,6 +22,9 @@ class SchoolController extends Controller
 
     public function store(Request $request)
     {
+        // Debug: Log the incoming request data
+        \Log::info('School creation request data:', $request->all());
+        
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'required|in:university,college,institute,polytechnic,vocational,secondary,primary',
@@ -43,14 +46,23 @@ class SchoolController extends Controller
             'currency' => 'nullable|string|max:3',
         ]);
 
+        // Debug: Log the validated data
+        \Log::info('School creation validated data:', $validated);
+
         // Set default currency if not provided
         if (!isset($validated['currency'])) {
             $validated['currency'] = 'XAF';
         }
 
+        // Handle boolean fields
+        $validated['is_active'] = $request->has('is_active');
+
         if ($request->hasFile('image')) {
             $validated['image'] = $request->file('image')->store('schools', 'public');
         }
+
+        // Debug: Log the final data being sent to create
+        \Log::info('School creation final data:', $validated);
 
         School::create($validated);
 
@@ -95,6 +107,9 @@ class SchoolController extends Controller
         if (!isset($validated['currency'])) {
             $validated['currency'] = 'XAF';
         }
+
+        // Handle boolean fields
+        $validated['is_active'] = $request->has('is_active');
 
         if ($request->hasFile('image')) {
             // Delete old image

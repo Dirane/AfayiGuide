@@ -50,13 +50,19 @@ class AdmissionApplicationController extends Controller
 
     public function show(AdmissionApplication $application)
     {
-        $this->authorize('view', $application);
+        // Check if user owns this application
+        if (auth()->id() !== $application->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
         return view('admission-applications.show', compact('application'));
     }
 
     public function cancel(AdmissionApplication $application)
     {
-        $this->authorize('cancel', $application);
+        // Check if user owns this application
+        if (auth()->id() !== $application->user_id) {
+            abort(403, 'Unauthorized action.');
+        }
         
         if ($application->status === 'pending') {
             $application->update(['status' => 'cancelled']);

@@ -32,6 +32,17 @@
                     @enderror
                 </div>
 
+                <!-- Full Name (Display Name) -->
+                <div>
+                    <label for="full_name" class="block text-sm font-medium text-gray-700">Display Name</label>
+                    <input type="text" name="full_name" id="full_name" value="{{ old('full_name', $user->full_name) }}"
+                           class="input-field @error('full_name') border-red-500 @enderror"
+                           placeholder="Enter display name (optional)">
+                    @error('full_name')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <!-- Email -->
                 <div>
                     <label for="email" class="block text-sm font-medium text-gray-700">Email *</label>
@@ -65,6 +76,33 @@
                            class="input-field @error('phone') border-red-500 @enderror"
                            placeholder="Enter phone number">
                     @error('phone')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- WhatsApp Number -->
+                <div>
+                    <label for="whatsapp_number" class="block text-sm font-medium text-gray-700">WhatsApp Number</label>
+                    <input type="text" name="whatsapp_number" id="whatsapp_number" value="{{ old('whatsapp_number', $user->whatsapp_number) }}"
+                           class="input-field @error('whatsapp_number') border-red-500 @enderror"
+                           placeholder="Enter WhatsApp number">
+                    @error('whatsapp_number')
+                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <!-- Academic Level -->
+                <div>
+                    <label for="academic_level" class="block text-sm font-medium text-gray-700">Academic Level</label>
+                    <select name="academic_level" id="academic_level"
+                            class="input-field @error('academic_level') border-red-500 @enderror">
+                        <option value="">Select academic level</option>
+                        <option value="advanced_level" {{ old('academic_level', $user->academic_level) == 'advanced_level' ? 'selected' : '' }}>Advanced Level</option>
+                        <option value="hnd" {{ old('academic_level', $user->academic_level) == 'hnd' ? 'selected' : '' }}>HND</option>
+                        <option value="degree" {{ old('academic_level', $user->academic_level) == 'degree' ? 'selected' : '' }}>Degree</option>
+                        <option value="other" {{ old('academic_level', $user->academic_level) == 'other' ? 'selected' : '' }}>Other</option>
+                    </select>
+                    @error('academic_level')
                         <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                     @enderror
                 </div>
@@ -110,6 +148,17 @@
                           class="input-field @error('bio') border-red-500 @enderror"
                           placeholder="Enter user bio">{{ old('bio', $user->bio) }}</textarea>
                 @error('bio')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
+
+            <!-- Interests -->
+            <div>
+                <label for="interests" class="block text-sm font-medium text-gray-700">Interests</label>
+                <textarea name="interests" id="interests" rows="3"
+                          class="input-field @error('interests') border-red-500 @enderror"
+                          placeholder="Enter user interests">{{ old('interests', $user->interests) }}</textarea>
+                @error('interests')
                     <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('schools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->string('type');
             $table->string('location');
             $table->string('website')->nullable();
@@ -29,7 +29,7 @@ return new class extends Migration
             $table->date('application_deadline')->nullable();
             $table->date('academic_year_start')->nullable();
             $table->text('programs_offered')->nullable();
-            $table->text('images')->nullable();
+            $table->string('image')->nullable();
             $table->boolean('is_featured')->default(false);
             $table->boolean('is_active')->default(true);
             $table->decimal('tuition_fee_min', 10, 2)->nullable();
