@@ -11,13 +11,30 @@
             <p class="text-xl text-gray-600">Based on your PathFinder assessment, here are our tailored recommendations to help you reach the next level through the right educational choices.</p>
         </div>
 
-        @if(isset($recommendations))
+        @if(isset($recommendations) && !empty($recommendations))
         <!-- Recommendations Section -->
         <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
             <div class="text-center mb-6">
-                <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ $recommendations['title'] }}</h2>
-                <p class="text-lg text-gray-600">{{ $recommendations['subtitle'] }}</p>
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">{{ $recommendations['title'] ?? 'Your Personalized Recommendations' }}</h2>
+                <p class="text-lg text-gray-600">{{ $recommendations['subtitle'] ?? 'Based on your assessment, here are our tailored recommendations:' }}</p>
             </div>
+        @else
+        <!-- No Recommendations Fallback -->
+        <div class="bg-white rounded-lg shadow-lg p-8 mb-8">
+            <div class="text-center mb-6">
+                <h2 class="text-3xl font-bold text-gray-900 mb-2">Assessment Complete</h2>
+                <p class="text-lg text-gray-600">Your assessment has been completed successfully. We're processing your results and will have personalized recommendations ready soon.</p>
+            </div>
+            <div class="text-center">
+                <p class="text-gray-600 mb-4">In the meantime, you can:</p>
+                <div class="space-y-2">
+                    <p class="text-gray-700">• Explore available programs and opportunities</p>
+                    <p class="text-gray-700">• Book a mentorship session for personalized guidance</p>
+                    <p class="text-gray-700">• Check back later for your complete recommendations</p>
+                </div>
+            </div>
+        </div>
+        @endif
 
             <!-- Recommended Programs -->
             @if(isset($recommendations['programs']) && count($recommendations['programs']) > 0)
@@ -78,13 +95,13 @@
             </div>
             @endif
         </div>
-        @endif
 
         <!-- Mentor Consultation Section -->
+        @if(isset($recommendations['mentor_consultation']) && !empty($recommendations['mentor_consultation']))
         <div class="bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg shadow-lg p-8 mb-8">
             <div class="text-center text-white mb-6">
-                <h2 class="text-3xl font-bold mb-2">{{ $recommendations['mentor_consultation']['title'] }}</h2>
-                <p class="text-xl opacity-90">{{ $recommendations['mentor_consultation']['description'] }}</p>
+                <h2 class="text-3xl font-bold mb-2">{{ $recommendations['mentor_consultation']['title'] ?? 'Get Personalized Guidance' }}</h2>
+                <p class="text-xl opacity-90">{{ $recommendations['mentor_consultation']['description'] ?? 'Our expert mentors can provide one-on-one guidance tailored to your specific situation.' }}</p>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">

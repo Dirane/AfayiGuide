@@ -174,6 +174,22 @@ class PathfinderController extends Controller
     public function results(PathfinderResponse $assessment)
     {
         $recommendations = session('recommendations', []);
+        
+        // If no recommendations in session, generate them from the assessment data
+        if (empty($recommendations)) {
+            $data = [
+                'academic_level' => json_decode($assessment->academic_background, true)['academic_level'] ?? 'general',
+                'fields_of_interest' => $assessment->field_of_interest,
+                'career_goals' => $assessment->career_goals,
+                'self_academic_rating' => json_decode($assessment->academic_background, true)['self_academic_rating'] ?? 'good',
+                'peer_teacher_rating' => json_decode($assessment->academic_background, true)['peer_teacher_rating'] ?? 'good',
+                'preferred_locations' => $assessment->preferred_location,
+                'program_level' => json_decode($assessment->interests, true)['program_level'] ?? 'bachelor'
+            ];
+            
+            $recommendations = $this->generateRecommendations($data);
+        }
+        
         return view('pathfinder.results', compact('assessment', 'recommendations'));
     }
 
@@ -227,7 +243,14 @@ class PathfinderController extends Controller
         $locations = json_decode($data['preferred_locations'], true);
         $programLevel = $data['program_level'];
 
-        $recommendations = [];
+        // Initialize recommendations with default values
+        $recommendations = [
+            'title' => 'Your Personalized Recommendations',
+            'subtitle' => 'Based on your assessment, here are our tailored recommendations:',
+            'programs' => [],
+            'career_options' => [],
+            'next_steps' => []
+        ];
 
         // Advanced Level Holder Recommendations
         if ($academicLevel === 'advanced_level') {
@@ -370,6 +393,28 @@ class PathfinderController extends Controller
                 'Develop specialized skills through certifications'
             ];
         }
+        // Fallback for other academic levels
+        else {
+            $recommendations['title'] = 'General Educational Recommendations';
+            $recommendations['subtitle'] = 'Based on your background and interests, here are our recommendations:';
+            
+            $recommendations['next_steps'] = [
+                'Explore various educational opportunities',
+                'Research programs that match your interests',
+                'Consider both local and international options',
+                'Connect with educational counselors'
+            ];
+        }
+
+        // Add default next steps if none were set
+        if (empty($recommendations['next_steps'])) {
+            $recommendations['next_steps'] = [
+                'Review your assessment results',
+                'Explore recommended programs and opportunities',
+                'Contact educational institutions',
+                'Schedule a mentorship session for personalized guidance'
+            ];
+        }
 
         $recommendations['mentor_consultation'] = [
             'title' => 'Get Personalized Guidance',
@@ -380,7 +425,9 @@ class PathfinderController extends Controller
                 'Interview preparation',
                 'Industry insights and networking'
             ],
+            'duration' => '15 minutes',
             'price' => '1000 XAF for 15 minutes',
+            'cta' => 'Book Your Session Now',
             'impact' => 'This session could change your life for good!'
         ];
 
