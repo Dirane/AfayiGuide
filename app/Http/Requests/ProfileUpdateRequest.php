@@ -15,7 +15,7 @@ class ProfileUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'name' => ['required', 'string', 'max:255'],
             'full_name' => ['required', 'string', 'max:255'],
             'email' => [
@@ -32,5 +32,14 @@ class ProfileUpdateRequest extends FormRequest
             'phone' => ['nullable', 'string', 'max:20'],
             'bio' => ['nullable', 'string', 'max:1000'],
         ];
+
+        // Add mentor-specific validation rules
+        if ($this->user() && $this->user()->isMentor()) {
+            $rules['expertise'] = ['nullable', 'string', 'max:1000'];
+            $rules['experience_years'] = ['nullable', 'integer', 'min:0', 'max:50'];
+            $rules['hourly_rate'] = ['nullable', 'numeric', 'min:0', 'max:1000000'];
+        }
+
+        return $rules;
     }
 }
