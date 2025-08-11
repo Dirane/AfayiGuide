@@ -13,7 +13,7 @@ class MentorshipBookingController extends Controller
     {
         $bookings = MentorshipBooking::with(['user', 'assignedMentor'])
             ->latest()
-            ->paginate(20);
+            ->paginate(10);
 
         $stats = [
             'total' => MentorshipBooking::count(),

@@ -102,10 +102,10 @@
         <!-- Sidebar -->
         <div class="space-y-6">
             <!-- Image -->
-            @if($opportunity->image)
+                        @if($opportunity->first_image_url)
             <div class="card">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Image</h2>
-                <img src="{{ Storage::url($opportunity->image) }}" alt="Opportunity image" class="w-full h-48 object-cover rounded-lg">
+                <img src="{{ $opportunity->first_image_url }}" alt="Opportunity image" class="w-full h-48 object-cover rounded-lg">
             </div>
             @endif
 

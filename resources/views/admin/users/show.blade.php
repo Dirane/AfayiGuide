@@ -149,7 +149,7 @@
             @if($user->profile_picture)
             <div class="card">
                 <h2 class="text-lg font-semibold text-gray-900 mb-4">Profile Picture</h2>
-                <img src="{{ Storage::url($user->profile_picture) }}" alt="Profile picture" class="w-full h-48 object-cover rounded-lg">
+                <img src="{{ $user->profile_picture_url }}" alt="Profile picture" class="w-full h-48 object-cover rounded-lg">
             </div>
             @endif
 

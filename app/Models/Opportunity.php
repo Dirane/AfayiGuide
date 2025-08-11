@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 
 class Opportunity extends Model
 {
@@ -81,5 +82,19 @@ class Opportunity extends Model
     public function scopeDeadlineApproaching($query, $days = 30)
     {
         return $query->where('deadline', '<=', now()->addDays($days));
+    }
+
+    public function getFirstImageUrlAttribute()
+    {
+        if (empty($this->images)) {
+            return null;
+        }
+
+        $imagePath = $this->images[0];
+        if (Storage::exists($imagePath)) {
+            return Storage::url($imagePath);
+        }
+
+        return null;
     }
 }

@@ -153,11 +153,11 @@
             </div>
 
             <!-- Current Image -->
-            @if($opportunity->image)
+            @if($opportunity->first_image_url)
             <div>
                 <label class="block text-sm font-medium text-gray-700">Current Image</label>
                 <div class="mt-2">
-                    <img src="{{ Storage::url($opportunity->image) }}" alt="Current image" class="w-32 h-32 object-cover rounded-lg">
+                    <img src="{{ $opportunity->first_image_url }}" alt="Current image" class="w-32 h-32 object-cover rounded-lg">
                 </div>
             </div>
             @endif

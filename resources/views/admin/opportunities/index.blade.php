@@ -112,8 +112,8 @@
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="flex items-center">
-                                        @if($opportunity->image)
-                                            <img src="{{ Storage::url($opportunity->image) }}" alt="{{ $opportunity->title }}" class="h-10 w-10 rounded-full object-cover">
+                                        @if($opportunity->first_image_url)
+                                            <img src="{{ $opportunity->first_image_url }}" alt="{{ $opportunity->title }}" class="h-10 w-10 rounded-full object-cover">
                                         @else
                                             <div class="h-10 w-10 bg-primary rounded-full flex items-center justify-center">
                                                 <span class="text-white text-sm font-medium">{{ substr($opportunity->title, 0, 1) }}</span>

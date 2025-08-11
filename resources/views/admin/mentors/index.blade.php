@@ -108,9 +108,9 @@
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <div class="flex items-center">
                                                     <div class="flex-shrink-0 h-10 w-10">
-                                                        @if($mentor->profile_picture)
-                                                            <img class="h-10 w-10 rounded-full" src="{{ Storage::url($mentor->profile_picture) }}" alt="{{ $mentor->name }}">
-                                                        @else
+                                                                                                @if($mentor->profile_picture_url)
+                                            <img class="h-10 w-10 rounded-full" src="{{ $mentor->profile_picture_url }}" alt="{{ $mentor->name }}">
+                                        @else
                                                             <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
                                                                 <span class="text-gray-600 font-medium">{{ substr($mentor->name, 0, 1) }}</span>
                                                             </div>

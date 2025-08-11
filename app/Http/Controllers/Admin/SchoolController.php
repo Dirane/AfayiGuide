@@ -33,7 +33,7 @@ class SchoolController extends Controller
             $query->where('is_active', $request->status === 'active');
         }
 
-        $schools = $query->latest()->paginate(15)->withQueryString();
+        $schools = $query->latest()->paginate(10)->withQueryString();
         
         return view('admin.schools.index', compact('schools'));
     }

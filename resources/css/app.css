@@ -64,4 +64,6 @@
   .focus\:ring-primary:focus {
     @apply ring-[#0D1F3C];
   }
+  
+
 }

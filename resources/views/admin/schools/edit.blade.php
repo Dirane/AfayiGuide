@@ -125,9 +125,9 @@
 
                         <div>
                             <label for="image" class="block text-sm font-medium text-gray-700">School Image</label>
-                            @if($school->image)
+                            @if($school->image_url)
                                 <div class="mb-2">
-                                    <img src="{{ Storage::url($school->image) }}" alt="{{ $school->name }}" class="h-20 w-20 object-cover rounded">
+                                    <img src="{{ $school->image_url }}" alt="{{ $school->name }}" class="h-20 w-20 object-cover rounded">
                                 </div>
                             @endif
                             <input type="file" name="image" id="image" accept="image/*"

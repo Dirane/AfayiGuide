@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Support\Facades\Storage;
 
 class User extends Authenticatable
 {
@@ -164,5 +165,20 @@ class User extends Authenticatable
     public function scopeAdmins($query)
     {
         return $query->where('role', 'admin');
+    }
+
+    // Accessors
+    public function getProfilePictureUrlAttribute()
+    {
+        if ($this->profile_picture) {
+            return Storage::url($this->profile_picture);
+        }
+        return null;
+    }
+
+    public function getImageUrlAttribute()
+    {
+        // Alias for profile picture URL for consistency
+        return $this->getProfilePictureUrlAttribute();
     }
 }

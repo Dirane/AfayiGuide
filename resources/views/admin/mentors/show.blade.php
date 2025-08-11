@@ -14,7 +14,7 @@
                         <div class="flex items-center">
                             <div class="flex-shrink-0 h-16 w-16">
                                 @if($mentor->profile_picture)
-                                    <img class="h-16 w-16 rounded-full" src="{{ Storage::url($mentor->profile_picture) }}" alt="{{ $mentor->name }}">
+                                    <img class="h-16 w-16 rounded-full" src="{{ $mentor->profile_picture_url }}" alt="{{ $mentor->name }}">
                                 @else
                                     <div class="h-16 w-16 rounded-full bg-gray-300 flex items-center justify-center">
                                         <span class="text-gray-600 font-medium text-xl">{{ substr($mentor->name, 0, 1) }}</span>

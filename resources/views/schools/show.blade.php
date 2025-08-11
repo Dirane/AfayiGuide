@@ -27,8 +27,8 @@
             <!-- School Header -->
             <div class="card">
                 <div class="flex items-start space-x-6">
-                    @if($school->image)
-                        <img src="{{ $school->imageUrl }}" alt="{{ $school->name }}" class="w-32 h-32 object-cover rounded-lg">
+                    @if($school->image_url)
+                        <img src="{{ $school->image_url }}" alt="{{ $school->name }}" class="w-32 h-32 object-cover rounded-lg">
                     @else
                         <div class="w-32 h-32 bg-gray-200 rounded-lg flex items-center justify-center">
                             <svg class="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">

@@ -201,7 +201,7 @@
             <div>
                 <label class="block text-sm font-medium text-gray-700">Current Profile Picture</label>
                 <div class="mt-2">
-                    <img src="{{ Storage::url($user->profile_picture) }}" alt="Current profile picture" class="w-32 h-32 object-cover rounded-lg">
+                                            <img src="{{ $user->profile_picture_url }}" alt="Current profile picture" class="w-32 h-32 object-cover rounded-lg">
                 </div>
             </div>
             @endif

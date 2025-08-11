@@ -12,7 +12,8 @@ class AdmissionApplicationController extends Controller
     {
         $applications = AdmissionApplication::with(['user', 'school'])
             ->latest()
-            ->paginate(15);
+            ->paginate(10)
+            ->withQueryString();
 
         $stats = [
             'total' => AdmissionApplication::count(),

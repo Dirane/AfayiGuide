@@ -72,8 +72,8 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             @forelse($schools as $school)
                 <div class="card hover:shadow-lg transition-shadow">
-                    @if($school->image)
-                        <img src="{{ Storage::url($school->image) }}" alt="{{ $school->name }}" 
+                    @if($school->image_url)
+                        <img src="{{ $school->image_url }}" alt="{{ $school->name }}" 
                              class="w-full h-48 object-cover rounded-t-lg">
                     @else
                         <div class="w-full h-48 bg-primary rounded-t-lg flex items-center justify-center">

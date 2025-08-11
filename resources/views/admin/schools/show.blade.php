@@ -31,9 +31,9 @@
             <!-- Main Information -->
             <div class="lg:col-span-2 space-y-6">
                 <!-- School Image -->
-                @if($school->image)
+                @if($school->image_url)
                     <div class="card">
-                        <img src="{{ Storage::url($school->image) }}" alt="{{ $school->name }}" 
+                        <img src="{{ $school->image_url }}" alt="{{ $school->name }}" 
                              class="w-full h-64 object-cover rounded-lg">
                     </div>
                 @endif

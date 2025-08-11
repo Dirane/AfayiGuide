@@ -77,9 +77,9 @@
 
                         <div>
                             <x-input-label for="profile_picture" value="Profile Picture" />
-                            @if($mentor->profile_picture)
+                            @if($mentor->profile_picture_url)
                                 <div class="mb-2">
-                                    <img src="{{ Storage::url($mentor->profile_picture) }}" alt="Current profile picture" class="h-20 w-20 rounded-full object-cover">
+                                    <img src="{{ $mentor->profile_picture_url }}" alt="Current profile picture" class="h-20 w-20 rounded-full object-cover">
                                     <p class="text-sm text-gray-500 mt-1">Current profile picture</p>
                                 </div>
                             @endif

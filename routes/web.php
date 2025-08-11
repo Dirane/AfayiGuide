@@ -34,9 +34,7 @@ Route::middleware(['auth'])->group(function () {
 
 // Opportunities (require authentication)
 Route::middleware(['auth.content'])->group(function () {
-    Route::get('/opportunities', function () {
-        return view('opportunities.index');
-    })->name('opportunities.index');
+    Route::get('/opportunities', [App\Http\Controllers\OpportunityController::class, 'index'])->name('opportunities.index');
 });
 
 // Mentorship

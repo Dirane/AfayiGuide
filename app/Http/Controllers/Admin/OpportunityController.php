@@ -34,7 +34,7 @@ class OpportunityController extends Controller
             $query->where('is_active', $request->status === 'active');
         }
 
-        $opportunities = $query->latest()->paginate(15)->withQueryString();
+        $opportunities = $query->latest()->paginate(10)->withQueryString();
         
         return view('admin.opportunities.index', compact('opportunities'));
     }
@@ -63,7 +63,7 @@ class OpportunityController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            $validated['image'] = $request->file('image')->store('opportunities', 'public');
+            $validated['images'] = [$request->file('image')->store('opportunities', 'public')];
         }
 
         $validated['posted_by'] = auth()->id();
@@ -103,11 +103,13 @@ class OpportunityController extends Controller
         ]);
 
         if ($request->hasFile('image')) {
-            // Delete old image
-            if ($opportunity->image) {
-                Storage::disk('public')->delete($opportunity->image);
+            // Delete old images
+            if ($opportunity->images && is_array($opportunity->images)) {
+                foreach ($opportunity->images as $oldImage) {
+                    Storage::disk('public')->delete($oldImage);
+                }
             }
-            $validated['image'] = $request->file('image')->store('opportunities', 'public');
+            $validated['images'] = [$request->file('image')->store('opportunities', 'public')];
         }
 
         $opportunity->update($validated);
@@ -118,9 +120,11 @@ class OpportunityController extends Controller
 
     public function destroy(Opportunity $opportunity)
     {
-        // Delete image if exists
-        if ($opportunity->image) {
-            Storage::disk('public')->delete($opportunity->image);
+        // Delete images if exist
+        if ($opportunity->images && is_array($opportunity->images)) {
+            foreach ($opportunity->images as $image) {
+                Storage::disk('public')->delete($image);
+            }
         }
 
         $opportunity->delete();
