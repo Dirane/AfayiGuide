@@ -80,22 +80,44 @@
 
             <!-- Requirements -->
             @if($opportunity->requirements)
-            <div class="card">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Requirements</h2>
-                <div class="prose max-w-none">
-                    <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ $opportunity->requirements }}</p>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Requirements</h2>
+                    <div class="space-y-2">
+                        @if(is_array($opportunity->requirements))
+                            @foreach($opportunity->requirements as $requirement)
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-green-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-sm text-gray-700">{{ $requirement }}</span>
+                                </div>
+                            @endforeach
+                        @else
+                            <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ $opportunity->requirements }}</p>
+                        @endif
+                    </div>
                 </div>
-            </div>
             @endif
 
             <!-- Benefits -->
             @if($opportunity->benefits)
-            <div class="card">
-                <h2 class="text-lg font-semibold text-gray-900 mb-4">Benefits</h2>
-                <div class="prose max-w-none">
-                    <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ $opportunity->benefits }}</p>
+                <div class="bg-white p-6 rounded-lg shadow-sm">
+                    <h2 class="text-lg font-semibold text-gray-900 mb-4">Benefits</h2>
+                    <div class="space-y-2">
+                        @if(is_array($opportunity->benefits))
+                            @foreach($opportunity->benefits as $benefit)
+                                <div class="flex items-center">
+                                    <svg class="w-4 h-4 text-blue-500 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="text-sm text-gray-700">{{ $benefit }}</span>
+                                </div>
+                            @endforeach
+                        @else
+                            <p class="text-sm text-gray-700 whitespace-pre-wrap">{{ $opportunity->benefits }}</p>
+                        @endif
+                    </div>
                 </div>
-            </div>
             @endif
         </div>
 

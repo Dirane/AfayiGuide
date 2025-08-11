@@ -135,9 +135,9 @@
                 <label for="requirements" class="block text-sm font-medium text-gray-700">Requirements</label>
                 <textarea name="requirements" id="requirements" rows="3"
                           class="input-field @error('requirements') border-red-500 @enderror"
-                          placeholder="Enter requirements for the opportunity">{{ old('requirements', $opportunity->requirements) }}</textarea>
+                          placeholder="Enter requirements for the opportunity">{{ old('requirements', is_array($opportunity->requirements) ? implode("\n", $opportunity->requirements) : $opportunity->requirements) }}</textarea>
                 @error('requirements')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 
@@ -146,9 +146,9 @@
                 <label for="benefits" class="block text-sm font-medium text-gray-700">Benefits</label>
                 <textarea name="benefits" id="benefits" rows="3"
                           class="input-field @error('benefits') border-red-500 @enderror"
-                          placeholder="Enter benefits of the opportunity">{{ old('benefits', $opportunity->benefits) }}</textarea>
+                          placeholder="Enter benefits of the opportunity">{{ old('benefits', is_array($opportunity->benefits) ? implode("\n", $opportunity->benefits) : $opportunity->benefits) }}</textarea>
                 @error('benefits')
-                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                    <p class="mt-2 text-sm text-red-600">{{ $message }}</p>
                 @enderror
             </div>
 

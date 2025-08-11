@@ -1,4 +1,9 @@
-<x-app-layout>
+@extends('layouts.app')
+
+@section('title', 'Opportunities')
+@section('description', 'Explore educational and career opportunities')
+
+@section('content')
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('Opportunities') }}
@@ -109,24 +114,24 @@
                                     <div class="mb-4">
                                         <h4 class="text-sm font-medium text-gray-700 mb-2">Requirements:</h4>
                                         <p class="text-sm text-gray-600 line-clamp-2">
-                                            {{ Str::limit($opportunity->requirements, 100) }}
+                                            {{ Str::limit(is_array($opportunity->requirements) ? implode(', ', $opportunity->requirements) : $opportunity->requirements, 100) }}
                                         </p>
                                     </div>
                                 @endif
                                 
                                 <div class="flex justify-between items-center">
-                                    <a href="{{ route('admin.opportunities.show', $opportunity) }}" 
-                                       class="btn-primary text-sm px-4 py-2">
-                                        View Details
-                                    </a>
-                                    
                                     @if($opportunity->application_link)
                                         <a href="{{ $opportunity->application_link }}" 
                                            target="_blank" 
-                                           class="btn-secondary text-sm px-4 py-2">
+                                           class="btn-primary text-sm px-4 py-2">
                                             Apply Now
                                         </a>
                                     @endif
+                                    
+                                    <div class="text-sm text-gray-500">
+                                        <p class="font-medium">{{ $opportunity->organization }}</p>
+                                        <p class="text-xs">{{ $opportunity->type }}</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -156,4 +161,4 @@
             @endif
         </div>
     </div>
-</x-app-layout> 
+@endsection 

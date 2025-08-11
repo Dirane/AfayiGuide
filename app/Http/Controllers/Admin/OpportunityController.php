@@ -62,6 +62,14 @@ class OpportunityController extends Controller
             'is_active' => 'boolean',
         ]);
 
+        // Convert requirements and benefits from string to array
+        if (!empty($validated['requirements'])) {
+            $validated['requirements'] = array_filter(array_map('trim', explode("\n", $validated['requirements'])));
+        }
+        if (!empty($validated['benefits'])) {
+            $validated['benefits'] = array_filter(array_map('trim', explode("\n", $validated['benefits'])));
+        }
+
         if ($request->hasFile('image')) {
             $validated['images'] = [$request->file('image')->store('opportunities', 'public')];
         }
@@ -101,6 +109,14 @@ class OpportunityController extends Controller
             'application_url' => 'nullable|url',
             'is_active' => 'boolean',
         ]);
+
+        // Convert requirements and benefits from string to array
+        if (!empty($validated['requirements'])) {
+            $validated['requirements'] = array_filter(array_map('trim', explode("\n", $validated['requirements'])));
+        }
+        if (!empty($validated['benefits'])) {
+            $validated['benefits'] = array_filter(array_map('trim', explode("\n", $validated['benefits'])));
+        }
 
         if ($request->hasFile('image')) {
             // Delete old images
