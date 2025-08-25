@@ -17,14 +17,12 @@ Route::get('/', function () {
     return view('home');
 })->name('home');
 
-// Schools (require authentication)
-Route::middleware(['auth.content'])->group(function () {
-    Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index');
-    Route::get('/schools/{school}', [SchoolController::class, 'show'])->name('schools.show');
-});
+// Schools (public: list and details)
+Route::get('/schools', [SchoolController::class, 'index'])->name('schools.index');
 
 // Admission Applications
 Route::middleware(['auth'])->group(function () {
+    Route::get('/schools/{school}', [SchoolController::class, 'show'])->name('schools.show');
     Route::get('/admission-applications', [AdmissionApplicationController::class, 'index'])->name('admission-applications.index');
     Route::get('/admission-applications/create/{school}', [AdmissionApplicationController::class, 'create'])->name('admission-applications.create');
     Route::post('/admission-applications/{school}', [AdmissionApplicationController::class, 'store'])->name('admission-applications.store');
@@ -32,32 +30,34 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/admission-applications/{application}/cancel', [AdmissionApplicationController::class, 'cancel'])->name('admission-applications.cancel');
 });
 
-// Opportunities (require authentication)
-Route::middleware(['auth.content'])->group(function () {
-    Route::get('/opportunities', [App\Http\Controllers\OpportunityController::class, 'index'])->name('opportunities.index');
-});
+// Opportunities (public: list)
+Route::get('/opportunities', [App\Http\Controllers\OpportunityController::class, 'index'])->name('opportunities.index');
 
 // Mentorship
+// Public landing page
+Route::get('/mentorship', [MentorshipBookingController::class, 'index'])->name('mentorship.index');
+// Auth required for booking and viewing details
 Route::middleware(['auth', 'mentorship.access'])->group(function () {
-    Route::get('/mentorship', [MentorshipBookingController::class, 'index'])->name('mentorship.index');
     Route::get('/mentorship/create', [MentorshipBookingController::class, 'create'])->name('mentorship.create');
     Route::post('/mentorship', [MentorshipBookingController::class, 'store'])->name('mentorship.store');
     Route::get('/mentorship/success/{booking}', [MentorshipBookingController::class, 'success'])->name('mentorship.success');
     Route::get('/mentorship/my-bookings', [MentorshipBookingController::class, 'myBookings'])->name('mentorship.my-bookings');
 });
 
-// PathFinder - New Controller-based approach
+// PathFinder - allow taking assessment without login; require login for results
+// Public assessment flow
+Route::get('/pathfinder', [PathfinderController::class, 'index'])->name('pathfinder.index');
+Route::get('/pathfinder/step1', [PathfinderController::class, 'step1'])->name('pathfinder.step1');
+Route::post('/pathfinder/step2', [PathfinderController::class, 'step2'])->name('pathfinder.step2');
+Route::post('/pathfinder/step3', [PathfinderController::class, 'step3'])->name('pathfinder.step3');
+Route::post('/pathfinder/step4', [PathfinderController::class, 'step4'])->name('pathfinder.step4');
+Route::post('/pathfinder/step5', [PathfinderController::class, 'step5'])->name('pathfinder.step5');
+Route::get('/pathfinder/reset', [PathfinderController::class, 'reset'])->name('pathfinder.reset');
+// Protected: generating, viewing, downloading results
 Route::middleware(['auth', 'pathfinder.access'])->group(function () {
-    Route::get('/pathfinder', [PathfinderController::class, 'index'])->name('pathfinder.index');
-    Route::get('/pathfinder/step1', [PathfinderController::class, 'step1'])->name('pathfinder.step1');
-    Route::post('/pathfinder/step2', [PathfinderController::class, 'step2'])->name('pathfinder.step2');
-    Route::post('/pathfinder/step3', [PathfinderController::class, 'step3'])->name('pathfinder.step3');
-    Route::post('/pathfinder/step4', [PathfinderController::class, 'step4'])->name('pathfinder.step4');
-    Route::post('/pathfinder/step5', [PathfinderController::class, 'step5'])->name('pathfinder.step5');
     Route::post('/pathfinder/generate', [PathfinderController::class, 'generateReport'])->name('pathfinder.generate');
     Route::get('/pathfinder/results/{assessment}', [PathfinderController::class, 'results'])->name('pathfinder.results');
     Route::get('/pathfinder/download/{id}', [PathfinderController::class, 'downloadReport'])->name('pathfinder.download');
-    Route::get('/pathfinder/reset', [PathfinderController::class, 'reset'])->name('pathfinder.reset');
 });
 
 // Authentication routes

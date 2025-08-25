@@ -131,7 +131,7 @@
                                 @endif
                             @else
                                 <a href="{{ route('login') }}" class="btn-accent flex-1 text-center">
-                                    Login to Apply
+                                    Apply now
                                 </a>
                             @endauth
                         </div>
