@@ -262,7 +262,6 @@ class SchoolSeeder extends Seeder
                 'currency' => 'XAF',
                 'is_active' => true,
             ],
-
             [
                 'name' => 'HIMS BUEA Higher Institute of Management Studies',
                 'type' => 'institute',
@@ -1773,7 +1772,6 @@ class SchoolSeeder extends Seeder
                 'currency' => 'XAF',
                 'is_active' => true,
             ],
-
         ];
 
         foreach ($schools as $school) {
