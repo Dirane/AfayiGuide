@@ -5,8 +5,9 @@
             <div class="flex">
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
-                    <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                    <a href="{{ route('dashboard') }}" class="flex items-center space-x-3">
+                        <img src="{{ asset('images/Logo_afayiguide.png') }}" alt="AfayiGuide Logo" class="w-9 h-9 drop-shadow-lg bg-white rounded-full border-2 border-white p-1">
+                        <span class="text-gray-800 dark:text-gray-200 text-xl font-bold">AfayiGuide</span>
                     </a>
                 </div>
 

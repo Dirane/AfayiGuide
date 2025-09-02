@@ -25,8 +25,9 @@
                     <div class="flex">
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
-                            <a href="{{ route('admin.dashboard') }}" class="text-white text-xl font-bold">
-                                AfayiGuide Admin
+                            <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3">
+                                <img src="{{ asset('images/Logo_afayiguide.png') }}" alt="AfayiGuide Logo" class="w-8 h-8 drop-shadow-lg bg-white rounded-full border-2 border-white p-1">
+                                <span class="text-white text-xl font-bold">AfayiGuide Admin</span>
                             </a>
                         </div>
 
