@@ -6,6 +6,7 @@
 <div class="bg-gray-50 min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div class="bg-white rounded-lg shadow-lg p-8">
+            @include('pathfinder.partials.progress', ['currentStep' => 3])
             <div class="text-center mb-8">
                 <h1 class="text-3xl font-bold text-gray-900 mb-4">Step 3: Your Skills & Languages</h1>
                 <p class="text-lg text-gray-600">Tell us about your key skills and languages</p>

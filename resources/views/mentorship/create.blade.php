@@ -106,6 +106,18 @@
                     <label for="session_topic" class="block text-sm font-medium text-gray-700 mb-2">
                         What would you like to discuss? (Optional)
                     </label>
+                    <div class="mb-3">
+                        <p class="text-xs text-gray-500 mb-2">Suggested topics (optional):</p>
+                        <div class="flex flex-wrap gap-2">
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="Choosing the right university">Choosing the right university</button>
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="Program selection">Program selection</button>
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="Career planning">Career planning</button>
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="Application guidance">Application guidance</button>
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="Scholarship search">Scholarship search</button>
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="International study options">International study options</button>
+                            <button type="button" class="px-3 py-1 text-xs bg-gray-100 hover:bg-gray-200 rounded topic-suggestion" data-topic="Admission requirements">Admission requirements</button>
+                        </div>
+                    </div>
                     <textarea 
                         id="session_topic" 
                         name="session_topic" 
@@ -157,7 +169,7 @@
                     </div>
                 </div>
 
-                <div class="flex justify-between pt-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 pt-6">
                     <a href="{{ route('mentorship.index') }}" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded">
                         ← Back
                     </a>
@@ -170,6 +182,10 @@
                             Book Session →
                         </button>
                     @endif
+                    <a href="https://wa.me/message/7HYAUXHDPS7DP1" target="_blank" rel="noopener" class="inline-flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 24 24" fill="currentColor"><path d="M20.52 3.48A11.86 11.86 0 0012 0C5.37 0 0 5.37 0 12a11.85 11.85 0 001.66 6.07L0 24l6.14-1.61A11.86 11.86 0 0012 24c6.63 0 12-5.37 12-12 0-3.19-1.24-6.19-3.48-8.52zM12 22a9.86 9.86 0 01-5.03-1.37l-.36-.21-3.64.96.97-3.55-.24-.37A9.86 9.86 0 012 12C2 6.48 6.48 2 12 2s10 4.48 10 10-4.48 10-10 10zm5.3-7.76c-.29-.14-1.71-.84-1.97-.93-.26-.1-.45-.14-.64.14-.19.29-.74.93-.91 1.12-.17.19-.34.21-.63.07-.29-.14-1.22-.45-2.33-1.44-.86-.76-1.44-1.7-1.61-1.98-.17-.29-.02-.45.12-.59.12-.12.29-.31.43-.48.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.5-.07-.14-.64-1.54-.88-2.11-.23-.55-.47-.48-.64-.48h-.55c-.19 0-.5.07-.76.36-.26.29-1 1-1 2.43 0 1.43 1.03 2.81 1.17 3 .14.19 2.03 3.09 4.92 4.33.69.3 1.23.48 1.65.62.69.22 1.32.19 1.82.12.55-.08 1.71-.7 1.95-1.38.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.33z"/></svg>
+                        Talk with a mentor on WhatsApp
+                    </a>
                 </div>
             </form>
         </div>
@@ -201,6 +217,22 @@ document.addEventListener('DOMContentLoaded', function() {
             if (this.checked) {
                 this.closest('label').classList.add('border-primary', 'bg-primary-50');
             }
+        });
+    });
+
+    // Suggested topics appender
+    const topicButtons = document.querySelectorAll('.topic-suggestion');
+    const topicTextarea = document.getElementById('session_topic');
+    topicButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            const add = btn.getAttribute('data-topic');
+            const current = (topicTextarea.value || '').trim();
+            if (!current) {
+                topicTextarea.value = add;
+            } else if (!current.includes(add)) {
+                topicTextarea.value = current + (current.endsWith('.') ? ' ' : ', ') + add;
+            }
+            topicTextarea.focus();
         });
     });
 });
