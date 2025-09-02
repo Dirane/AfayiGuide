@@ -1383,7 +1383,7 @@ class SchoolSeeder extends Seeder
                 'name' => 'ISEC Higher Institute of Health & Human Services',
                 'type' => 'institute',
                 'location' => 'Limbe',
-                'description' => 'ISEC Higher Institute of Health & Human Services is a specialized institution focused on healthcare education and human services. The institute offers academic excellence at students\' doorstep with programs in nursing, public health, medical laboratory science, and healthcare management. ISEC provides HND, Bachelor, and Masters level programs designed to prepare students for careers in the healthcare sector with emphasis on practical training and professional development.',
+                'description' => 'ISEC Higher Institute of Health & Human Services offers academic excellence at students\' doorstep with programs in nursing, public health, medical laboratory science, and healthcare management. The institute provides HND, Bachelor, and Masters level programs designed to prepare students for careers in the healthcare sector with emphasis on practical training and professional development. ISEC focuses on delivering quality healthcare education and human services training to meet the growing demands of the healthcare industry.',
                 'contact_email' => 'admin@isecintl.org',
                 'contact_phone' => '+237 650 969 187',
                 'website' => 'https://isecintl.org',
@@ -1393,7 +1393,8 @@ class SchoolSeeder extends Seeder
                     'Baccalauréat or equivalent',
                     'English proficiency',
                     'Application form',
-                    'Academic transcripts'
+                    'Academic transcripts',
+                    'Program-specific requirements'
                 ],
                 'application_steps' => [
                     'Complete application form',
@@ -1410,11 +1411,11 @@ class SchoolSeeder extends Seeder
                     'Application fee receipt'
                 ],
                 'programs_offered' => [
-                    'Nursing: HND, Bachelor, Masters programs',
-                    'Public Health: HND, Bachelor, Masters programs',
-                    'Medical Laboratory Science: HND, Bachelor programs',
-                    'Healthcare Management: HND programs',
-                    'Health & Human Services: Various healthcare and human services programs'
+                    'Nursing: HND, Bachelor, Masters programs - Comprehensive nursing education with clinical practice',
+                    'Public Health: HND, Bachelor, Masters programs - Population health and community health sciences',
+                    'Medical Laboratory Science: HND, Bachelor programs - Clinical laboratory testing and diagnostics',
+                    'Healthcare Management: HND programs - Healthcare administration and management skills',
+                    'Health & Human Services: Various healthcare and human services programs for community health'
                 ],
                 'application_fee' => 25000,
                 'tuition_fee_min' => 350000,
@@ -1622,6 +1623,152 @@ class SchoolSeeder extends Seeder
                 'application_fee' => 15000,
                 'tuition_fee_min' => 200000,
                 'tuition_fee_max' => 450000,
+                'currency' => 'XAF',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Royal Academy Institute of Health Sciences (RAHIHS)',
+                'type' => 'institute',
+                'location' => 'Buea',
+                'description' => 'Royal Academy Institute of Health Sciences (RAHIHS) is committed to raising students that will impact the world of Science and research through innovative ideas and application of evidence-based scientific and research knowledge. Built on the vision that education serves as a keystone in improving society and building better futures for all, RAHIHS seeks to create new knowledge and understanding, and foster creativity and innovation, for the benefit of our communities, society, and the environment. The institution offers HND (3 years) and First Degree (1 year) programs in various health sciences disciplines.',
+                'contact_email' => 'info@royalacademyinstitute.com',
+                'contact_phone' => '(+237) 652039101 / (+237) 659824046',
+                'website' => 'https://royalacademyinstitute.com',
+                'address' => 'Wokoko (Beside Full Gospel entrance Sosoliso), Buea, Cameroon',
+                'admission_requirements' => [
+                    'GCE A-Level or equivalent',
+                    'Baccalauréat or equivalent',
+                    'English proficiency',
+                    'Application form',
+                    'Academic transcripts',
+                    'Medical certificate'
+                ],
+                'application_steps' => [
+                    'Submit online application form',
+                    'Pay application fee',
+                    'Submit required documents',
+                    'Complete registration process',
+                    'Receive admission letter'
+                ],
+                'required_documents' => [
+                    'Birth certificate',
+                    'Academic transcripts (O level, A level, Baccalaureate)',
+                    'Passport photos',
+                    'Application fee receipt',
+                    'Medical certificate',
+                    'Registration fee receipt'
+                ],
+                'programs_offered' => [
+                    'Nursing: Anatomy, Physiology, Pharmacology - HND (3 years), First Degree (1 year)',
+                    'Health Care Management: Health Care Systems, Healthcare Laws, Operations Management - HND (3 years), First Degree (1 year)',
+                    'Nutrition and Dietetics: Nutrition Science, Macronutrients, Nutrition Research - HND (3 years), First Degree (1 year)',
+                    'Pharmacy Technology: Pharmacy Practice, Pharmacology, Pharmacy Inventory - HND (3 years), First Degree (1 year)',
+                    'Midwifery: Antenatal Care, Postpartum Care, Clinical Practicum - HND (3 years), First Degree (1 year)',
+                    'Medical Laboratory Sciences: Clinical Chemistry, Hematology, Molecular Diagnostics - HND (3 years), First Degree (1 year)',
+                    'Health Sanitary Inspector: Environmental Health, Waste Management, Health Inspection and Compliance - HND (3 years), First Degree (1 year)',
+                    'Dental Technology: Dental Anatomy, Orthodontic Appliance, Prosthodontics and Restorative Dentistry - HND (3 years), First Degree (1 year)'
+                ],
+                'application_fee' => 25000,
+                'tuition_fee_min' => 350000,
+                'tuition_fee_max' => 380000,
+                'currency' => 'XAF',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'STEM University (STEM-HIHTS)',
+                'type' => 'university',
+                'location' => 'Douala',
+                'description' => 'STEM University (STEM-HIHTS) is committed to making higher education affordable and accessible. We help students gain the skills and knowledge needed for successful careers in healthcare, management, business, and technology. Our programs prepare students to get good jobs, help others, and make a difference in their community. STEM offers practical classes with field internships, real job skills training, affordable fees with 3-installment payment plans, modern campuses in Bonaberi and Bepanda, and language training in English and German with exam preparation (IELTS, TOEFL). The institution provides free tools including BP machines, laptops, lab coats, and dictionaries to support student learning.',
+                'contact_email' => 'infos@stemuedu.com',
+                'contact_phone' => '+237 671 17 75 52 / 698 05 44 17',
+                'website' => 'https://stemuedu.com',
+                'address' => 'Campus A: Adjacent Petrolex Ndobo, Bonaberi Douala. Campus B: Beside Omnisports Stadium Bepanda, Douala',
+                'admission_requirements' => [
+                    'GCE A-Level or equivalent',
+                    'Baccalauréat or equivalent',
+                    'English proficiency',
+                    'Application form',
+                    'Academic transcripts',
+                    'Ordinary Level Slip',
+                    'Advance Level Slip',
+                    'Birth Certificate',
+                    '4 Passport Size Photographs'
+                ],
+                'application_steps' => [
+                    'Choose your program (Health, Business, Engineering, Education, or Vocational Training)',
+                    'Apply online or send WhatsApp message to 671 17 75 52',
+                    'Pay registration fee',
+                    'Submit required documents',
+                    'Receive admission letter and welcome pack'
+                ],
+                'required_documents' => [
+                    'Ordinary Level Slip',
+                    'Advance Level Slip',
+                    'Birth Certificate',
+                    '4 Passport Size Photographs',
+                    'Registration fee receipt',
+                    'Application form'
+                ],
+                'programs_offered' => [
+                    'Health & Biomedical Sciences: Nursing, Midwifery, Lab Tech, Physiotherapy, Dental Therapy, Pharmacy Tech',
+                    'Business & Management: Accounting, Banking & Finance, Project Management, Human Resource Management, Marketing & Trade, Logistics & Transport',
+                    'Vocational Training (1 Year): Nursing Assistant, Pharmacy Salesperson, Dental Prosthetics, Medical Office Assistant, Biology & Chemistry Lab Assistant, Office Secretary',
+                    'Education & Languages: Special Education, Educational Management, Curriculum & Didactics, Adult Education (Andragogy), German, English, IELTS, TOEFL, GRE',
+                    'Engineering: Computer Engineering, Electrical Engineering, Software Applications, Networking & Systems Management, Web Development',
+                    'Agriculture: Crop Production, Animal Health & Husbandry, Food Processing (Bakery & Pastry), Modern Farming Techniques, Agribusiness & Farm Management',
+                    'Professional Training Program (1 year): Various vocational and professional training programs',
+                    'TOP-UP BSc: Advanced degree programs for existing diploma holders'
+                ],
+                'application_fee' => 35000,
+                'tuition_fee_min' => 140000,
+                'tuition_fee_max' => 500000,
+                'currency' => 'XAF',
+                'is_active' => true,
+            ],
+            [
+                'name' => 'Maflekumen Higher Institute of Health Sciences Buea',
+                'type' => 'institute',
+                'location' => 'Buea',
+                'description' => 'Maflekumen Higher Institute of Health Sciences Buea, founded in 1996, is a specialized health sciences institution under the Ministry of Higher Education and the Ministry of Public Health. The institute offers international exchange programs, highly paid professions, and attractive tuition fees. Maflekumen focuses on providing quality education in health sciences with programs designed to prepare students for successful careers in the healthcare sector. The institution emphasizes practical training and professional development in various health disciplines.',
+                'contact_email' => 'info@maflekumen.edu.cm',
+                'contact_phone' => '+237',
+                'website' => 'https://maflekumen.edu.cm',
+                'address' => 'Long street Tiko Bp 262, Buea, Cameroon',
+                'admission_requirements' => [
+                    'GCE A-Level or equivalent',
+                    'Baccalauréat or equivalent',
+                    'English proficiency',
+                    'Application form',
+                    'Academic transcripts',
+                    'Medical certificate'
+                ],
+                'application_steps' => [
+                    'Choose a program',
+                    'Press "Apply now" button',
+                    'Send an application form',
+                    'Complete admissions tasks',
+                    'Go to study'
+                ],
+                'required_documents' => [
+                    'Online Application form',
+                    'Birth certificate',
+                    'Academic transcripts',
+                    'Medical certificate',
+                    'Application fee receipt',
+                    'Proof of fee payment',
+                    'Passport size photographs',
+                    'Motivation letter'
+                ],
+                'programs_offered' => [
+                    'Biology: Bachelor of Biological - Full-time study mode, English instruction',
+                    'Biomedicine: Biomedical sciences programs with practical laboratory training',
+                    'Health: General health sciences programs focusing on community health',
+                    'Medicine: Medical sciences programs preparing students for healthcare careers',
+                    'Occupational Health: Occupational health and safety programs for workplace health management'
+                ],
+                'application_fee' => 25000,
+                'tuition_fee_min' => 424980,
+                'tuition_fee_max' => 424980,
                 'currency' => 'XAF',
                 'is_active' => true,
             ],
