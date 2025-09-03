@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('programs', function (Blueprint $table) {
-            $table->foreignId('school_id')->nullable()->constrained()->onDelete('set null');
+        Schema::table('mentorship_sessions', function (Blueprint $table) {
+            $table->integer('rating')->nullable()->after('notes');
+            $table->text('feedback')->nullable()->after('rating');
         });
     }
 
@@ -21,9 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('programs', function (Blueprint $table) {
-            $table->dropForeign(['school_id']);
-            $table->dropColumn('school_id');
+        Schema::table('mentorship_sessions', function (Blueprint $table) {
+            $table->dropColumn(['rating', 'feedback']);
         });
     }
 };

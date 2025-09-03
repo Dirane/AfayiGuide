@@ -27,13 +27,13 @@ class AdmissionApplicationController extends Controller
         return view('admin.admission-applications.index', compact('applications', 'stats'));
     }
 
-    public function show(AdmissionApplication $application)
+    public function show(AdmissionApplication $admission_application)
     {
-        $application->load(['user', 'school']);
-        return view('admin.admission-applications.show', compact('application'));
+        $admission_application->load(['user', 'school']);
+        return view('admin.admission-applications.show', compact('admission_application'));
     }
 
-    public function updateStatus(Request $request, AdmissionApplication $application)
+    public function updateStatus(Request $request, AdmissionApplication $admission_application)
     {
         $validated = $request->validate([
             'status' => 'required|in:pending,processing,submitted,accepted,rejected,cancelled',
@@ -44,14 +44,14 @@ class AdmissionApplicationController extends Controller
             'response_notes' => 'nullable|string|max:1000',
         ]);
 
-        $application->update($validated);
+        $admission_application->update($validated);
 
         return redirect()->back()->with('success', 'Application status updated successfully.');
     }
 
-    public function destroy(AdmissionApplication $application)
+    public function destroy(AdmissionApplication $admission_application)
     {
-        $application->delete();
+        $admission_application->delete();
         return redirect()->route('admin.admission-applications.index')
             ->with('success', 'Application deleted successfully.');
     }

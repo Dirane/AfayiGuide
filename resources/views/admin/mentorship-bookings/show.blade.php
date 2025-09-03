@@ -58,7 +58,7 @@
                             </div>
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Booked On</p>
-                                <p class="text-gray-900">{{ $booking->created_at->format('M d, Y g:i A') }}</p>
+                                <p class="text-gray-900">{{ $booking->created_at ? $booking->created_at->format('M d, Y g:i A') : 'N/A' }}</p>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,8 @@
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Mentor Assignment</h3>
                     
                     @if($booking->status === 'pending')
-                    <form method="POST" action="{{ route('admin.mentorship-bookings.assign-mentor', $booking) }}" class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
+                    @if($booking && $booking->getRouteKey())
+                    <form method="POST" action="{{ route('admin.mentorship-bookings.assign-mentor', ['booking' => $booking->getRouteKey()]) }}" class="bg-yellow-50 border border-yellow-200 rounded-lg p-6">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -115,6 +116,7 @@
                             </button>
                         </div>
                     </form>
+                    @endif
                     @else
                     <div class="bg-gray-50 rounded-lg p-6">
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -125,7 +127,7 @@
                             @if($booking->scheduled_at)
                             <div>
                                 <p class="text-sm font-medium text-gray-600">Scheduled Date</p>
-                                <p class="text-gray-900">{{ $booking->scheduled_at->format('M d, Y g:i A') }}</p>
+                                <p class="text-gray-900">{{ $booking->scheduled_at ? $booking->scheduled_at->format('M d, Y g:i A') : 'Not scheduled' }}</p>
                             </div>
                             @endif
                         </div>
@@ -136,7 +138,8 @@
                 <!-- Status Update -->
                 <div class="mb-8">
                     <h3 class="text-lg font-semibold text-gray-900 mb-4">Update Status</h3>
-                    <form method="POST" action="{{ route('admin.mentorship-bookings.update-status', $booking) }}" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
+                    @if($booking && $booking->getRouteKey())
+                    <form method="POST" action="{{ route('admin.mentorship-bookings.update-status', ['booking' => $booking->getRouteKey()]) }}" class="bg-gray-50 border border-gray-200 rounded-lg p-6">
                         @csrf
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <div>
@@ -159,17 +162,20 @@
                             </button>
                         </div>
                     </form>
+                    @endif
                 </div>
 
                 <!-- Actions -->
                 <div class="flex justify-between items-center">
-                    <form method="POST" action="{{ route('admin.mentorship-bookings.destroy', $booking) }}" onsubmit="return confirm('Are you sure you want to delete this booking?')">
+                    @if($booking && $booking->getRouteKey())
+                    <form method="POST" action="{{ route('admin.mentorship-bookings.destroy', ['mentorship_booking' => $booking->getRouteKey()]) }}" onsubmit="return confirm('Are you sure you want to delete this booking?')">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
                             Delete Booking
                         </button>
                     </form>
+                    @endif
                     
                     <div class="flex space-x-2">
                         @if($booking->whatsapp_number && $booking->whatsapp_number !== 'Not provided')

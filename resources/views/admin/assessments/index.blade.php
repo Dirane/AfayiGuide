@@ -76,16 +76,16 @@
                                     </div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ Str::limit($assessment->academic_background, 50) }}
+                                    {{ Str::limit($assessment->academic_background_text, 70) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ Str::limit($assessment->field_of_interest, 50) }}
+                                    {{ Str::limit($assessment->formatted_field_of_interest, 50) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ Str::limit($assessment->career_goals, 50) }}
+                                    {{ Str::limit($assessment->career_goals_text, 70) }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
-                                    {{ $assessment->created_at->format('M d, Y H:i') }}
+                                    {{ $assessment->created_at ? $assessment->created_at->format('M d, Y H:i') : 'N/A' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <div class="flex space-x-2">

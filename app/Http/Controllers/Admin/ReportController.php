@@ -59,7 +59,7 @@ class ReportController extends Controller
         // Session statistics
         $pendingSessions = MentorshipSession::where('status', 'pending')->count();
         $completedSessions = MentorshipSession::where('status', 'completed')->count();
-        $totalEarnings = MentorshipSession::where('payment_status', 'paid')->sum('session_fee');
+        $totalEarnings = MentorshipSession::where('payment_status', 'paid')->sum('price');
         
         // Content counts
         $programsCount = 0; // Since programs table was removed
@@ -72,17 +72,17 @@ class ReportController extends Controller
         $recentSessions = MentorshipSession::with(['student', 'mentor'])->latest()->take(5)->get();
         
         // Monthly trends
-        $monthlyUsers = User::selectRaw('strftime("%Y-%m", created_at) as month, COUNT(*) as count')
+        $monthlyUsers = User::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
             ->get();
             
-        $monthlyAssessments = PathfinderResponse::selectRaw('strftime("%Y-%m", created_at) as month, COUNT(*) as count')
+        $monthlyAssessments = PathfinderResponse::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
             ->get();
             
-        $monthlySessions = MentorshipSession::selectRaw('strftime("%Y-%m", created_at) as month, COUNT(*) as count')
+        $monthlySessions = MentorshipSession::selectRaw('DATE_FORMAT(created_at, "%Y-%m") as month, COUNT(*) as count')
             ->groupBy('month')
             ->orderBy('month')
             ->get();

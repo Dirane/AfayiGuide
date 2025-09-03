@@ -44,11 +44,7 @@
                 <span class="ms-2 text-sm text-gray-600">{{ __('Remember me') }}</span>
             </label>
 
-            @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-600 hover:text-primary rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary" href="{{ route('password.request') }}">
-                    {{ __('Forgot your password?') }}
-                </a>
-            @endif
+
         </div>
 
         <!-- Login Button -->
@@ -59,22 +55,19 @@
         </div>
 
         <!-- Register Link -->
-        <div class="text-center">
+        <div class="text-center space-y-2">
             <p class="text-sm text-gray-600">
                 {{ __("Don't have an account?") }}
                 <a href="{{ route('register') }}" class="font-medium text-primary hover:text-primary-800 underline">
                     {{ __('Register here') }}
                 </a>
             </p>
+            <p class="text-sm text-gray-600">
+                {{ __("Forgot your password?") }}
+                <a href="{{ route('password-reset-request') }}" class="font-medium text-primary hover:text-primary-800 underline">
+                    {{ __('Request password reset') }}
+                </a>
+            </p>
         </div>
     </form>
-
-    <!-- Demo Account Info -->
-    <div class="mt-6 p-4 bg-blue-50 rounded-lg">
-        <h3 class="text-sm font-medium text-blue-900 mb-2">Demo Account</h3>
-        <p class="text-xs text-blue-700">
-            <strong>Email:</strong> test@example.com<br>
-            <strong>Password:</strong> password
-        </p>
-    </div>
 </x-guest-layout>

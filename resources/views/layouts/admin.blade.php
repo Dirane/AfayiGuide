@@ -19,20 +19,20 @@
 <body class="font-sans antialiased">
     <div class="min-h-screen bg-gray-100">
         <!-- Navigation -->
-        <nav class="bg-primary border-b border-primary-800" x-data="{ mobileMenuOpen: false, userMenuOpen: false }">
+        <nav class="bg-primary border-b border-primary-800 sticky top-0 z-40" x-data="{ mobileMenuOpen: false, userMenuOpen: false }">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex justify-between h-16">
-                    <div class="flex">
+                <div class="flex justify-between items-center h-16 flex-wrap">
+                    <div class="flex items-center md:flex-1 min-w-0">
                         <!-- Logo -->
                         <div class="shrink-0 flex items-center">
                             <a href="{{ route('admin.dashboard') }}" class="flex items-center space-x-3">
                                 <img src="{{ asset('images/Logo_afayiguide.png') }}" alt="AfayiGuide Logo" class="w-8 h-8 drop-shadow-lg bg-white rounded-full border-2 border-white p-1">
-                                <span class="text-white text-xl font-bold">AfayiGuide Admin</span>
+                                <span class="hidden sm:inline text-white text-xl font-bold">AfayiGuide Admin</span>
                             </a>
                         </div>
 
                         <!-- Desktop Navigation -->
-                        <div class="hidden md:ml-6 md:flex md:space-x-8">
+                        <div class="hidden md:ml-4 md:flex md:flex-1 md:overflow-x-auto md:whitespace-nowrap md:space-x-4">
                             <a href="{{ route('admin.dashboard') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
                                 Dashboard
                             </a>
@@ -58,14 +58,17 @@
                                             <a href="{{ route('admin.admission-applications.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
                     Application Requests
                 </a>
+                            <a href="{{ route('admin.password-reset-requests.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
+                                Password Resets
+                            </a>
                             <a href="{{ route('admin.settings.index') }}" class="text-white hover:text-accent transition-colors px-3 py-2 rounded-md text-sm font-medium">
                                 Settings
                             </a>
                         </div>
                     </div>
 
-                    <!-- User Menu -->
-                    <div class="flex items-center">
+                    <!-- User Menu (hidden on small screens; available via mobile menu) -->
+                    <div class="hidden md:flex items-center ml-2 shrink-0">
                         <div class="relative">
                             <button @click="userMenuOpen = !userMenuOpen" class="flex items-center text-white hover:text-accent transition-colors">
                                 <div class="flex-shrink-0 h-8 w-8 bg-accent rounded-full flex items-center justify-center">
@@ -116,6 +119,12 @@
                     <a href="{{ route('admin.mentorship-bookings.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Mentorship</a>
                                                 <a href="{{ route('admin.admission-applications.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Application Requests</a>
                     <a href="{{ route('admin.settings.index') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">Settings</a>
+                    <div class="border-t border-primary-700 pt-2 mt-2">
+                        <div class="flex items-center space-x-2 px-3 py-2">
+                            <div class="h-8 w-8 bg-accent rounded-full flex items-center justify-center text-white text-sm font-medium">{{ substr(auth()->user()->name, 0, 1) }}</div>
+                            <span class="text-white text-sm font-medium">{{ auth()->user()->name }}</span>
+                        </div>
+                    </div>
                     
                     <div class="border-t border-primary-700 pt-2 mt-2">
                         <a href="{{ route('home') }}" class="block px-3 py-2 text-white hover:text-accent transition-colors rounded-md">View Site</a>

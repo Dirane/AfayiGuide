@@ -105,6 +105,82 @@
         </a>
     </div>
 
+    <!-- Assigned Sessions -->
+    <div class="card mb-8">
+        <div class="flex justify-between items-center mb-6">
+            <h3 class="text-lg font-semibold text-gray-900">Your Assigned Sessions</h3>
+            <a href="{{ route('mentorship.index') }}" class="btn-primary">View All Sessions</a>
+        </div>
+        
+        @if($recentSessions->count() > 0)
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Topic</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Duration</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Amount</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Scheduled</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200">
+                        @foreach($recentSessions as $session)
+                        <tr>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $session->user->name ?? $session->full_name }}</div>
+                                    <div class="text-sm text-gray-500">{{ $session->user->email ?? $session->email }}</div>
+                                </div>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ $session->session_topic ? Str::limit($session->session_topic, 30) : 'General Session' }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ $session->duration_text }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">
+                                {{ number_format($session->amount) }} XAF
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap">
+                                <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium {{ $session->status_badge }}">
+                                    {{ ucfirst($session->status) }}
+                                </span>
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                                {{ $session->scheduled_at ? $session->scheduled_at->format('M d, Y H:i') : 'Not scheduled' }}
+                            </td>
+                            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
+                                <div class="flex space-x-2">
+                                    @if($session->whatsapp_number)
+                                    <a href="https://wa.me/{{ preg_replace('/[^0-9]/', '', $session->whatsapp_number) }}" 
+                                       target="_blank" 
+                                       class="text-green-600 hover:text-green-900">
+                                        WhatsApp
+                                    </a>
+                                    @endif
+                                    <a href="mailto:{{ $session->user->email ?? $session->email }}" 
+                                       class="text-blue-600 hover:text-blue-900">
+                                        Email
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        @else
+            <div class="text-center py-8">
+                <div class="text-gray-400 text-6xl mb-4">📅</div>
+                <h3 class="text-lg font-medium text-gray-900 mb-2">No sessions assigned yet</h3>
+                <p class="text-gray-600">When students book mentorship sessions and admins assign them to you, they'll appear here.</p>
+            </div>
+        @endif
+    </div>
+
     <!-- Recent Activity -->
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Recent Sessions -->
@@ -115,12 +191,15 @@
                     @foreach($recentSessions as $session)
                         <div class="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
                             <div>
-                                <p class="font-medium text-gray-900">{{ $session->student->name }}</p>
-                                <p class="text-sm text-gray-600">{{ $session->created_at->format('M d, Y') }}</p>
+                                <p class="font-medium text-gray-900">{{ $session->user->name ?? $session->full_name }}</p>
+                                <p class="text-sm text-gray-600">{{ $session->created_at ? $session->created_at->format('M d, Y') : 'N/A' }}</p>
+                                @if($session->session_topic)
+                                <p class="text-xs text-gray-500 mt-1">{{ Str::limit($session->session_topic, 50) }}</p>
+                                @endif
                             </div>
                             <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium 
                                 @if($session->status === 'completed') bg-green-100 text-green-800
-                                @elseif($session->status === 'confirmed') bg-blue-100 text-blue-800
+                                @elseif($session->status === 'assigned') bg-blue-100 text-blue-800
                                 @else bg-yellow-100 text-yellow-800 @endif">
                                 {{ ucfirst($session->status) }}
                             </span>
@@ -140,11 +219,14 @@
                     @foreach($upcomingSessions as $session)
                         <div class="flex items-center justify-between p-4 bg-blue-50 rounded-lg">
                             <div>
-                                <p class="font-medium text-gray-900">{{ $session->student->name }}</p>
-                                <p class="text-sm text-gray-600">{{ $session->scheduled_at->format('M d, Y H:i') }}</p>
+                                <p class="font-medium text-gray-900">{{ $session->user->name ?? $session->full_name }}</p>
+                                <p class="text-sm text-gray-600">{{ $session->scheduled_at ? $session->scheduled_at->format('M d, Y H:i') : 'Not scheduled' }}</p>
+                                @if($session->session_topic)
+                                <p class="text-xs text-gray-500 mt-1">{{ Str::limit($session->session_topic, 50) }}</p>
+                                @endif
                             </div>
                             <span class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
-                                Confirmed
+                                Assigned
                             </span>
                         </div>
                     @endforeach

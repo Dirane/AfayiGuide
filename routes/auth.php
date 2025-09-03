@@ -33,6 +33,16 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
         ->name('password.store');
+
+    // Custom Password Reset Request Routes
+    Route::get('password-reset-request', [App\Http\Controllers\PasswordResetRequestController::class, 'showRequestForm'])
+        ->name('password-reset-request');
+
+    Route::post('password-reset-request', [App\Http\Controllers\PasswordResetRequestController::class, 'submitRequest'])
+        ->name('password-reset-request.submit');
+
+    Route::get('password-reset-request/success', [App\Http\Controllers\PasswordResetRequestController::class, 'showSuccessPage'])
+        ->name('password-reset-request.success');
 });
 
 Route::middleware('auth')->group(function () {

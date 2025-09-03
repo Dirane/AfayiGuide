@@ -92,7 +92,11 @@ Route::middleware('auth')->group(function () {
         
         // Admission Applications
         Route::resource('admission-applications', App\Http\Controllers\Admin\AdmissionApplicationController::class)->except(['create', 'store', 'edit', 'update']);
-        Route::post('/admission-applications/{application}/update-status', [App\Http\Controllers\Admin\AdmissionApplicationController::class, 'updateStatus'])->name('admission-applications.update-status');
+        Route::post('/admission-applications/{admission_application}/update-status', [App\Http\Controllers\Admin\AdmissionApplicationController::class, 'updateStatus'])->name('admission-applications.update-status');
+        
+        // Password Reset Requests
+        Route::resource('password-reset-requests', App\Http\Controllers\Admin\PasswordResetRequestController::class)->except(['create', 'edit', 'update']);
+        Route::post('/password-reset-requests/{password_reset_request}/process', [App\Http\Controllers\Admin\PasswordResetRequestController::class, 'process'])->name('password-reset-requests.process');
         
         Route::get('/settings', [App\Http\Controllers\Admin\SettingController::class, 'index'])->name('settings.index');
         Route::post('/settings', [App\Http\Controllers\Admin\SettingController::class, 'update'])->name('settings.update');

@@ -55,21 +55,21 @@ class DashboardController extends Controller
     private function mentorDashboard($user)
     {
         $stats = [
-            'total_sessions' => $user->mentorshipSessionsAsMentor()->count(),
-            'completed_sessions' => $user->mentorshipSessionsAsMentor()->where('status', 'completed')->count(),
-            'total_earnings' => $user->mentorshipSessionsAsMentor()->where('payment_status', 'paid')->sum('session_fee'),
-            'average_rating' => $user->mentorshipSessionsAsMentor()->whereNotNull('rating')->avg('rating'),
+            'total_sessions' => $user->assignedMentorshipBookings()->count(),
+            'completed_sessions' => $user->assignedMentorshipBookings()->where('status', 'completed')->count(),
+            'total_earnings' => $user->assignedMentorshipBookings()->where('status', 'completed')->sum('amount'),
+            'average_rating' => 0, // Will be calculated from completed sessions with ratings
         ];
 
-        $recentSessions = $user->mentorshipSessionsAsMentor()
-            ->with('student')
+        $recentSessions = $user->assignedMentorshipBookings()
+            ->with('user')
             ->latest()
             ->take(5)
             ->get();
 
-        $upcomingSessions = $user->mentorshipSessionsAsMentor()
-            ->with('student')
-            ->where('status', 'confirmed')
+        $upcomingSessions = $user->assignedMentorshipBookings()
+            ->with('user')
+            ->where('status', 'assigned')
             ->where('scheduled_at', '>', now())
             ->orderBy('scheduled_at')
             ->take(5)

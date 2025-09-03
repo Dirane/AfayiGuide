@@ -20,6 +20,8 @@ class MentorshipSession extends Model
         'session_type',
         'meeting_link',
         'notes',
+        'rating',
+        'feedback',
         'price',
         'currency',
         'payment_status',

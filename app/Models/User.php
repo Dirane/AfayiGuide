@@ -64,6 +64,11 @@ class User extends Authenticatable
         return $this->hasMany(MentorshipBooking::class);
     }
 
+    public function assignedMentorshipBookings()
+    {
+        return $this->hasMany(MentorshipBooking::class, 'assigned_mentor_id');
+    }
+
     public function admissionApplications()
     {
         return $this->hasMany(AdmissionApplication::class);
